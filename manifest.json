@@ -1,9 +1,9 @@
 {
   "vendor": "vtex",
-  "name": "base-store-component",
-  "version": "0.2.1",
-  "title": "IO Base Component",
-  "description": "IO Base component",
+  "name": "modal-layout",
+  "version": "0.0.1",
+  "title": "VTEX Modal Layout",
+  "description": "A React Modal component.",
   "defaultLocale": "pt-BR",
   "builders": {
     "messages": "1.x",
@@ -15,8 +15,6 @@
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
-  "dependencies": {
-    "vtex.styleguide": "9.x"
-  },
+  "dependencies": {},
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
