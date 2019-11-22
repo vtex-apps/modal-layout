@@ -1,5 +1,5 @@
 {
-  "base-store-component": {
-    "component": "Example"
+  "modal-layout": {
+    "component": "Modal"
   }
 }
