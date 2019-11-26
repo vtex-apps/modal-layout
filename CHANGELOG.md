@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Basic implementations of the components `Backdrop`, `BaseModal` and `Modal`.
+- Context to open and close the modal.
 
 ## [0.2.1] - 2019-11-19
 
