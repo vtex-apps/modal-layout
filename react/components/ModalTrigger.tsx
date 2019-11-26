@@ -3,12 +3,12 @@ import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import { useModalDispatch } from './ModalContext'
 
-const CSS_HANDLES = ['container']
+const CSS_HANDLES = ['triggerContainer']
 
 const ModalTrigger: React.FC<{}> = props => {
   const { children } = props
   const handles = useCssHandles(CSS_HANDLES)
-  const containerClasses = classnames(handles.container, 'bg-transparent pa0 ma0 outline-0 bw0')
+  const containerClasses = classnames(handles.triggerContainer, 'bg-transparent pa0 ma0 outline-0 bw0')
   const dispatch = useModalDispatch()
   const handleModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

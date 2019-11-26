@@ -75,6 +75,7 @@ Below, we describe the namespaces that are defined by `modal-layout`.
 
 | Class name |
 | --- |
+| `triggerContainer` |
 | `container` |
 | `closeButtonContiner` |
 | `closeButton` |
