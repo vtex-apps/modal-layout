@@ -15,6 +15,10 @@
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vtex.css-handles": "0.x",
+    "vtex.store-icons": "0.x",
+    "vtex.responsive-values": "0.x"
+  },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
