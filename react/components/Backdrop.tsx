@@ -1,5 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
+import { useCssHandles } from 'vtex.css-handles'
 
 const styles: Record<string, React.CSSProperties> = {
   root: {
@@ -22,32 +23,32 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
+const CSS_HANDLES = ['backdrop']
+
 const Backdrop: React.FC<Props> = props => {
   const { children, invisible, open, onClick } = props
-
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    if (onClick) {
-      onClick(e)
-    }
-  }
-
-  const rootClasses = classnames('o-50', {
-    ['bg-base--inverted']: !invisible,
-    ['bg-transparent']: invisible,
-  })
+  const handles = useCssHandles(CSS_HANDLES)
 
   if (!open) {
     return null
   }
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (onClick) {
+      onClick(e)
+    }
+  }
+
+  const rootClasses = classnames(handles.backdrop, 'o-50', {
+    ['bg-base--inverted']: !invisible,
+    ['bg-transparent']: invisible,
+  })
+
   return (
     <div
       style={styles.root}
-      className={rootClasses}
       onClick={handleClick}
+      className={rootClasses}
     >
       {children}
     </div>
