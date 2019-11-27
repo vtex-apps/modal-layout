@@ -14,7 +14,7 @@ const ModalContent: React.FC<Props> = props => {
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
-    <div className={`${handles.contentContainer} ${className}`}>
+    <div className={`${handles.contentContainer} ${className} ph5 pb5 pt5`}>
       {children}
     </div>
   )
