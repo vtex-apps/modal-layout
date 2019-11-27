@@ -1,6 +1,6 @@
 import React from 'react'
+import styles from './styles.css'
 import classnames from 'classnames'
-import { useCssHandles } from 'vtex.css-handles'
 
 export enum BackdropMode {
   display = 'display',
@@ -8,31 +8,13 @@ export enum BackdropMode {
   none = 'none'
 }
 
-const styles: Record<string, React.CSSProperties> = {
-  root: {
-    zIndex: -1,
-    position: 'fixed',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 0,
-    bottom: 0,
-    top: 0,
-    left: 0,
-    touchAction: 'none',
-  },
-}
-
 interface Props {
   open: boolean
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const CSS_HANDLES = ['backdrop']
-
 const Backdrop: React.FC<Props> = props => {
   const { children, open, onClick } = props
-  const handles = useCssHandles(CSS_HANDLES)
 
   if (!open) {
     return null
@@ -44,14 +26,10 @@ const Backdrop: React.FC<Props> = props => {
     }
   }
 
-  const rootClasses = classnames(handles.backdrop, 'o-50 bg-base--inverted')
+  const rootClasses = classnames(styles.backdrop, 'o-50 bg-base--inverted')
 
   return (
-    <div
-      style={styles.root}
-      onClick={handleClick}
-      className={rootClasses}
-    >
+    <div className={rootClasses} onClick={handleClick}>
       {children}
     </div>
   )

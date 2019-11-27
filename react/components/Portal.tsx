@@ -1,5 +1,6 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+import { canUseDOM } from 'vtex.render-runtime'
+import React, { useLayoutEffect, useEffect, useState } from 'react'
 
 export type ContainerType = React.ReactInstance | (() => React.ReactInstance | null) | null
 
@@ -12,7 +13,7 @@ function getContainer(container?: ContainerType) {
   return ReactDOM.findDOMNode(container) as Element | null
 }
 
-const useEnhancedEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+const useEnhancedEffect = canUseDOM ? useLayoutEffect : useEffect
 
 const Portal: React.FC<Props> = props => {
   const { children, container } = props

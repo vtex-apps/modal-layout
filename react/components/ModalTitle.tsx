@@ -1,8 +1,10 @@
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
+export type TitleTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
 interface Props {
-  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  tag?: TitleTag
   className?: string
 }
 

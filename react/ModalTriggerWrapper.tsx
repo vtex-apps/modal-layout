@@ -1,6 +1,6 @@
 import React from 'react'
-import ModalTrigger from './ModalTrigger'
-import { ModalContextProvider } from './ModalContext'
+import ModalTrigger from './components/ModalTrigger'
+import { ModalContextProvider } from './components/ModalContext'
 
 const ModalTriggerWrapper: React.FC<{}> = props => {
   return (

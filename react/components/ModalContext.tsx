@@ -8,13 +8,6 @@ const DEFAULT_STATE = {
   open: false,
 }
 
-function mergeStates(state?: Partial<State>) {
-  return {
-    ...DEFAULT_STATE,
-    ...state,
-  }
-}
-
 interface OpenAction {
   type: 'OPEN_MODAL'
 }
@@ -31,32 +24,25 @@ const ModalDispatchContext = createContext<Dispatch | undefined>(undefined)
 
 function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
   switch (action.type) {
-    case 'OPEN_MODAL': {
-
+    case 'OPEN_MODAL':
       return {
         ...state,
         open: true,
       }
-    }
 
     case 'CLOSE_MODAL':
-        return {
-          ...state,
-          open: false,
-        }
+      return {
+        ...state,
+        open: false,
+      }
 
     default:
       return state
   }
 }
 
-interface ModalContextProviderProps {
-  initialState?: Partial<State>
-}
-
-export const ModalContextProvider: React.FC<ModalContextProviderProps> = props => {
-  const { children, initialState } = props
-  const [state, dispatch] = useReducer(modalContextReducer, mergeStates(initialState))
+export const ModalContextProvider: React.FC<{}> = ({ children }) => {
+  const [state, dispatch] = useReducer(modalContextReducer, DEFAULT_STATE)
 
   return (
     <ModalStateContext.Provider value={state}>
@@ -69,10 +55,6 @@ export const ModalContextProvider: React.FC<ModalContextProviderProps> = props =
 
 export function useModalDispatch() {
   const context = useContext(ModalDispatchContext)
-  // if (typeof context === 'undefined') {
-  //   throw Error('useModalDispatch must be used within a ModalContextProvider')
-  // }
-
   return context
 }
 

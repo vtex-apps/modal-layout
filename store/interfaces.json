@@ -5,7 +5,7 @@
     "allowed": "*"
   },
   "modal-trigger": {
-    "component": "ModalTrigger",
+    "component": "ModalTriggerWrapper",
     "allowed": "*",
     "composition": "children"
   }

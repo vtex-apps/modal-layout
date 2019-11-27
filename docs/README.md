@@ -42,6 +42,7 @@ This props should be edited at your theme's `blocks.json`:
 | `backdrop`| `BackdropMode` |  | `'clickable'` |
 | `titlePadding` | `number` | Number of a tachyons class (from 0 to 11) to apply a tachyons class with paddings | `5` |
 | `contentPadding` | `number` | Same as the `titlePadding`, but of the content | `5` |
+| `titleTag` | TitleTag | Which tag the title element should render | `'h3'`
 
 #### BackdropMode
 
@@ -51,9 +52,20 @@ This props should be edited at your theme's `blocks.json`:
 | `'clickable'` | It will render the `Backdrop` and if you click it it will close the modal. | 
 | `'none'` | It won't render the `Backdrop`. |
 
+#### TitleTag
+
+| Value |
+| --- |
+| `'h1'` |
+| `'h2'` |
+| `'h3'` |
+| `'h4'` |
+| `'h5'` |
+| `'h6'` |
+
 ## Styles API
 
-This apps provides some CSS calsses as an API for style customization.
+This apps provides some CSS classes as an API for style customization.
 
 To use this CSS API, you must add the `styles` builder and create an app styling CSS file.
 
@@ -75,11 +87,11 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 }
 ```
 
-## CSS namespaces
+## CSS Handles
 
 Below, we describe the namespaces that are defined by `modal-layout`.
 
-| Class name |
+| Handles |
 | --- |
 | `triggerContainer` |
 | `container` |

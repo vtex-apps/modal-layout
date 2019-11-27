@@ -1,18 +1,19 @@
 import React from 'react'
 import { pick } from 'ramda'
-import styles from './styles.css'
 import classnames from 'classnames'
-import BaseModal from './BaseModal'
-import ModalTitle from './ModalTitle'
-import ModalContent from './ModalContent'
+import styles from './components/styles.css'
 import { IconClose } from 'vtex.store-icons'
-import { BackdropMode } from './Backdrop'
-import { getValidTachyonsTokenNumber } from './utils'
-import { useModalState, useModalDispatch } from './ModalContext'
-import { useCssHandles, generateBlockClass } from 'vtex.css-handles'
+import BaseModal from './components/BaseModal'
+import { useCssHandles } from 'vtex.css-handles'
+import { BackdropMode } from './components/Backdrop'
+import ModalContent from './components/ModalContent'
+import ModalTitle, { TitleTag } from './components/ModalTitle'
+import { getValidTachyonsTokenNumber } from './modules/tachyonsToken'
+import { useModalState, useModalDispatch } from './components/ModalContext'
 import { useResponsiveValue, ResponsiveInput } from 'vtex.responsive-values'
 
 interface Props {
+  titleTag: TitleTag
   blockClass?: string
   title?: string | ResponsiveInput<string>
   titlePadding?: number | ResponsiveInput<number>
@@ -37,8 +38,8 @@ const responsiveProps = [
 const Modal: React.FC<Props> = props => {
   const {
     title,
+    titleTag,
     children,
-    blockClass,
   } = props
 
   const {
@@ -78,10 +79,7 @@ const Modal: React.FC<Props> = props => {
     contentClasses = `ph${contentPadding} pb${contentPadding}`
   }
 
-  const blockClassContainer = generateBlockClass(styles.container, blockClass)
-  const containerClasses = classnames(blockClassContainer, 'bg-base relative flex flex-column')
-  const closeButtonContainerClasses = classnames(handles.closeButtonContainer, 'w-100 flex justify-end')
-  const closeButtonClasses = classnames(handles.closeButton, 'ma0 bg-transparent pointer bw0 pa2')
+  const containerClasses = classnames(styles.containerCenter, handles.container, 'bg-base relative flex flex-column')
 
   return (
     <BaseModal
@@ -91,14 +89,19 @@ const Modal: React.FC<Props> = props => {
     >
       <div className={containerClasses} style={styles.root}>
         {showCloseButton && (
-          <div className={closeButtonContainerClasses}>
-            <button className={closeButtonClasses} onClick={handleClose}>
+          <div className={`${handles.closeButtonContainer} w-100 flex justify-end`}>
+            <button
+              onClick={handleClose}
+              className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
+            >
               <IconClose size={24} type="line" />
             </button>
           </div>
         )}
         {title && (
-          <ModalTitle className={titleClasses}>{title}</ModalTitle>
+          <ModalTitle className={titleClasses} tag={titleTag}>
+            {title}
+          </ModalTitle>
         )}
         <ModalContent className={contentClasses}>
           {children}
