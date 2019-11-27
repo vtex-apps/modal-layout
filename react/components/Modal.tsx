@@ -1,16 +1,18 @@
 import React from 'react'
 import { pick } from 'ramda'
+import styles from './styles.css'
 import classnames from 'classnames'
 import BaseModal from './BaseModal'
 import ModalTitle from './ModalTitle'
 import ModalContent from './ModalContent'
 import { IconClose } from 'vtex.store-icons'
-import { useCssHandles } from 'vtex.css-handles'
 import { getValidTachyonsTokenNumber } from './utils'
 import { useModalState, useModalDispatch } from './ModalContext'
+import { useCssHandles, generateBlockClass } from 'vtex.css-handles'
 import { useResponsiveValue, ResponsiveInput } from 'vtex.responsive-values'
 
 interface Props {
+  blockClass?: string
   title?: string | ResponsiveInput<string>
   titlePadding?: number | ResponsiveInput<number>
   hideBackdrop?: boolean | ResponsiveInput<boolean>
@@ -19,15 +21,6 @@ interface Props {
   backdropInvisible?: boolean | ResponsiveInput<boolean>
   closeOnBackdropClick: boolean | ResponsiveInput<boolean>
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  root: {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-} as const
 
 const CSS_HANDLES = [
   'container',
@@ -46,6 +39,7 @@ const Modal: React.FC<Props> = props => {
   const {
     title,
     children,
+    blockClass,
     hideBackdrop,
     backdropInvisible,
   } = props
@@ -87,7 +81,8 @@ const Modal: React.FC<Props> = props => {
     contentClasses = `ph${contentPadding} pb${contentPadding}`
   }
 
-  const containerClasses = classnames(handles.container, 'bg-base relative flex flex-column')
+  const blockClassContainer = generateBlockClass(styles.container, blockClass)
+  const containerClasses = classnames(blockClassContainer, 'bg-base relative flex flex-column')
   const closeButtonContainerClasses = classnames(handles.closeButtonContainer, 'w-100 flex justify-end')
   const closeButtonClasses = classnames(handles.closeButton, 'ma0 bg-transparent pointer bw0 pa2')
 
