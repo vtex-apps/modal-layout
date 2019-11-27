@@ -1,15 +1,12 @@
 import React from 'react'
-import { pick } from 'ramda'
-import Backdrop from './Backdrop'
 import Portal, { ContainerType } from './Portal'
-import { useResponsiveValue, ResponsiveInput } from 'vtex.responsive-values'
+import Backdrop, { BackdropMode } from './Backdrop'
 
 interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   open: boolean
   keepMounted?: boolean
+  backdrop?: BackdropMode
   container?: ContainerType
-  hideBackdrop?: boolean | ResponsiveInput<boolean>
-  backdropInvisible?: boolean | ResponsiveInput<boolean>
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -26,6 +23,7 @@ const styles: Record<string, React.CSSProperties> = {
 
 const BaseModal: React.FC<Props> = props => {
   const {
+    backdrop,
     children,
     container,
     open = true,
@@ -33,11 +31,6 @@ const BaseModal: React.FC<Props> = props => {
     keepMounted = false,
     ...rest
   } = props
-
-  const {
-    hideBackdrop = false,
-    backdropInvisible = false,
-  } = useResponsiveValue(pick(['hideBackdrop', 'backdropInvisible'], props))
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -55,8 +48,8 @@ const BaseModal: React.FC<Props> = props => {
   return (
     <Portal container={container}>
       <div {...rest} style={styles.container} onClick={handleClick} role="presentation">
-        {hideBackdrop ? null : (
-          <Backdrop open={open} onClick={onBackdropClick} invisible={backdropInvisible} />
+        {backdrop === BackdropMode.none ? null : (
+          <Backdrop open={open} onClick={onBackdropClick} />
         )}
         {children}
       </div>

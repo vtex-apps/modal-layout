@@ -6,6 +6,7 @@ import BaseModal from './BaseModal'
 import ModalTitle from './ModalTitle'
 import ModalContent from './ModalContent'
 import { IconClose } from 'vtex.store-icons'
+import { BackdropMode } from './Backdrop'
 import { getValidTachyonsTokenNumber } from './utils'
 import { useModalState, useModalDispatch } from './ModalContext'
 import { useCssHandles, generateBlockClass } from 'vtex.css-handles'
@@ -15,11 +16,9 @@ interface Props {
   blockClass?: string
   title?: string | ResponsiveInput<string>
   titlePadding?: number | ResponsiveInput<number>
-  hideBackdrop?: boolean | ResponsiveInput<boolean>
   contentPadding?: number | ResponsiveInput<number>
   showCloseButton?: boolean | ResponsiveInput<boolean>
-  backdropInvisible?: boolean | ResponsiveInput<boolean>
-  closeOnBackdropClick: boolean | ResponsiveInput<boolean>
+  backdrop?: BackdropMode | ResponsiveInput<BackdropMode>
 }
 
 const CSS_HANDLES = [
@@ -29,10 +28,10 @@ const CSS_HANDLES = [
 ]
 
 const responsiveProps = [
+  'backdrop',
   'titlePadding',
   'contentPadding',
   'showCloseButton',
-  'closeOnBackdropClick'
 ] as const
 
 const Modal: React.FC<Props> = props => {
@@ -40,13 +39,11 @@ const Modal: React.FC<Props> = props => {
     title,
     children,
     blockClass,
-    hideBackdrop,
-    backdropInvisible,
   } = props
 
   const {
     showCloseButton = true,
-    closeOnBackdropClick = true,
+    backdrop = BackdropMode.clickable,
     titlePadding: titlePaddingProp = 5,
     contentPadding: contentPaddingProp = 5,
   } = useResponsiveValue(pick(responsiveProps, props))
@@ -64,7 +61,7 @@ const Modal: React.FC<Props> = props => {
   }
 
   const handleBackdropClick = () => {
-    if (closeOnBackdropClick) {
+    if (backdrop === BackdropMode.clickable) {
       handleClose()
     }
   }
@@ -89,9 +86,8 @@ const Modal: React.FC<Props> = props => {
   return (
     <BaseModal
       open={context.open}
-      hideBackdrop={hideBackdrop}
+      backdrop={backdrop}
       onBackdropClick={handleBackdropClick}
-      backdropInvisible={backdropInvisible}
     >
       <div className={containerClasses} style={styles.root}>
         {showCloseButton && (

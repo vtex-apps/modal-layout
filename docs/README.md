@@ -39,11 +39,17 @@ This props should be edited at your theme's `blocks.json`:
 | --- | --- | --- | --- |
 | `title` | `string`| The title of the modal | `undefined` |
 | `showCloseButton`| `boolean`| If it should show the close button | `true` |
-| `backdropInvisible` | `boolean` | If the Backdrop should have a transparent background (but if you click in the backdrop it still gonna close the modal) | `false` |
-| `hideBackdrop`| `boolean` | If you pass `true` it will not render the backdrop, which means that you won't see it and you can't click it to close the modal | `false`
+| `backdrop`| `BackdropMode` |  | `'clickable'` |
 | `titlePadding` | `number` | Number of a tachyons class (from 0 to 11) to apply a tachyons class with paddings | `5` |
-| `contentPadding` | `number` | Same as the `titlePadding`, but fo the content | `5` |
-| `closeOnBackdropClick`| `boolean` | If it should close the modal when you click the `Backdrop`| `true` |
+| `contentPadding` | `number` | Same as the `titlePadding`, but of the content | `5` |
+
+#### BackdropMode
+
+| Value | Description |
+| --- | --- |
+| `'display'` | It will render the `Backdrop`, but if you click it won't do anything |
+| `'clickable'` | It will render the `Backdrop` and if you click it it will close the modal. | 
+| `'none'` | It won't render the `Backdrop`. |
 
 ## Styles API
 
@@ -77,7 +83,7 @@ Below, we describe the namespaces that are defined by `modal-layout`.
 | --- |
 | `triggerContainer` |
 | `container` |
-| `closeButtonContiner` |
+| `closeButtonContainer` |
 | `closeButton` |
 | `title` |
 | `contentContainer` |
