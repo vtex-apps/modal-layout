@@ -23,8 +23,8 @@ interface Props {
 }
 
 const CSS_HANDLES = [
+  'topRow',
   'container',
-  'closeButtonContainer',
   'closeButton',
 ]
 
@@ -88,20 +88,22 @@ const Modal: React.FC<Props> = props => {
       onBackdropClick={handleBackdropClick}
     >
       <div className={containerClasses} style={styles.root}>
-        {showCloseButton && (
-          <div className={`${handles.closeButtonContainer} w-100 flex justify-end`}>
-            <button
-              onClick={handleClose}
-              className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
-            >
-              <IconClose size={24} type="line" />
-            </button>
+        {(title || showCloseButton) && (
+          <div className={`${handles.topRow} flex justify-between items-start`}>
+            {title && (
+              <ModalTitle className={titleClasses} tag={titleTag}>
+                {title}
+              </ModalTitle>
+            )}
+            {showCloseButton && (
+              <button
+                onClick={handleClose}
+                className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
+              >
+                <IconClose size={24} type="line" />
+              </button>
+            )}
           </div>
-        )}
-        {title && (
-          <ModalTitle className={titleClasses} tag={titleTag}>
-            {title}
-          </ModalTitle>
         )}
         <ModalContent className={contentClasses}>
           {children}
