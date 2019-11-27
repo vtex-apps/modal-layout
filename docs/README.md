@@ -40,9 +40,7 @@ This props should be edited at your theme's `blocks.json`:
 | `title` | `string`| The title of the modal | `undefined` |
 | `showCloseButton`| `boolean`| If it should show the close button | `true` |
 | `backdrop`| `BackdropMode` |  | `'clickable'` |
-| `titlePadding` | `number` | Number of a tachyons class (from 0 to 11) to apply a tachyons class with paddings | `5` |
-| `contentPadding` | `number` | Same as the `titlePadding`, but of the content | `5` |
-| `titleTag` | TitleTag | Which tag the title element should render | `'h3'`
+| `titleTag` | TitleTag | Which tag the title element should render | `'h3'` |
 
 #### BackdropMode
 

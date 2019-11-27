@@ -1,6 +1,6 @@
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { useModalDispatch } from './ModalContext'
+import { ModalContextProvider, useModalDispatch } from './components/ModalContext'
 
 const CSS_HANDLES = ['triggerContainer']
 
@@ -27,4 +27,12 @@ const ModalTrigger: React.FC<{}> = ({ children }) => {
   )
 }
 
-export default ModalTrigger
+const EnhancedModalTrigger: React.FC<{}> = props => {
+  return (
+    <ModalContextProvider>
+      <ModalTrigger {...props} />
+    </ModalContextProvider>
+  )
+}
+
+export default EnhancedModalTrigger
