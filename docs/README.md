@@ -1,3 +1,5 @@
+📢 Don't fork this project. Use, [contribute](https://github.com/vtex-apps/awesome-io#contributing), or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion).
+
 # Modal Layout
 
 WIP
@@ -7,31 +9,38 @@ WIP
 *Do not use this repository until it has a stable version*
 
 
-## Blocks API
+## Configuration
 
-The API for `modal-layout` and `modal-trigger` are very similar to `flex-layout`.
+1. Import the modal layout's app to your theme's dependencies in the `manifest.json`, for example:
 
 ```jsonc
 {
-  "modal-layout": {
-    "component": "Modal",
-    "composition": "children",
-    "allowed": "*"
- },
-  "modal-trigger": {
-    "component": "ModalTrigger",
-    "composition": "children",
-    "allowed": "*"
-  }
+  "vtex.modal-layout": "0.x"
 }
-
 ```
 
-Notice that you could use _any_ array of blocks as `children`, given that they are allowed by the `block` that is directly above your `modal-layout`.
+2. Now you can use the two blocks that the `modal-layout` app export. You have to create your `modal-layout` block and put him as a child of the `modal-trigger` block:
 
-## Configuration
-
-This props should be edited at your theme's `blocks.json`:
+```jsonc
+{
+  "modal-trigger#preview-shelf": {
+    "children": [
+      "modal-layout#preview-shelf",
+      "product-summary-buy-button"
+    ]
+  },
+  "modal-layout#preview-shelf": {
+    "props": {
+      "title": "This is the title of the product preview",
+      "blockClass": "klynger"
+    },
+    "children": [
+      "all-my-children-elements-of-modal",
+      "product-images"
+    ]
+  }
+}
+```
 
 ### Modal
 
@@ -61,35 +70,11 @@ This props should be edited at your theme's `blocks.json`:
 | `'h5'` |
 | `'h6'` |
 
-## Styles API
+## Customization
 
-This apps provides some CSS classes as an API for style customization.
+In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-To use this CSS API, you must add the `styles` builder and create an app styling CSS file.
-
-1. Add the `styles` builder to your `manifest.json`:
-
-```json
-{
-  "builders": {
-    "styles": "1.x"
-  }
-}
-```
-
-2. Create a file called `vtex.modal-layout.css` inside the `styles/css` folder. Add your custom styles:
-
-```css
-.container {
-  margin-top: 10px;
-}
-```
-
-## CSS Handles
-
-Below, we describe the namespaces that are defined by `modal-layout`.
-
-| Handles |
+| CSS Handles |
 | --- |
 | `triggerContainer` |
 | `container` |
