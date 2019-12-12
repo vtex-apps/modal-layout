@@ -6,4 +6,6 @@ declare module 'vtex.responsive-values' {
     desktop: T
     tablet: T
   }
+
+  export type MaybeResponsiveInput<T> = T | ResponsiveInput<T>
 }

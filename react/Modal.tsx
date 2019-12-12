@@ -9,16 +9,16 @@ import { BackdropMode } from './components/Backdrop'
 import ModalContent from './components/ModalContent'
 import ModalTitle, { TitleTag } from './components/ModalTitle'
 import { useModalState, useModalDispatch } from './components/ModalContext'
-import { useResponsiveValue, ResponsiveInput } from 'vtex.responsive-values'
+import { useResponsiveValue, MaybeResponsiveInput } from 'vtex.responsive-values'
 
 interface Props {
   titleTag: TitleTag
   blockClass?: string
-  title?: string | ResponsiveInput<string>
-  titlePadding?: number | ResponsiveInput<number>
-  contentPadding?: number | ResponsiveInput<number>
-  showCloseButton?: boolean | ResponsiveInput<boolean>
-  backdrop?: BackdropMode | ResponsiveInput<BackdropMode>
+  title?: MaybeResponsiveInput<string>
+  titlePadding?: MaybeResponsiveInput<number>
+  contentPadding?: MaybeResponsiveInput<number>
+  showCloseButton?: MaybeResponsiveInput<boolean>
+  backdrop?: MaybeResponsiveInput<BackdropMode>
 }
 
 const CSS_HANDLES = [
