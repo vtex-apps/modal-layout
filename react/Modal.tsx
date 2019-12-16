@@ -1,7 +1,7 @@
 import React from 'react'
 import { pick } from 'ramda'
+import styles from './styles.css'
 import classnames from 'classnames'
-import styles from './components/styles.css'
 import { IconClose } from 'vtex.store-icons'
 import BaseModal from './components/BaseModal'
 import { useCssHandles } from 'vtex.css-handles'
@@ -9,16 +9,15 @@ import { BackdropMode } from './components/Backdrop'
 import ModalContent from './components/ModalContent'
 import ModalTitle, { TitleTag } from './components/ModalTitle'
 import { useModalState, useModalDispatch } from './components/ModalContext'
-import { useResponsiveValue, MaybeResponsiveInput } from 'vtex.responsive-values'
+import { useResponsiveValues, MaybeResponsiveInput } from 'vtex.responsive-values'
 
 interface Props {
+  title?: string
   titleTag: TitleTag
   blockClass?: string
-  title?: MaybeResponsiveInput<string>
-  titlePadding?: MaybeResponsiveInput<number>
-  contentPadding?: MaybeResponsiveInput<number>
-  showCloseButton?: MaybeResponsiveInput<boolean>
+  fullScreen?: MaybeResponsiveInput<boolean>
   backdrop?: MaybeResponsiveInput<BackdropMode>
+  showCloseButton?: MaybeResponsiveInput<boolean>
 }
 
 const CSS_HANDLES = [
@@ -29,8 +28,7 @@ const CSS_HANDLES = [
 
 const responsiveProps = [
   'backdrop',
-  'titlePadding',
-  'contentPadding',
+  'fullScreen',
   'showCloseButton',
 ] as const
 
@@ -42,9 +40,10 @@ const Modal: React.FC<Props> = props => {
   } = props
 
   const {
+    fullScreen = false,
     showCloseButton = true,
     backdrop = BackdropMode.clickable,
-  } = useResponsiveValue(pick(responsiveProps, props))
+  } = useResponsiveValues(pick(responsiveProps, props))
 
   const handles = useCssHandles(CSS_HANDLES)
   const context = useModalState()
@@ -64,7 +63,14 @@ const Modal: React.FC<Props> = props => {
     }
   }
 
-  const containerClasses = classnames(styles.containerCenter, handles.container, 'bg-base relative flex flex-column')
+  const containerClasses = classnames(
+    styles.containerCenter,
+    handles.container,
+    'bg-base relative flex flex-column',
+    {
+      [`${styles.fullScreenModal} w-100 mw-100 h-100 br0`]: fullScreen,
+    }
+  )
 
   return (
     <BaseModal
