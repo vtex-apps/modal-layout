@@ -8,7 +8,7 @@ const ModalTrigger: React.FC<{}> = ({ children }) => {
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
 
-  const handleModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     if (dispatch) {
@@ -17,13 +17,13 @@ const ModalTrigger: React.FC<{}> = ({ children }) => {
   }
 
   return (
-    <button
+    <div
       role="button"
       onClick={handleModalOpen}
       className={`${handles.triggerContainer} bg-transparent pa0 ma0 outline-0 bw0`}
     >
       {children}
-    </button>
+    </div>
   )
 }
 
