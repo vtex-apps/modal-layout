@@ -1,15 +1,16 @@
 import React from 'react'
 import { pick } from 'ramda'
-import styles from './styles.css'
 import classnames from 'classnames'
 import { IconClose } from 'vtex.store-icons'
-import BaseModal from './components/BaseModal'
 import { useCssHandles } from 'vtex.css-handles'
+import { useResponsiveValues, MaybeResponsiveInput } from 'vtex.responsive-values'
+
+import styles from './styles.css'
+import BaseModal from './components/BaseModal'
 import { BackdropMode } from './components/Backdrop'
 import ModalContent from './components/ModalContent'
 import ModalTitle, { TitleTag } from './components/ModalTitle'
 import { useModalState, useModalDispatch } from './components/ModalContext'
-import { useResponsiveValues, MaybeResponsiveInput } from 'vtex.responsive-values'
 
 interface Props {
   title?: string

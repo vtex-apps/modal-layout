@@ -52,7 +52,7 @@ WIP
 | `titleTag` | `TitleTag` | Which tag the title element should render | `'h3'` |
 | `fullScreen` | `ResponsiveValue<boolean> | boolean` | If the modal should be in full screen | `false` |
 
-You can know more about `ResponsiveValue` in the documentation of [responsive-values](https://github.com/vtex-apps/responsive-values).
+You can learn more about `ResponsiveValue` in the documentation of [responsive-values](https://vtex.io/docs/app/vtex.responsive-values).
 
 #### BackdropMode
 

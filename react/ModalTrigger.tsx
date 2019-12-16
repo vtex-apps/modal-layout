@@ -20,7 +20,7 @@ const ModalTrigger: React.FC<{}> = ({ children }) => {
     <div
       role="button"
       onClick={handleModalOpen}
-      className={`${handles.triggerContainer} bg-transparent pa0 ma0 outline-0 bw0`}
+      className={`${handles.triggerContainer} bg-transparent pa0 outline-0 bw0`}
     >
       {children}
     </div>
