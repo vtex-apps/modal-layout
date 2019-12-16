@@ -1,5 +1,12 @@
 {
-  "base-store-component": {
-    "component": "Example"
+  "modal-layout": {
+    "component": "Modal",
+    "composition": "children",
+    "allowed": "*"
+  },
+  "modal-trigger": {
+    "component": "ModalTrigger",
+    "allowed": "*",
+    "composition": "children"
   }
 }
