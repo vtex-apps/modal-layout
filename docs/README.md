@@ -47,12 +47,21 @@ WIP
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
 | `title` | `string`| The title of the modal | `undefined` |
+| `showContentDividers` | `boolean` | If should add a border between the content, title and the actions | `false` |
+| `scroll` | `ScrollMode` | Where the component should scroll if the content is bigger than the screen (see `ScrollMode` options bellow) | `'content'` |
 | `showCloseButton`| `ResponsiveValue<boolean> | boolean`| If it should show the close button | `true` |
 | `backdrop`| `ResponsiveValue<BackdropMode> | BackdropMode` | How the backdrop should be rendered | `'clickable'` |
 | `titleTag` | `TitleTag` | Which tag the title element should render | `'h3'` |
 | `fullScreen` | `ResponsiveValue<boolean> | boolean` | If the modal should be in full screen | `false` |
 
 You can learn more about `ResponsiveValue` in the documentation of [responsive-values](https://vtex.io/docs/app/vtex.responsive-values).
+
+#### ScrollMode
+
+| Value | Description |
+| --- | --- |
+| `'body'` | The size of the modal will be bigger than the screen if the content is bigger and it will scroll the body |
+| `'content'` | The max height of the modal will be the size of the screen and the scroll will be inside the content |
 
 #### BackdropMode
 
