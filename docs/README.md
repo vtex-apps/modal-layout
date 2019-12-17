@@ -47,9 +47,12 @@ WIP
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
 | `title` | `string`| The title of the modal | `undefined` |
-| `showCloseButton`| `boolean`| If it should show the close button | `true` |
-| `backdrop`| `BackdropMode` |  | `'clickable'` |
-| `titleTag` | TitleTag | Which tag the title element should render | `'h3'` |
+| `showCloseButton`| `ResponsiveValue<boolean> | boolean`| If it should show the close button | `true` |
+| `backdrop`| `ResponsiveValue<BackdropMode> | BackdropMode` | How the backdrop should be rendered | `'clickable'` |
+| `titleTag` | `TitleTag` | Which tag the title element should render | `'h3'` |
+| `fullScreen` | `ResponsiveValue<boolean> | boolean` | If the modal should be in full screen | `false` |
+
+You can learn more about `ResponsiveValue` in the documentation of [responsive-values](https://vtex.io/docs/app/vtex.responsive-values).
 
 #### BackdropMode
 

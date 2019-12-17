@@ -9,3 +9,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Basic implementations of the components `Backdrop`, `BaseModal` and `Modal`.
 - Context to open and close the modal.
+- Support to `fullScreen` mode.

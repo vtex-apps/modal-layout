@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles.css'
+import styles from '../styles.css'
 import classnames from 'classnames'
 
 export enum BackdropMode {
