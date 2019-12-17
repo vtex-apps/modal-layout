@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
 
@@ -23,14 +23,22 @@ const styles: Record<string, React.CSSProperties> = {
 
 const BaseModal: React.FC<Props> = props => {
   const {
+    open,
     backdrop,
     children,
     container,
-    open = true,
     onBackdropClick,
     keepMounted = false,
     ...rest
   } = props
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflowY = 'hidden'
+    } else {
+      document.body.style.overflowY = 'auto'
+    }
+  }, [open])
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -47,7 +55,12 @@ const BaseModal: React.FC<Props> = props => {
 
   return (
     <Portal container={container}>
-      <div {...rest} style={styles.container} onClick={handleClick} role="presentation">
+      <div
+        {...rest}
+        role="presentation"
+        onClick={handleClick}
+        style={styles.container}
+      >
         {backdrop === BackdropMode.none ? null : (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
