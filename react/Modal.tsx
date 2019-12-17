@@ -24,8 +24,6 @@ interface Props {
   blockClass?: string
   showContentDividers: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
-  titlePadding?: MaybeResponsiveInput<number>
-  contentPadding?: MaybeResponsiveInput<number>
   backdrop?: MaybeResponsiveInput<BackdropMode>
   showCloseButton?: MaybeResponsiveInput<boolean>
 }
@@ -77,11 +75,12 @@ const Modal: React.FC<Props> = props => {
   }
   const containerClasses = classnames(handles.container, 'outline-0 h-100', {
     ['overflow-y-auto overflow-x-hidden tc']: scroll === ScrollMode.body,
-    [`flex items-center justify-center`]: scroll === ScrollMode.content,
+    ['flex items-center justify-center']: scroll === ScrollMode.content,
   })
-  const paperClasses = classnames(handles.paper, 'bg-base relative',
+
+  const paperClasses = classnames(handles.paper, 'bg-base relative br2',
     {
-      ['ma7']: !fullScreen,
+      [styles.paperNotFullScreen]: !fullScreen,
       ['dib tl v-mid']: scroll === ScrollMode.body,
       ['h-100']: fullScreen && scroll === ScrollMode.content,
       ['min-h-100']: fullScreen && scroll === ScrollMode.body,

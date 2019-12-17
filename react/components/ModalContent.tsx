@@ -27,7 +27,7 @@ const ModalContent: React.FC<Props> = props => {
     'overflow-y-auto',
     {
       ['ph5 pb5 pt5']: !dividers,
-      ['pv5 ph7 bt bb b--muted-3']: dividers,
+      ['pv5 ph7 bt b--muted-3']: dividers,
     }
   )
 

@@ -12,6 +12,13 @@
   max-height: calc(100% - 4rem);
 }
 
+/* We have to apply margin: 2rem instead of using ma7 because if the user
+* change the value of ma7 the max-height of .paperScrollContent will break
+*/
+.paperNotFullScreen {
+  margin: 2rem;
+}
+
 .contentScroll {
   -webkit-overflow-scrolling: 'touch';
 }
