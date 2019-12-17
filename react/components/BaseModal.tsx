@@ -34,9 +34,9 @@ const BaseModal: React.FC<Props> = props => {
 
   useEffect(() => {
     if (open) {
-      document.body.style.overflowY = 'hidden'
+      document.body.classList.add('overflow-y-hidden')
     } else {
-      document.body.style.overflowY = 'auto'
+      document.body.classList.remove('overflow-y-hidden')
     }
   }, [open])
 
