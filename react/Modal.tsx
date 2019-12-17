@@ -22,6 +22,7 @@ interface Props {
   titleTag: TitleTag
   scroll?: ScrollMode
   blockClass?: string
+  showContentDividers: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
   titlePadding?: MaybeResponsiveInput<number>
   contentPadding?: MaybeResponsiveInput<number>
@@ -47,6 +48,7 @@ const Modal: React.FC<Props> = props => {
     title,
     titleTag,
     children,
+    showContentDividers,
     scroll = ScrollMode.content,
   } = props
 
@@ -69,23 +71,27 @@ const Modal: React.FC<Props> = props => {
   }
 
   const handleBackdropClick = () => {
-    console.log('backdrop', BackdropMode.clickable)
     if (backdrop === BackdropMode.clickable) {
       handleClose()
     }
   }
   const containerClasses = classnames(handles.container, 'outline-0 h-100', {
     ['overflow-y-auto overflow-x-hidden tc']: scroll === ScrollMode.body,
-    ['flex items-center justify-center']: scroll === ScrollMode.content,
+    [`flex items-center justify-center`]: scroll === ScrollMode.content,
   })
-  const paperClasses = classnames(handles.paper, 'bg-base relative ma7',
+  const paperClasses = classnames(handles.paper, 'bg-base relative',
     {
+      ['ma7']: !fullScreen,
       ['dib tl v-mid']: scroll === ScrollMode.body,
-      [`${styles.fullScreenModal} w-100 mw-100 h-100 br0`]: fullScreen,
+      ['h-100']: fullScreen && scroll === ScrollMode.content,
+      ['min-h-100']: fullScreen && scroll === ScrollMode.body,
+      [`${styles.fullScreenModal} w-100 mw-100 br0`]: fullScreen,
+      [styles.paperScrollContent]: !fullScreen && scroll === ScrollMode.content,
+      [`${styles.paperScrollContent} flex flex-column`]: scroll === ScrollMode.content,
     }
   )
   const topRowClasses = classnames(handles.topRow, 'flex items-start', {
-    ['justify-between']: title || (title && showCloseButton),
+    ['justify-between']: title,
     ['justify-end']: !title,
   })
 
@@ -114,7 +120,7 @@ const Modal: React.FC<Props> = props => {
               )}
             </div>
           )}
-          <ModalContent>
+          <ModalContent dividers={showContentDividers}>
             {children}
           </ModalContent>
         </div>

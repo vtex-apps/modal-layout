@@ -61,10 +61,10 @@ const BaseModal: React.FC<Props> = props => {
         onClick={handleClick}
         style={styles.container}
       >
+        {children}
         {backdrop === BackdropMode.none ? null : (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
-        {children}
       </div>
     </Portal>
   )

@@ -19,7 +19,7 @@ const ModalTitle: React.FC<Props> = props => {
 
   const handles = useCssHandles(CSS_HANDLES)
 
-  const tagClasses = `${handles.title} t-heading-3 ma0 pl5 pt1 ${className}`
+  const tagClasses = `${handles.title} t-heading-3 ma0 pa5 ${className}`
   
   return (
     <Tag className={tagClasses}>
