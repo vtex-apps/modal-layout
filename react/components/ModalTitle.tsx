@@ -11,21 +11,13 @@ interface Props {
 const CSS_HANDLES = ['title']
 
 const ModalTitle: React.FC<Props> = props => {
-  const {
-    className,
-    children,
-    tag: Tag = 'h3',
-  } = props
+  const { className, children, tag: Tag = 'h3' } = props
 
   const handles = useCssHandles(CSS_HANDLES)
 
   const tagClasses = `${handles.title} t-heading-3 ma0 pa5 ${className}`
-  
-  return (
-    <Tag className={tagClasses}>
-      {children}
-    </Tag>
-  )
+
+  return <Tag className={tagClasses}>{children}</Tag>
 }
 
 export default ModalTitle

@@ -1,6 +1,10 @@
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { ModalContextProvider, useModalDispatch } from './components/ModalContext'
+
+import {
+  useModalDispatch,
+  ModalContextProvider,
+} from './components/ModalContext'
 
 const CSS_HANDLES = ['triggerContainer']
 

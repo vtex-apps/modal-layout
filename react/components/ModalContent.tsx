@@ -1,23 +1,18 @@
 import React from 'react'
-import styles from '../styles.css'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
+
+import styles from '../styles.css'
 
 interface Props {
   className?: string
   dividers?: boolean
 }
 
-const CSS_HANDLES = [
-  'contentContainer'
-]
+const CSS_HANDLES = ['contentContainer']
 
 const ModalContent: React.FC<Props> = props => {
-  const {
-    children,
-    dividers = false,
-    className = '',
-  } = props
+  const { children, dividers = false, className = '' } = props
   const handles = useCssHandles(CSS_HANDLES)
 
   const classes = classnames(
@@ -31,12 +26,7 @@ const ModalContent: React.FC<Props> = props => {
     }
   )
 
-  return (
-    <div className={classes}>
-      {/* {[... new Array(50)].map(() => children)} */}
-      {children}
-    </div>
-  )
+  return <div className={classes}>{children}</div>
 }
 
 export default ModalContent

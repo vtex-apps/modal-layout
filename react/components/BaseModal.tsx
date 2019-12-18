@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react'
+
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
 
-interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   open: boolean
   keepMounted?: boolean
   backdrop?: BackdropMode
@@ -62,7 +67,7 @@ const BaseModal: React.FC<Props> = props => {
         style={styles.container}
       >
         {children}
-        {backdrop === BackdropMode.none ? null : (
+        {backdrop !== BackdropMode.none && (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
       </div>
