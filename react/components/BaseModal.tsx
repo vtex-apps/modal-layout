@@ -9,6 +9,7 @@ interface Props
     HTMLDivElement
   > {
   open: boolean
+  onClose?: () => void
   keepMounted?: boolean
   backdrop?: BackdropMode
   container?: ContainerType

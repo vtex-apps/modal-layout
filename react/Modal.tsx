@@ -62,11 +62,18 @@ const Modal: React.FC<Props> = props => {
     }
   }
 
-  const handleBackdropClick = () => {
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    // Prevent clicking inside the modal and closing it
+    // this way it will close only if you click in the backdrop
+    if (e.target !== e.currentTarget) {
+      return
+    }
+
     if (backdrop === BackdropMode.clickable) {
       handleClose()
     }
   }
+
   const containerClasses = classnames(handles.container, 'outline-0 h-100', {
     ['overflow-y-auto overflow-x-hidden tc']: scroll === ScrollMode.body,
     ['flex items-center justify-center']: scroll === ScrollMode.content,
@@ -91,9 +98,12 @@ const Modal: React.FC<Props> = props => {
     <BaseModal
       open={open}
       backdrop={backdrop}
+      onClose={handleClose}
       onBackdropClick={handleBackdropClick}
     >
-      <div className={containerClasses}>
+      {/* click-events-have-key-events is disabled because this will be handled by BaseModal */}
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+      <div className={containerClasses} onClick={handleBackdropClick}>
         <div className={paperClasses} style={styles.root}>
           {(title || showCloseButton) && (
             <div className={topRowClasses}>
