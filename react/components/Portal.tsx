@@ -2,7 +2,10 @@ import ReactDOM from 'react-dom'
 import { canUseDOM } from 'vtex.render-runtime'
 import React, { useLayoutEffect, useEffect, useState } from 'react'
 
-export type ContainerType = React.ReactInstance | (() => React.ReactInstance | null) | null
+export type ContainerType =
+  | React.ReactInstance
+  | (() => React.ReactInstance | null)
+  | null
 
 interface Props {
   container?: ContainerType

@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
 
-interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   open: boolean
   keepMounted?: boolean
   backdrop?: BackdropMode
@@ -23,14 +28,22 @@ const styles: Record<string, React.CSSProperties> = {
 
 const BaseModal: React.FC<Props> = props => {
   const {
+    open,
     backdrop,
     children,
     container,
-    open = true,
     onBackdropClick,
     keepMounted = false,
     ...rest
   } = props
+
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add('overflow-y-hidden')
+    } else {
+      document.body.classList.remove('overflow-y-hidden')
+    }
+  }, [open])
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -47,11 +60,16 @@ const BaseModal: React.FC<Props> = props => {
 
   return (
     <Portal container={container}>
-      <div {...rest} style={styles.container} onClick={handleClick} role="presentation">
-        {backdrop === BackdropMode.none ? null : (
+      <div
+        {...rest}
+        role="presentation"
+        onClick={handleClick}
+        style={styles.container}
+      >
+        {children}
+        {backdrop !== BackdropMode.none && (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
-        {children}
       </div>
     </Portal>
   )

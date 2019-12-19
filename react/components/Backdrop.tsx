@@ -1,11 +1,12 @@
 import React from 'react'
-import styles from '../styles.css'
 import classnames from 'classnames'
+
+import styles from '../styles.css'
 
 export enum BackdropMode {
   display = 'display',
   clickable = 'clickable',
-  none = 'none'
+  none = 'none',
 }
 
 interface Props {
