@@ -21,7 +21,9 @@ const ModalTrigger: React.FC<{}> = ({ children }) => {
   }
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div
+      tabIndex={0}
       role="button"
       onClick={handleModalOpen}
       className={`${handles.triggerContainer} bg-transparent pa0 outline-0 bw0`}

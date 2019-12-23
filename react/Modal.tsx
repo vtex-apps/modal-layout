@@ -25,7 +25,9 @@ interface Props {
   titleTag: TitleTag
   scroll?: ScrollMode
   blockClass?: string
+  children?: React.ReactNode
   showContentDividers: boolean
+  disableEscapeKeyDown?: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
   backdrop?: MaybeResponsiveInput<BackdropMode>
   showCloseButton?: MaybeResponsiveInput<boolean>
@@ -35,13 +37,14 @@ const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton']
 
 const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 
-const Modal: React.FC<Props> = props => {
+function Modal(props: Props) {
   const {
     title,
     titleTag,
     children,
     showContentDividers,
     scroll = ScrollMode.content,
+    disableEscapeKeyDown = false,
   } = props
 
   const {
@@ -62,11 +65,18 @@ const Modal: React.FC<Props> = props => {
     }
   }
 
-  const handleBackdropClick = () => {
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    // Prevent clicking inside the modal and closing it
+    // this way it will close only if you click in the backdrop
+    if (e.target !== e.currentTarget) {
+      return
+    }
+
     if (backdrop === BackdropMode.clickable) {
       handleClose()
     }
   }
+
   const containerClasses = classnames(handles.container, 'outline-0 h-100', {
     ['overflow-y-auto overflow-x-hidden tc']: scroll === ScrollMode.body,
     ['flex items-center justify-center']: scroll === ScrollMode.content,
@@ -91,35 +101,49 @@ const Modal: React.FC<Props> = props => {
     <BaseModal
       open={open}
       backdrop={backdrop}
+      onClose={handleClose}
       onBackdropClick={handleBackdropClick}
+      disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      <div className={containerClasses}>
-        <div className={paperClasses} style={styles.root}>
-          {(title || showCloseButton) && (
-            <div className={topRowClasses}>
-              {title && (
-                <ModalTitle
-                  className={showCloseButton ? '' : 'pr5'}
-                  tag={titleTag}
-                >
-                  {title}
-                </ModalTitle>
-              )}
-              {showCloseButton && (
-                <button
-                  onClick={handleClose}
-                  className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
-                >
-                  <IconClose size={24} type="line" />
-                </button>
-              )}
-            </div>
-          )}
-          <ModalContent dividers={showContentDividers}>{children}</ModalContent>
+      {
+        /* click-events-have-key-events is disabled because this will be handled by BaseModal */
+        /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
+        <div
+          tabIndex={-1}
+          className={containerClasses}
+          onClick={handleBackdropClick}
+        >
+          <div className={paperClasses} style={styles.root}>
+            {(title || showCloseButton) && (
+              <div className={topRowClasses}>
+                {title && (
+                  <ModalTitle
+                    className={showCloseButton ? '' : 'pr5'}
+                    tag={titleTag}
+                  >
+                    {title}
+                  </ModalTitle>
+                )}
+                {showCloseButton && (
+                  <button
+                    onClick={handleClose}
+                    className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
+                  >
+                    <IconClose size={24} type="line" />
+                  </button>
+                )}
+              </div>
+            )}
+            <ModalContent dividers={showContentDividers}>
+              {children}
+            </ModalContent>
+          </div>
         </div>
-      </div>
+      }
     </BaseModal>
   )
 }
 
-export default Modal
+const ModalRef = React.forwardRef(Modal)
+
+export default ModalRef
