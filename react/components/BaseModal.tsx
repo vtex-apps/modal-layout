@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
+import TrapFocus from './TrapFocus'
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -9,10 +10,12 @@ interface Props
     HTMLDivElement
   > {
   open: boolean
-  onClose?: () => void
+  onClose: () => void
   keepMounted?: boolean
   backdrop?: BackdropMode
   container?: ContainerType
+  disableEscapeKeyDown?: boolean
+  children: React.ReactElement
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -27,14 +30,16 @@ const styles: Record<string, React.CSSProperties> = {
   },
 } as const
 
-const BaseModal: React.FC<Props> = props => {
+export default function BaseModal(props: Props) {
   const {
     open,
+    onClose,
     backdrop,
     children,
     container,
     onBackdropClick,
     keepMounted = false,
+    disableEscapeKeyDown = false,
     ...rest
   } = props
 
@@ -55,6 +60,14 @@ const BaseModal: React.FC<Props> = props => {
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Escape' || disableEscapeKeyDown) {
+      return
+    }
+    e.stopPropagation()
+    onClose()
+  }
+
   if (!keepMounted && !open) {
     return null
   }
@@ -66,8 +79,9 @@ const BaseModal: React.FC<Props> = props => {
         role="presentation"
         onClick={handleClick}
         style={styles.container}
+        onKeyDown={handleKeyDown}
       >
-        {children}
+        <TrapFocus open={open}>{children}</TrapFocus>
         {backdrop !== BackdropMode.none && (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
@@ -75,5 +89,3 @@ const BaseModal: React.FC<Props> = props => {
     </Portal>
   )
 }
-
-export default BaseModal

@@ -53,6 +53,7 @@ WIP
 | `backdrop`| `ResponsiveValue<BackdropMode> | BackdropMode` | How the backdrop should be rendered | `'clickable'` |
 | `titleTag` | `TitleTag` | Which tag the title element should render | `'h3'` |
 | `fullScreen` | `ResponsiveValue<boolean> | boolean` | If the modal should be in full screen | `false` |
+| `disableEscapeKeyDown` | `boolean` | If if should disable closing the modal when you press `Esc` | `false` |
 
 You can learn more about `ResponsiveValue` in the documentation of [responsive-values](https://vtex.io/docs/app/vtex.responsive-values).
 

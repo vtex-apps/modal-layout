@@ -11,3 +11,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Context to open and close the modal.
 - Support to `fullScreen` mode.
 - `scroll` and `showContentDividers` props.
+- Dismiss when press `Esc` key.
