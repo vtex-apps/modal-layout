@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support to `fullScreen` mode.
 - `scroll` and `showContentDividers` props.
 - Dismiss when press `Esc` key.
+- Basic support to animations + `Fade` animation component.

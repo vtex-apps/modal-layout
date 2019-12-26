@@ -3,21 +3,14 @@ import {
   TransitionProps as _TransitionProps,
 } from 'react-transition-group/Transition'
 
-export type TransitionHandlerKeys =
-  | 'onEnter'
-  | 'onEntering'
-  | 'onEntered'
-  | 'onExit'
-  | 'onExiting'
-  | 'onExited'
+import {
+  easing as easingFunctions,
+  duration as transitionDuration,
+} from './transitions'
 
-export type TransitionKeys =
-  | 'in'
-  | 'mountOnEnter'
-  | 'unmountOnExit'
-  | 'timeout'
-  | 'addEndListener'
-  | TransitionHandlerKeys
+export type TransitionHandlerKeys = 'onEnter' | 'onExit'
+
+export type TransitionKeys = 'in' | 'timeout' | TransitionHandlerKeys
 
 export type TransitionProps = TransitionActions &
   Partial<Pick<_TransitionProps, TransitionKeys>>
@@ -57,7 +50,11 @@ export function createTransition(
   props: string | string[] = ['all'],
   options: Partial<TransitionCreationOptions> = {}
 ) {
-  const { delay = 0, duration = 300, easing = 'ease-in-out' } = options
+  const {
+    delay = 0,
+    easing = easingFunctions.easeInOut,
+    duration = transitionDuration.standard,
+  } = options
 
   return (Array.isArray(props) ? props : [props])
     .map(

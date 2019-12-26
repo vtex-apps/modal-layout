@@ -10,6 +10,7 @@ import {
 } from 'react-transition-group/Transition'
 
 import { getTransitionProps, createTransition } from './utils'
+import { duration } from './transitions'
 
 interface Props {
   in: boolean
@@ -31,8 +32,8 @@ function getOpacity(state: TransitionStatus) {
 }
 
 const defaultTimeout = {
-  enter: 300,
-  exit: 300,
+  enter: duration.enteringScreen,
+  exit: duration.leavingScreen,
 }
 
 const Fade = React.forwardRef(function Fade(
@@ -49,7 +50,6 @@ const Fade = React.forwardRef(function Fade(
   } = props
 
   const handleEnter: EnterHandler = (node, isAppearing) => {
-    console.log('entering...')
     const transitionProps = getTransitionProps({ timeout }, { mode: 'enter' })
     // suport for older versions of android browser and safari
     // https://caniuse.com/#feat=css-transitions
@@ -62,7 +62,6 @@ const Fade = React.forwardRef(function Fade(
   }
 
   const handleExit: ExitHandler = node => {
-    console.log('exiting...')
     const transitionProps = getTransitionProps({ timeout }, { mode: 'exit' })
     node.style.webkitTransition = createTransition('opacity', transitionProps)
     node.style.transition = createTransition('opacity', transitionProps)

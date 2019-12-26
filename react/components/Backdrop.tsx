@@ -1,7 +1,8 @@
 import React from 'react'
-import classnames from 'classnames'
+import { TransitionProps } from 'react-transition-group/Transition'
 
 import styles from '../styles.css'
+import Fade from './Animations/Fade'
 
 export enum BackdropMode {
   display = 'display',
@@ -11,11 +12,12 @@ export enum BackdropMode {
 
 interface Props {
   open: boolean
+  transitionDuration?: TransitionProps['timeout']
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const Backdrop: React.FC<Props> = props => {
-  const { children, open, onClick } = props
+  const { children, open, onClick, transitionDuration } = props
 
   if (!open) {
     return null
@@ -27,12 +29,18 @@ const Backdrop: React.FC<Props> = props => {
     }
   }
 
-  const rootClasses = classnames(styles.backdrop, 'o-50 bg-base--inverted')
-
   return (
-    <div className={rootClasses} onClick={handleClick}>
-      {children}
-    </div>
+    <Fade in={open} timeout={transitionDuration}>
+      <div className={styles.backdropContainer}>
+        <div
+          role="presentation"
+          onClick={handleClick}
+          className="bg-base--inverted o-50 h-100"
+        >
+          {children}
+        </div>
+      </div>
+    </Fade>
   )
 }
 

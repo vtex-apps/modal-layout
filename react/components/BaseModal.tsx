@@ -11,7 +11,6 @@ interface Props
   > {
   open: boolean
   onClose: () => void
-  keepMounted?: boolean
   backdrop?: BackdropMode
   container?: ContainerType
   disableEscapeKeyDown?: boolean
@@ -38,7 +37,6 @@ export default function BaseModal(props: Props) {
     children,
     container,
     onBackdropClick,
-    keepMounted = false,
     disableEscapeKeyDown = false,
     ...rest
   } = props
@@ -82,7 +80,7 @@ export default function BaseModal(props: Props) {
     }
   }
 
-  if (!keepMounted && !open && exited) {
+  if (!open && exited) {
     return null
   }
 

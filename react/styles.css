@@ -1,4 +1,4 @@
-.backdrop {
+.backdropContainer {
   z-index: -1;
   position: fixed;
   right: 0;
