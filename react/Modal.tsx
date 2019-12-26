@@ -14,6 +14,7 @@ import { BackdropMode } from './components/Backdrop'
 import ModalContent from './components/ModalContent'
 import ModalTitle, { TitleTag } from './components/ModalTitle'
 import { useModalState, useModalDispatch } from './components/ModalContext'
+import Fade from './components/Animations/Fade'
 
 export enum ScrollMode {
   body = 'body',
@@ -105,41 +106,43 @@ function Modal(props: Props) {
       onBackdropClick={handleBackdropClick}
       disableEscapeKeyDown={disableEscapeKeyDown}
     >
-      {
-        /* click-events-have-key-events is disabled because this will be handled by BaseModal */
-        /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-        <div
-          tabIndex={-1}
-          className={containerClasses}
-          onClick={handleBackdropClick}
-        >
-          <div className={paperClasses} style={styles.root}>
-            {(title || showCloseButton) && (
-              <div className={topRowClasses}>
-                {title && (
-                  <ModalTitle
-                    className={showCloseButton ? '' : 'pr5'}
-                    tag={titleTag}
-                  >
-                    {title}
-                  </ModalTitle>
-                )}
-                {showCloseButton && (
-                  <button
-                    onClick={handleClose}
-                    className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
-                  >
-                    <IconClose size={24} type="line" />
-                  </button>
-                )}
-              </div>
-            )}
-            <ModalContent dividers={showContentDividers}>
-              {children}
-            </ModalContent>
+      <Fade in={open}>
+        {
+          /* click-events-have-key-events is disabled because this will be handled by BaseModal */
+          /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
+          <div
+            tabIndex={-1}
+            className={containerClasses}
+            onClick={handleBackdropClick}
+          >
+            <div className={paperClasses} style={styles.root}>
+              {(title || showCloseButton) && (
+                <div className={topRowClasses}>
+                  {title && (
+                    <ModalTitle
+                      className={showCloseButton ? '' : 'pr5'}
+                      tag={titleTag}
+                    >
+                      {title}
+                    </ModalTitle>
+                  )}
+                  {showCloseButton && (
+                    <button
+                      onClick={handleClose}
+                      className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
+                    >
+                      <IconClose size={24} type="line" />
+                    </button>
+                  )}
+                </div>
+              )}
+              <ModalContent dividers={showContentDividers}>
+                {children}
+              </ModalContent>
+            </div>
           </div>
-        </div>
-      }
+        }
+      </Fade>
     </BaseModal>
   )
 }
