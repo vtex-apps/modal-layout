@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
@@ -11,7 +11,6 @@ interface Props
   > {
   open: boolean
   onClose: () => void
-  keepMounted?: boolean
   backdrop?: BackdropMode
   container?: ContainerType
   disableEscapeKeyDown?: boolean
@@ -38,10 +37,11 @@ export default function BaseModal(props: Props) {
     children,
     container,
     onBackdropClick,
-    keepMounted = false,
     disableEscapeKeyDown = false,
     ...rest
   } = props
+
+  const [exited, setExited] = useState(true)
 
   useEffect(() => {
     if (open) {
@@ -50,6 +50,14 @@ export default function BaseModal(props: Props) {
       document.body.classList.remove('overflow-y-hidden')
     }
   }, [open])
+
+  const handleExited = () => {
+    setExited(true)
+  }
+
+  const handleEnter = () => {
+    setExited(false)
+  }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -66,11 +74,23 @@ export default function BaseModal(props: Props) {
     }
     e.stopPropagation()
     onClose()
+
+    if (rest.onKeyDown) {
+      rest.onKeyDown(e)
+    }
   }
 
-  if (!keepMounted && !open) {
+  if (!open && exited) {
     return null
   }
+
+  const childProps: Record<string, any> = {}
+  if (children.props.tabIndex === undefined) {
+    childProps.tabIndex = '-1'
+  }
+
+  childProps.onEnter = handleEnter
+  childProps.onExited = handleExited
 
   return (
     <Portal container={container}>
@@ -81,7 +101,9 @@ export default function BaseModal(props: Props) {
         style={styles.container}
         onKeyDown={handleKeyDown}
       >
-        <TrapFocus open={open}>{children}</TrapFocus>
+        <TrapFocus open={open}>
+          {React.cloneElement(children, childProps)}
+        </TrapFocus>
         {backdrop !== BackdropMode.none && (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
