@@ -99,8 +99,10 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | --- |
 | `triggerContainer` |
 | `container` |
+| `contentContainer` |
+| `headerContainer` |
+| `headerContent` |
 | `closeButtonContainer` |
 | `closeButton` |
-| `title` |
-| `contentContainer` |
+| `backdropContainer` |
 | `backdrop` |

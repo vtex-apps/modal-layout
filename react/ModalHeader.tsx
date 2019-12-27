@@ -14,7 +14,12 @@ interface Props {
   showCloseButton?: MaybeResponsiveInput<boolean>
 }
 
-const CSS_HANDLES = ['headerContainer', 'closeButton', 'headerContent']
+const CSS_HANDLES = [
+  'headerContainer',
+  'closeButton',
+  'headerContent',
+  'closeButtonContainer',
+]
 
 export default function ModalHeader(props: Props) {
   const { children, showCloseButton: showCloseButtonProp = true } = props
@@ -45,12 +50,14 @@ export default function ModalHeader(props: Props) {
     <div className={headerContainerClasses}>
       {hasChildren && <div className={handles.headerContent}>{children}</div>}
       {showCloseButton && (
-        <button
-          onClick={handleClose}
-          className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
-        >
-          <IconClose size={24} type="line" />
-        </button>
+        <div className={handles.closeButtonContainer}>
+          <button
+            onClick={handleClose}
+            className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa3`}
+          >
+            <IconClose size={24} type="line" />
+          </button>
+        </div>
       )}
     </div>
   )
