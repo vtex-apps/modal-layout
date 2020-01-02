@@ -8,5 +8,15 @@
     "component": "ModalTrigger",
     "allowed": "*",
     "composition": "children"
+  },
+  "modal-header": {
+    "component": "ModalHeader",
+    "allowed": "*",
+    "composition": "children"
+  },
+  "modal-content": {
+    "component": "ModalContent",
+    "allowed": "*",
+    "composition": "children"
   }
 }

@@ -29,14 +29,27 @@ WIP
       "product-summary-buy-button"
     ]
   },
-  "modal-layout#preview-shelf": {
+  "rich-text#modal-title": {
     "props": {
-      "title": "This is the title of the product preview",
-      "blockClass": "klynger"
-    },
+      "text": "## Preview modal title",
+      "blockClass": "myModalTitle"
+    }
+  },
+  "modal-header": {
+    "children": [
+      "rich-text#modal-title"
+    ]
+  },
+  "modal-content": {
     "children": [
       "all-my-children-elements-of-modal",
       "product-images"
+    ]
+  },
+  "modal-layout#preview-shelf": {
+    "children": [
+      "modal-header",
+      "modal-content"
     ]
   }
 }
@@ -46,12 +59,8 @@ WIP
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `title` | `string`| The title of the modal | `undefined` |
-| `showContentDividers` | `boolean` | If should add a border between the content, title and the actions | `false` |
 | `scroll` | `ScrollMode` | Where the component should scroll if the content is bigger than the screen (see `ScrollMode` options bellow) | `'content'` |
-| `showCloseButton`| `ResponsiveValue<boolean> | boolean`| If it should show the close button | `true` |
 | `backdrop`| `ResponsiveValue<BackdropMode> | BackdropMode` | How the backdrop should be rendered | `'clickable'` |
-| `titleTag` | `TitleTag` | Which tag the title element should render | `'h3'` |
 | `fullScreen` | `ResponsiveValue<boolean> | boolean` | If the modal should be in full screen | `false` |
 | `disableEscapeKeyDown` | `boolean` | If if should disable closing the modal when you press `Esc` | `false` |
 
@@ -72,16 +81,15 @@ You can learn more about `ResponsiveValue` in the documentation of [responsive-v
 | `'clickable'` | It will render the `Backdrop` and if you click it it will close the modal. | 
 | `'none'` | It won't render the `Backdrop`. |
 
-#### TitleTag
+### ModalHeader
 
-| Value |
-| --- |
-| `'h1'` |
-| `'h2'` |
-| `'h3'` |
-| `'h4'` |
-| `'h5'` |
-| `'h6'` |
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | --- |
+| `showCloseButton`| `ResponsiveValue<boolean> | boolean`| If it should show the close button | `true` |
+
+### ModalContent
+
+The `modal-content` block doesn't receive any prop
 
 ## Customization
 
@@ -91,8 +99,10 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | --- |
 | `triggerContainer` |
 | `container` |
+| `contentContainer` |
+| `headerContainer` |
+| `headerContent` |
 | `closeButtonContainer` |
 | `closeButton` |
-| `title` |
-| `contentContainer` |
+| `backdropContainer` |
 | `backdrop` |

@@ -1,7 +1,7 @@
 import React from 'react'
+import { useCssHandles } from 'vtex.css-handles'
 import { TransitionProps } from 'react-transition-group/Transition'
 
-import styles from '../styles.css'
 import Fade from './Animations/Fade'
 
 export enum BackdropMode {
@@ -16,8 +16,11 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
+const CSS_HANDLES = ['backdropContainer', 'backdrop']
+
 const Backdrop: React.FC<Props> = props => {
   const { children, open, onClick, transitionDuration } = props
+  const handles = useCssHandles(CSS_HANDLES)
 
   if (!open) {
     return null
@@ -31,11 +34,11 @@ const Backdrop: React.FC<Props> = props => {
 
   return (
     <Fade in={open} timeout={transitionDuration}>
-      <div className={styles.backdropContainer}>
+      <div className={handles.backdropContainer}>
         <div
           role="presentation"
           onClick={handleClick}
-          className="bg-base--inverted o-50 h-100"
+          className={`${handles.backdrop} bg-base--inverted o-50 h-100`}
         >
           {children}
         </div>

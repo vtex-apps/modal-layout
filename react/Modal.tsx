@@ -1,7 +1,6 @@
 import React from 'react'
 import { pick } from 'ramda'
 import classnames from 'classnames'
-import { IconClose } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 import {
   useResponsiveValues,
@@ -11,8 +10,6 @@ import {
 import styles from './styles.css'
 import BaseModal from './components/BaseModal'
 import { BackdropMode } from './components/Backdrop'
-import ModalContent from './components/ModalContent'
-import ModalTitle, { TitleTag } from './components/ModalTitle'
 import { useModalState, useModalDispatch } from './components/ModalContext'
 import Fade from './components/Animations/Fade'
 
@@ -22,16 +19,12 @@ export enum ScrollMode {
 }
 
 interface Props {
-  title?: string
-  titleTag: TitleTag
   scroll?: ScrollMode
   blockClass?: string
   children?: React.ReactNode
-  showContentDividers: boolean
   disableEscapeKeyDown?: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
   backdrop?: MaybeResponsiveInput<BackdropMode>
-  showCloseButton?: MaybeResponsiveInput<boolean>
 }
 
 const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton']
@@ -40,17 +33,13 @@ const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 
 function Modal(props: Props) {
   const {
-    title,
-    titleTag,
     children,
-    showContentDividers,
     scroll = ScrollMode.content,
     disableEscapeKeyDown = false,
   } = props
 
   const {
     fullScreen = false,
-    showCloseButton = true,
     backdrop = BackdropMode.clickable,
   } = useResponsiveValues(pick(responsiveProps, props))
 
@@ -93,10 +82,6 @@ function Modal(props: Props) {
     [`${styles.paperScrollContent} flex flex-column`]:
       scroll === ScrollMode.content,
   })
-  const topRowClasses = classnames(handles.topRow, 'flex items-start', {
-    ['justify-between']: title,
-    ['justify-end']: !title,
-  })
 
   return (
     <BaseModal
@@ -116,29 +101,7 @@ function Modal(props: Props) {
             onClick={handleBackdropClick}
           >
             <div className={paperClasses} style={styles.root}>
-              {(title || showCloseButton) && (
-                <div className={topRowClasses}>
-                  {title && (
-                    <ModalTitle
-                      className={showCloseButton ? '' : 'pr5'}
-                      tag={titleTag}
-                    >
-                      {title}
-                    </ModalTitle>
-                  )}
-                  {showCloseButton && (
-                    <button
-                      onClick={handleClose}
-                      className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa2`}
-                    >
-                      <IconClose size={24} type="line" />
-                    </button>
-                  )}
-                </div>
-              )}
-              <ModalContent dividers={showContentDividers}>
-                {children}
-              </ModalContent>
+              {children}
             </div>
           </div>
         }
