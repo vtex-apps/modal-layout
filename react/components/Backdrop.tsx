@@ -22,10 +22,6 @@ const Backdrop: React.FC<Props> = props => {
   const { children, open, onClick, transitionDuration } = props
   const handles = useCssHandles(CSS_HANDLES)
 
-  if (!open) {
-    return null
-  }
-
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (onClick) {
       onClick(e)

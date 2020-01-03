@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
+import TrapFocus from './TrapFocus'
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
-import TrapFocus from './TrapFocus'
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -42,14 +42,17 @@ export default function BaseModal(props: Props) {
   } = props
 
   const [exited, setExited] = useState(true)
+  const [prevOpen, setPrevOpen] = useState(open)
 
-  useEffect(() => {
+  if (open !== prevOpen) {
+    setPrevOpen(open)
     if (open) {
-      document.body.classList.add('overflow-y-hidden')
+      // This can't be overflow-y-hidden because of some problem with safari
+      document.body.classList.add('overflow-hidden')
     } else {
-      document.body.classList.remove('overflow-y-hidden')
+      document.body.classList.remove('overflow-hidden')
     }
-  }, [open])
+  }
 
   const handleExited = () => {
     setExited(true)

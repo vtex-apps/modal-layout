@@ -66,6 +66,18 @@ WIP
 
 You can learn more about `ResponsiveValue` in the documentation of [responsive-values](https://vtex.io/docs/app/vtex.responsive-values).
 
+### ModalTrigger
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | --- |
+| `trigger` | `TriggerMode` | Which kind of event should trigger the modal | `'click'` |
+
+#### TriggerMode
+
+| Value | Description |
+| --- | --- |
+| `'click'` | Will open the modal when the user clicks the `ModalTrigger` |
+| `'load'` | Will open the modal when the window is loaded |
+
 #### ScrollMode
 
 | Value | Description |
