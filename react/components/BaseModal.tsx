@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
+import styles from '../styles.css'
+import TrapFocus from './TrapFocus'
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
-import TrapFocus from './TrapFocus'
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -18,7 +19,7 @@ interface Props
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const styles: Record<string, React.CSSProperties> = {
+const inlineStyles: Record<string, React.CSSProperties> = {
   container: {
     position: 'fixed',
     right: 0,
@@ -42,14 +43,16 @@ export default function BaseModal(props: Props) {
   } = props
 
   const [exited, setExited] = useState(true)
+  const [prevOpen, setPrevOpen] = useState(open)
 
-  useEffect(() => {
+  if (open !== prevOpen) {
+    setPrevOpen(open)
     if (open) {
-      document.body.classList.add('overflow-y-hidden')
+      document.body.classList.add(styles.hiddenBody)
     } else {
-      document.body.classList.remove('overflow-y-hidden')
+      document.body.classList.remove(styles.hiddenBody)
     }
-  }, [open])
+  }
 
   const handleExited = () => {
     setExited(true)
@@ -98,8 +101,8 @@ export default function BaseModal(props: Props) {
         {...rest}
         role="presentation"
         onClick={handleClick}
-        style={styles.container}
         onKeyDown={handleKeyDown}
+        style={inlineStyles.container}
       >
         <TrapFocus open={open}>
           {React.cloneElement(children, childProps)}

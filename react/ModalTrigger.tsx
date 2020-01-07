@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
 import {
@@ -8,9 +8,20 @@ import {
 
 const CSS_HANDLES = ['triggerContainer']
 
-const ModalTrigger: React.FC<{}> = ({ children }) => {
+enum TriggerMode {
+  click = 'click',
+  load = 'load',
+}
+
+interface Props {
+  trigger?: TriggerMode
+}
+
+const ModalTrigger: React.FC<Props> = props => {
+  const { children, trigger = TriggerMode.click } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
+  const [openOnLoad, setOpenOnLoad] = useState(false)
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -20,20 +31,41 @@ const ModalTrigger: React.FC<{}> = ({ children }) => {
     }
   }
 
-  return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div
-      tabIndex={0}
-      role="button"
-      onClick={handleModalOpen}
-      className={`${handles.triggerContainer} bg-transparent pa0 outline-0 bw0`}
-    >
-      {children}
-    </div>
-  )
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Enter') {
+      return
+    }
+    e.stopPropagation()
+    if (dispatch) {
+      dispatch({ type: 'OPEN_MODAL' })
+    }
+  }
+
+  useEffect(() => {
+    if (!openOnLoad && trigger === TriggerMode.load && dispatch) {
+      dispatch({ type: 'OPEN_MODAL' })
+      setOpenOnLoad(true)
+    }
+  }, [trigger, dispatch, openOnLoad])
+
+  if (trigger === TriggerMode.click) {
+    return (
+      <div
+        tabIndex={0}
+        role="button"
+        onKeyDown={handleKeyDown}
+        onClick={handleModalOpen}
+        className={`${handles.triggerContainer} bg-transparent pa0 bw0`}
+      >
+        {children}
+      </div>
+    )
+  }
+
+  return <>{children}</>
 }
 
-const EnhancedModalTrigger: React.FC<{}> = props => {
+const EnhancedModalTrigger: React.FC = props => {
   return (
     <ModalContextProvider>
       <ModalTrigger {...props} />

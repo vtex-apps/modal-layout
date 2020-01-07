@@ -7,6 +7,7 @@ import {
   MaybeResponsiveInput,
 } from 'vtex.responsive-values'
 
+import styles from './styles.css'
 import { useModalDispatch } from './components/ModalContext'
 
 interface Props {
@@ -38,8 +39,9 @@ export default function ModalHeader(props: Props) {
 
   const hasChildren = Boolean(children)
   const headerContainerClasses = classnames(
+    styles.headerContainer,
     handles.headerContainer,
-    'flex items-start bb b--muted-3',
+    'flex items-start bb b--muted-3 flex-shrink-0 flex-grow-0',
     {
       ['justify-between']: hasChildren,
       ['justify-end']: !hasChildren,
