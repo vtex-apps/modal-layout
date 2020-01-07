@@ -26,3 +26,12 @@
 .fullScreenModal {
   max-height: none;
 }
+
+.headerContainer {
+  flex-basis: auto;
+}
+
+.hiddenBody {
+  /* This can't be overflow-y: hidden because of some problem with safari */
+  overflow: hidden;
+}

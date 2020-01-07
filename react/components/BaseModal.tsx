@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import styles from '../styles.css'
 import TrapFocus from './TrapFocus'
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
@@ -18,7 +19,7 @@ interface Props
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const styles: Record<string, React.CSSProperties> = {
+const inlineStyles: Record<string, React.CSSProperties> = {
   container: {
     position: 'fixed',
     right: 0,
@@ -47,10 +48,9 @@ export default function BaseModal(props: Props) {
   if (open !== prevOpen) {
     setPrevOpen(open)
     if (open) {
-      // This can't be overflow-y-hidden because of some problem with safari
-      document.body.classList.add('overflow-hidden')
+      document.body.classList.add(styles.hiddenBody)
     } else {
-      document.body.classList.remove('overflow-hidden')
+      document.body.classList.remove(styles.hiddenBody)
     }
   }
 
@@ -101,8 +101,8 @@ export default function BaseModal(props: Props) {
         {...rest}
         role="presentation"
         onClick={handleClick}
-        style={styles.container}
         onKeyDown={handleKeyDown}
+        style={inlineStyles.container}
       >
         <TrapFocus open={open}>
           {React.cloneElement(children, childProps)}

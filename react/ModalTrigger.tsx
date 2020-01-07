@@ -31,6 +31,16 @@ const ModalTrigger: React.FC<Props> = props => {
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Enter') {
+      return
+    }
+    e.stopPropagation()
+    if (dispatch) {
+      dispatch({ type: 'OPEN_MODAL' })
+    }
+  }
+
   useEffect(() => {
     if (!openOnLoad && trigger === TriggerMode.load && dispatch) {
       dispatch({ type: 'OPEN_MODAL' })
@@ -40,12 +50,12 @@ const ModalTrigger: React.FC<Props> = props => {
 
   if (trigger === TriggerMode.click) {
     return (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div
         tabIndex={0}
         role="button"
+        onKeyDown={handleKeyDown}
         onClick={handleModalOpen}
-        className={`${handles.triggerContainer} bg-transparent pa0 outline-0 bw0`}
+        className={`${handles.triggerContainer} bg-transparent pa0 bw0`}
       >
         {children}
       </div>
