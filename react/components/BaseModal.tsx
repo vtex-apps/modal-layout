@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 import styles from '../styles.css'
 import TrapFocus from './TrapFocus'
 import Portal, { ContainerType } from './Portal'
 import Backdrop, { BackdropMode } from './Backdrop'
+import ModalManager from '../utils/ModalManager'
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -30,6 +31,10 @@ const inlineStyles: Record<string, React.CSSProperties> = {
   },
 } as const
 
+const manager = new ModalManager()
+
+const hashRegex = /#$/
+
 export default function BaseModal(props: Props) {
   const {
     open,
@@ -44,13 +49,28 @@ export default function BaseModal(props: Props) {
 
   const [exited, setExited] = useState(true)
   const [prevOpen, setPrevOpen] = useState(open)
+  const modalRef = useRef<HTMLDivElement>(null)
 
   if (open !== prevOpen) {
     setPrevOpen(open)
+
     if (open) {
       document.body.classList.add(styles.hiddenBody)
     } else {
       document.body.classList.remove(styles.hiddenBody)
+    }
+
+    if (window) {
+      if (open) {
+        window.history.pushState({ type: 'OPEN_MODAL' }, 'open modal', '#')
+        manager.add(modalRef, onClose)
+      } else {
+        window.history.replaceState(
+          { type: 'CLOSE_MODAL' },
+          'close modal',
+          window.location.href.replace(hashRegex, '')
+        )
+      }
     }
   }
 
@@ -99,6 +119,7 @@ export default function BaseModal(props: Props) {
     <Portal container={container}>
       <div
         {...rest}
+        ref={modalRef}
         role="presentation"
         onClick={handleClick}
         onKeyDown={handleKeyDown}

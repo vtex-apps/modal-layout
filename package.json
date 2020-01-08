@@ -1,4 +1,10 @@
 {
+  "name": "modal-layout",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "lint": "eslint --ext js,jsx,ts,tsx ."
+  },
   "devDependencies": {
     "@types/node": "^12.12.21",
     "eslint": "^6.7.2",
