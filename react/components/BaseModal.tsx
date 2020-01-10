@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 
 import styles from '../styles.css'
 import TrapFocus from './TrapFocus'
@@ -74,13 +74,13 @@ export default function BaseModal(props: Props) {
     }
   }
 
-  const handleExited = () => {
+  const handleExited = useCallback(() => {
     setExited(true)
-  }
+  }, [setExited])
 
-  const handleEnter = () => {
+  const handleEnter = useCallback(() => {
     setExited(false)
-  }
+  }, [setExited])
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
