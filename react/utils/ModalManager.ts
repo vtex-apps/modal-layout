@@ -18,6 +18,7 @@ export default class ModalManager {
 
     if (window && window.addEventListener) {
       window.addEventListener('popstate', e => {
+        // If this event if fired with a modal open it will close it
         if (this.closeMethods.length > 0) {
           e.stopPropagation()
           this.closeMethods[this.closeMethods.length - 1]()
