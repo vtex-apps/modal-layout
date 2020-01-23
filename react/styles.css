@@ -31,7 +31,7 @@
   flex-basis: auto;
 }
 
-.hiddenBody {
+.hiddenContainer {
   /* This can't be overflow-y: hidden because of some problem with safari */
   overflow: hidden;
 }

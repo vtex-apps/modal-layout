@@ -53,4 +53,10 @@ export default class ModalManager {
     this.modals.splice(this.modals.length - 1, 1)
     this.closeMethods.splice(this.closeMethods.length - 1, 1)
   }
+
+  isTopModal(modal: ModalRef) {
+    return (
+      this.modals.length > 0 && this.modals[this.modals.length - 1] === modal
+    )
+  }
 }
