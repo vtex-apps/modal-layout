@@ -1,7 +1,8 @@
 import React, { useState, forwardRef } from 'react'
 import ReactDOM from 'react-dom'
 
-import { useEnhancedEffect, setRef } from '../utils'
+import setRef from '../modules/setRef'
+import useEnhancedEffect from '../modules/useEnhancedEffect'
 
 export type ContainerType =
   | React.ReactInstance

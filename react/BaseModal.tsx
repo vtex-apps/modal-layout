@@ -2,10 +2,10 @@ import React, { useState, useRef, useCallback } from 'react'
 
 import styles from './styles.css'
 import TrapFocus from './components/TrapFocus'
-import Portal, { ContainerType, getContainer } from './components/Portal'
+import ModalManager from './modules/ModalManager'
 import Backdrop, { BackdropMode } from './components/Backdrop'
-import ModalManager from './utils/ModalManager'
-import { createChainedFunction } from './utils'
+import createChainedFunction from './modules/createChainedFunction'
+import Portal, { ContainerType, getContainer } from './components/Portal'
 
 interface Props
   extends React.DetailedHTMLProps<

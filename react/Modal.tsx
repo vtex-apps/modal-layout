@@ -9,9 +9,9 @@ import {
 
 import styles from './styles.css'
 import BaseModal from './BaseModal'
+import Fade from './components/Animations/Fade'
 import { BackdropMode } from './components/Backdrop'
 import { useModalState, useModalDispatch } from './components/ModalContext'
-import Fade from './components/Animations/Fade'
 
 export enum ScrollMode {
   body = 'body',
