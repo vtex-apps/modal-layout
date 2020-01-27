@@ -1,10 +1,11 @@
 import React, { useState, useRef, useCallback } from 'react'
 
-import styles from '../styles.css'
-import TrapFocus from './TrapFocus'
-import Portal, { ContainerType } from './Portal'
-import Backdrop, { BackdropMode } from './Backdrop'
-import ModalManager from '../utils/ModalManager'
+import styles from './styles.css'
+import TrapFocus from './components/TrapFocus'
+import ModalManager from './modules/ModalManager'
+import Backdrop, { BackdropMode } from './components/Backdrop'
+import createChainedFunction from './modules/createChainedFunction'
+import Portal, { ContainerType, getContainer } from './components/Portal'
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -50,22 +51,28 @@ export default function BaseModal(props: Props) {
   const [exited, setExited] = useState(true)
   const [prevOpen, setPrevOpen] = useState(open)
   const modalRef = useRef<HTMLDivElement>(null)
+  const isTopModal = useCallback(() => manager.isTopModal(modalRef), [])
+
+  let resolvedContainer = getContainer(container)
+  if (!resolvedContainer && window && window.document) {
+    resolvedContainer = window.document.body
+  }
 
   if (open !== prevOpen) {
     setPrevOpen(open)
 
     if (open) {
-      document.body.classList.add(styles.hiddenBody)
+      resolvedContainer?.classList.add(styles.hiddenContainer)
     } else {
-      document.body.classList.remove(styles.hiddenBody)
+      resolvedContainer?.classList.remove(styles.hiddenContainer)
     }
 
     if (window) {
       if (open) {
-        window.history.pushState({ type: 'OPEN_MODAL' }, 'open modal', '#')
+        window?.history.pushState({ type: 'OPEN_MODAL' }, 'open modal', '#')
         manager.add(modalRef, onClose)
       } else {
-        window.history.replaceState(
+        window?.history.replaceState(
           { type: 'CLOSE_MODAL' },
           'close modal',
           window.location.href.replace(hashRegex, '')
@@ -95,6 +102,13 @@ export default function BaseModal(props: Props) {
     if (e.key !== 'Escape' || disableEscapeKeyDown) {
       return
     }
+
+    // If its not the top modal this event is not for this modal
+    if (!isTopModal()) {
+      return
+    }
+
+    // If the event is for this modal it will not pass it to anyone else
     e.stopPropagation()
     onClose()
 
@@ -112,8 +126,14 @@ export default function BaseModal(props: Props) {
     childProps.tabIndex = '-1'
   }
 
-  childProps.onEnter = handleEnter
-  childProps.onExited = handleExited
+  childProps.onEnter = createChainedFunction(
+    handleEnter,
+    children.props.onEnter
+  )
+  childProps.onExited = createChainedFunction(
+    handleExited,
+    children.props.onExited
+  )
 
   return (
     <Portal container={container}>

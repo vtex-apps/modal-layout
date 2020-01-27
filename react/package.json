@@ -25,11 +25,7 @@
     "eslint-config-vtex-react": "^5.1.0",
     "prettier": "^1.18.2",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "3.7.3",
-    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.88.0/public/@types/vtex.render-runtime",
-    "vtex.css-handles": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
-    "vtex.store-icons": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-icons@0.15.0/public/@types/vtex.store-icons",
-    "vtex.responsive-values": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.responsive-values@0.2.0/public/_types/react"
+    "typescript": "3.7.3"
   },
   "version": "0.0.0"
 }

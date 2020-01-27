@@ -16,3 +16,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Create the `modal-content` and `modal-header` blocks.
 - Trigger options.
 - Close with back button of the browser.
+- Support for alternative containers.
