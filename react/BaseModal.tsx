@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 
 import styles from './styles.css'
 import TrapFocus from './components/TrapFocus'
@@ -80,6 +80,14 @@ export default function BaseModal(props: Props) {
       }
     }
   }
+
+  // This is needed to prevent the modal keep this class if you
+  // change the route and don't close the modal
+  useEffect(() => {
+    return () => {
+      resolvedContainer?.classList.remove(styles.hiddenContainer)
+    }
+  }, [resolvedContainer])
 
   const handleExited = useCallback(() => {
     setExited(true)
