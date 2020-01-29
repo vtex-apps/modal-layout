@@ -55,7 +55,7 @@ const ModalTrigger: React.FC<Props> = props => {
         role="button"
         onKeyDown={handleKeyDown}
         onClick={handleModalOpen}
-        className={`${handles.triggerContainer} bg-transparent pa0 bw0`}
+        className={`${handles.triggerContainer} bg-transparent pa0 bw0 dib`}
       >
         {children}
       </div>
