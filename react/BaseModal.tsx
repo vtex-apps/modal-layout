@@ -81,7 +81,7 @@ export default function BaseModal(props: Props) {
     }
   }
 
-  // This is needed to prevent the modal keep this class if you
+  // This is needed to prevent the modal from keeping this class if you
   // change the route and don't close the modal
   useEffect(() => {
     return () => {
