@@ -2,12 +2,12 @@
 
 # Modal Layout
 
-WIP
+This repository provides blocks that can help you create modals in a store.
 
-:construction: :construction: :construction:
+This `Quickview` text is a button that you can click and open the `modal-layout`
+![image](https://user-images.githubusercontent.com/8517023/73455563-13afff00-434f-11ea-970a-6ae8a18df54f.png)
 
-*Do not use this repository until it has a stable version*
-
+![image](https://user-images.githubusercontent.com/8517023/73455440-da778f00-434e-11ea-9d38-e31b2576b670.png)
 
 ## Configuration
 
@@ -15,43 +15,117 @@ WIP
 
 ```jsonc
 {
-  "vtex.modal-layout": "0.x"
+  "dependencies": {
+    "vtex.modal-layout": "0.x"
+  }
 }
 ```
 
-2. Now you can use the two blocks that the `modal-layout` app export. You have to create your `modal-layout` block and put him as a child of the `modal-trigger` block:
+2. Now you can use the two blocks exported by vtex.modal-layout. Notice that you need to configure your own modal-layout and pass it as a child of modal-trigger.
 
 ```jsonc
 {
-  "modal-trigger#preview-shelf": {
+  "product-summary.shelf": {
     "children": [
-      "modal-layout#preview-shelf",
-      "product-summary-buy-button"
+      "stack-layout#prodsum",
+      "product-summary-name",
+      "product-rating-inline",
+      "product-summary-space",
+      "product-summary-price",
+      "add-to-cart-button"
     ]
   },
-  "rich-text#modal-title": {
+  "modal-trigger#quickview": {
+    "children": [
+      "modal-layout#quickview",
+      "rich-text#quickview"
+    ],
     "props": {
-      "text": "## Preview modal title",
-      "blockClass": "myModalTitle"
+      "blockClass": "quickview"
     }
   },
-  "modal-header": {
+  "rich-text#quickview": {
+    "props": {
+      "text": "Quickview",
+      "blockClass": "quickview"
+    }
+  },
+  "modal-layout#quickview": {
+    "props": {
+      "blockClass": "quickview",
+      "fullScreen": {
+        "phone": true,
+        "desktop": false,
+        "tablet": false
+      }
+    },
     "children": [
-      "rich-text#modal-title"
+      "flex-layout.row#quickview-main-row"
     ]
   },
-  "modal-content": {
+  "flex-layout.row#quickview-main-row": {
     "children": [
-      "all-my-children-elements-of-modal",
+      "flex-layout.col#quickview-product-images",
+      "flex-layout.col#quickview-product-information"
+    ],
+    "props": {
+      "colGap": 4
+    }
+  },
+  "flex-layout.col#quickview-product-images": {
+    "children": [
       "product-images"
-    ]
+    ],
+    "props": {
+      "rowGap": 0,
+      "width": "calc(50% - 0.375rem)"
+    }
   },
-  "modal-layout#preview-shelf": {
+  "flex-layout.col#quickview-product-information": {
     "children": [
-      "modal-header",
-      "modal-content"
-    ]
-  }
+      "vtex.store-components:product-name",
+      "product-rating-summary",
+      "product-price#quickview-price",
+      "product-separator",
+      "product-identifier.product",
+      "product-summary-sku-selector#quickview",
+      "link.product#quickview"
+    ],
+    "props": {
+      "preventVerticalStretch": true,
+      "rowGap": 0,
+      "width": "calc(50% - 0.375rem)"
+    }
+  },
+  "product-price#quickview-price": {
+    "props": {
+      "showInstallments": true,
+      "showSavings": true
+    }
+  },
+  "link.product#quickview": {
+    "props": {
+      "href": "/{slug}/p",
+      "label": "More details >",
+      "blockClass": "quickview"
+    }
+  },
+  "product-summary-sku-selector#quickview": {
+    "props": {
+      "blockClass": "quickview"
+    }
+  },
+  "stack-layout#prodsum": {
+    "children": [
+      "product-summary-image",
+      "product-bookmark",
+      "product-summary-specification-badges",
+      "modal-trigger#quickview"
+    ],
+    "props": {
+      "blockClass": "shelf-summary"
+    }
+  },
 }
 ```
 
@@ -109,12 +183,12 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 
 | CSS Handles |
 | --- |
-| `triggerContainer` |
+| `backdropContainer` |
+| `backdrop` |
+| `closeButtonContainer` |
+| `closeButton` |
 | `container` |
 | `contentContainer` |
 | `headerContainer` |
 | `headerContent` |
-| `closeButtonContainer` |
-| `closeButton` |
-| `backdropContainer` |
-| `backdrop` |
+| `triggerContainer` |

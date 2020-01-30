@@ -10,6 +10,7 @@
 
 .paperScrollContent {
   max-height: calc(100% - 4rem);
+  overflow: auto;
 }
 
 /* We have to apply margin: 2rem instead of using ma7 because if the user
