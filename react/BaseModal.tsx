@@ -98,7 +98,6 @@ export default function BaseModal(props: Props) {
   }, [setExited])
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault()
     e.stopPropagation()
 
     if (rest.onClick) {
