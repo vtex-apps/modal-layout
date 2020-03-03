@@ -22,7 +22,7 @@ const CSS_HANDLES = [
   'closeButtonContainer',
 ]
 
-export default function ModalHeader(props: Props) {
+export default React.memo(function ModalHeader(props: Props) {
   const { children, showCloseButton: showCloseButtonProp = true } = props
 
   const showCloseButton = useResponsiveValue(showCloseButtonProp)
@@ -57,10 +57,10 @@ export default function ModalHeader(props: Props) {
             onClick={handleClose}
             className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa3`}
           >
-            <IconClose size={24} type="line" />
+            <IconClose size={32} type="line" />
           </button>
         </div>
       )}
     </div>
   )
-}
+})

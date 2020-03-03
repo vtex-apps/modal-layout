@@ -110,6 +110,6 @@ function Modal(props: Props) {
   )
 }
 
-const ModalRef = React.forwardRef(Modal)
+const ModalRef = React.memo(React.forwardRef(Modal))
 
 export default ModalRef

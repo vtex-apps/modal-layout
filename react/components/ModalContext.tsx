@@ -2,10 +2,12 @@ import React, { createContext, useReducer, useContext } from 'react'
 
 interface State {
   open: boolean
+  endOfContent: boolean
 }
 
 const DEFAULT_STATE = {
   open: false,
+  endOfContent: false,
 }
 
 interface OpenAction {
@@ -16,11 +18,17 @@ interface CloseAction {
   type: 'CLOSE_MODAL'
 }
 
-type Action = OpenAction | CloseAction
-type Dispatch = (action: Action) => void
+interface SetEndOfContentAction {
+  type: 'SET_END_OF_CONTENT'
+  payload: { endOfContent: boolean }
+}
+
+type Action = OpenAction | CloseAction | SetEndOfContentAction
+export type Dispatch = (action: Action) => void
 
 const ModalStateContext = createContext<State>(DEFAULT_STATE)
-const ModalDispatchContext = createContext<Dispatch | undefined>(undefined)
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const ModalDispatchContext = createContext<Dispatch>(() => {})
 
 function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
   switch (action.type) {
@@ -34,6 +42,12 @@ function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
       return {
         ...state,
         open: false,
+      }
+
+    case 'SET_END_OF_CONTENT':
+      return {
+        ...state,
+        endOfContent: action.payload.endOfContent,
       }
 
     default:
