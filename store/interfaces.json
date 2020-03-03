@@ -1,22 +1,22 @@
 {
   "modal-layout": {
     "component": "Modal",
-    "composition": "children",
-    "allowed": "*"
+    "composition": "children"
   },
   "modal-trigger": {
     "component": "ModalTrigger",
-    "allowed": "*",
     "composition": "children"
   },
   "modal-header": {
     "component": "ModalHeader",
-    "allowed": "*",
     "composition": "children"
   },
   "modal-content": {
     "component": "ModalContent",
-    "allowed": "*",
+    "composition": "children"
+  },
+  "modal-actions": {
+    "component": "ModalActions",
     "composition": "children"
   }
 }
