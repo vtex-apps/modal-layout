@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -14,7 +14,21 @@ const ModalContent: React.FC = props => {
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const handles = useCssHandles(CSS_HANDLES)
   const dispatch = useModalDispatch()
-  useIntersection({ intersectionRef, dispatch, sentinelRef })
+  const handleIntersection = useCallback(
+    (isIntersecting: boolean) => {
+      dispatch({
+        type: 'SET_END_OF_CONTENT',
+        payload: { endOfContent: isIntersecting },
+      })
+    },
+    [dispatch]
+  )
+
+  useIntersection({
+    sentinelRef,
+    intersectionRef,
+    callback: handleIntersection,
+  })
 
   const classes = classnames(
     handles.contentContainer,

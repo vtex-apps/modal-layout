@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - CSS handle when in the `modal-actions` block when you reach the bottom of the content in scroll.
+- Prop `iconCloseSize` to the `modal-header` block.
 
 ### Changed
 - Use `React.memo` in some components to improve performance when you scroll the content.

@@ -13,6 +13,7 @@ import { useModalDispatch } from './components/ModalContext'
 interface Props {
   children?: React.ReactNode
   showCloseButton?: MaybeResponsiveInput<boolean>
+  iconCloseSize?: number
 }
 
 const CSS_HANDLES = [
@@ -23,7 +24,11 @@ const CSS_HANDLES = [
 ]
 
 export default React.memo(function ModalHeader(props: Props) {
-  const { children, showCloseButton: showCloseButtonProp = true } = props
+  const {
+    children,
+    iconCloseSize = 32,
+    showCloseButton: showCloseButtonProp = true,
+  } = props
 
   const showCloseButton = useResponsiveValue(showCloseButtonProp)
   const handles = useCssHandles(CSS_HANDLES)
@@ -57,7 +62,7 @@ export default React.memo(function ModalHeader(props: Props) {
             onClick={handleClose}
             className={`${handles.closeButton} ma0 bg-transparent pointer bw0 pa3`}
           >
-            <IconClose size={32} type="line" />
+            <IconClose size={iconCloseSize} type="line" />
           </button>
         </div>
       )}

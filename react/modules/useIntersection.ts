@@ -1,25 +1,20 @@
 import { useCallback, useEffect } from 'react'
 
-import { Dispatch } from '../components/ModalContext'
-
 interface Params {
-  dispatch: Dispatch
   intersectionRef: React.MutableRefObject<IntersectionObserver | null>
   sentinelRef: React.RefObject<HTMLDivElement | null>
+  callback: (isIntersecting: boolean) => void
 }
 
 export default function useIntersection(params: Params) {
-  const { dispatch, intersectionRef, sentinelRef } = params
+  const { callback, intersectionRef, sentinelRef } = params
   const handleIntersection: IntersectionObserverCallback = useCallback(
     entries => {
       if (entries[0]) {
-        dispatch({
-          type: 'SET_END_OF_CONTENT',
-          payload: { endOfContent: entries[0].isIntersecting },
-        })
+        callback(entries[0].isIntersecting)
       }
     },
-    [dispatch]
+    [callback]
   )
 
   useEffect(() => {
