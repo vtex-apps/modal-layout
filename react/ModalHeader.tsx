@@ -41,7 +41,7 @@ export default React.memo(function ModalHeader(props: Props) {
   const headerContainerClasses = classnames(
     styles.headerContainer,
     handles.headerContainer,
-    'flex items-start bb b--muted-3 flex-shrink-0 flex-grow-0',
+    'flex items-start bb b--muted-3 flex-shrink-0 flex-grow-0 z-5',
     {
       ['justify-between']: hasChildren,
       ['justify-end']: !hasChildren,

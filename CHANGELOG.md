@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Use `React.memo` in some components to improve performance when you scroll the content.
 
+### Fixed
+- Close button not working if you use position absolute with it.
+
 ## [0.2.0] - 2020-03-03
 ### Added
 - `modal-actions` block.
