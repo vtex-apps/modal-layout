@@ -172,6 +172,7 @@ You can learn more about `ResponsiveValue` in the documentation of [responsive-v
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
 | `showCloseButton`| `ResponsiveValue<boolean> | boolean`| If it should show the close button | `true` |
+| `iconCloseSize` | `number` | The size of the close icon in px | `32` |
 
 ### ModalContent
 

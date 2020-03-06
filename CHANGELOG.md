@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- CSS handle when in the `modal-actions` block when you reach the bottom of the content in scroll.
+- Prop `iconCloseSize` to the `modal-header` block.
+
+### Changed
+- Use `React.memo` in some components to improve performance when you scroll the content.
+
+### Fixed
+- Close button not working if you use position absolute with it.
 
 ## [0.2.0] - 2020-03-03
 ### Added
