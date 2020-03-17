@@ -1,20 +1,14 @@
-📢 Don't fork this project. Use, [contribute](https://github.com/vtex-apps/awesome-io#contributing), or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion).
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+📢 Use this project, [contribute](https://github.com/vtex-apps/modal-layout) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # Modal Layout
 
-This repository provides blocks that can help you create modals in a store.
-
-This `Quickview` text is a button that you can click and open the `modal-layout`
-![image](https://user-images.githubusercontent.com/8517023/73455563-13afff00-434f-11ea-970a-6ae8a18df54f.png)
+The Modal Layout app provides blocks that can help you create modals in your store.
 
 ![image](https://user-images.githubusercontent.com/8517023/73455440-da778f00-434e-11ea-9d38-e31b2576b670.png)
 
 ## Configuration
 
-1. Import the modal layout's app to your theme's dependencies in the `manifest.json`, for example:
+1. Add the modal layout's app to your theme's dependencies in the `manifest.json`:
 
 ```jsonc
 {
@@ -24,162 +18,65 @@ This `Quickview` text is a button that you can click and open the `modal-layout`
 }
 ```
 
-2. Now you can use the two blocks exported by vtex.modal-layout. Notice that you need to configure your own modal-layout and pass it as a child of modal-trigger.
+Now, you are able to use all blocks exported by the `modal-layout` app. Check out the full list below:
+
+| Block name | Description | 
+| --------  | ------------ | 
+| `modal-trigger` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Its child block defines how the Modal content will be triggered. | 
+| `modal-layout` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Defines how the Modal content will be rendered. |
+
+2. Add the `modal-trigger` block in any store template of your choosing. In the example below, it will be added to the Home page: 
 
 ```jsonc
 {
-  "product-summary.shelf": {
+  "store.home": {
     "children": [
-      "stack-layout#prodsum",
-      "product-summary-name",
-      "product-rating-inline",
-      "product-summary-space",
-      "product-summary-price",
-      "add-to-cart-button"
+      "modal-trigger#example"
     ]
   },
-  "modal-trigger#quickview": {
+```
+
+3. Declare the `modal-trigger` block using its prop and configuring children blocks for it. The `modal-trigger`'s first children must be a block of your choosing to trigger the Modal content. Then, a sibling block called `modal-layout` will be needed to effectively define how the Modal content should be rendered. For example:
+
+```jsonc
+{
+  "store.home": {
     "children": [
-      "modal-layout#quickview",
-      "rich-text#quickview"
-    ],
-    "props": {
-      "blockClass": "quickview"
-    }
-  },
-  "rich-text#quickview": {
-    "props": {
-      "text": "Quickview",
-      "blockClass": "quickview"
-    }
-  },
-  "modal-layout#quickview": {
-    "props": {
-      "blockClass": "quickview",
-      "fullScreen": {
-        "phone": true,
-        "desktop": false,
-        "tablet": false
-      }
-    },
-    "children": [
-      "flex-layout.row#quickview-main-row"
+      "modal-trigger#example"
     ]
   },
-  "flex-layout.row#quickview-main-row": {
+   "modal-trigger#example": {
     "children": [
-      "flex-layout.col#quickview-product-images",
-      "flex-layout.col#quickview-product-information"
-    ],
+      "rich-text#example",
+      "modal-layout#example"
+    ]
+  },
+  "rich-text#example": {
     "props": {
-      "colGap": 4
+      "text": "Click me"
     }
   },
-  "flex-layout.col#quickview-product-images": {
+  "modal-layout#example": {
     "children": [
-      "product-images"
-    ],
-    "props": {
-      "rowGap": 0,
-      "width": "calc(50% - 0.375rem)"
-    }
+      "rich-text#modal-content"
+    ]
   },
-  "flex-layout.col#quickview-product-information": {
-    "children": [
-      "vtex.store-components:product-name",
-      "product-rating-summary",
-      "product-price#quickview-price",
-      "product-separator",
-      "product-identifier.product",
-      "product-summary-sku-selector#quickview",
-      "link.product#quickview"
-    ],
+  "rich-text#modal-content": {
     "props": {
-      "preventVerticalStretch": true,
-      "rowGap": 0,
-      "width": "calc(50% - 0.375rem)"
+      "text": "Hello"
     }
-  },
-  "product-price#quickview-price": {
-    "props": {
-      "showInstallments": true,
-      "showSavings": true
-    }
-  },
-  "link.product#quickview": {
-    "props": {
-      "href": "/{slug}/p",
-      "label": "More details >",
-      "blockClass": "quickview"
-    }
-  },
-  "product-summary-sku-selector#quickview": {
-    "props": {
-      "blockClass": "quickview"
-    }
-  },
-  "stack-layout#prodsum": {
-    "children": [
-      "product-summary-image",
-      "product-bookmark",
-      "product-summary-specification-badges",
-      "modal-trigger#quickview"
-    ],
-    "props": {
-      "blockClass": "shelf-summary"
-    }
-  },
+  }
 }
 ```
 
-### Modal
+
+In the example above, the [Rich Text](https://vtex.io/docs/components/all/vtex.rich-text/) block renders the `Click me` text that will trigger the Modal content when clicked on. The modal content, in turn, is defined by the `modal-layout` block. According to the example above, the Modal content triggered by the `Click me` Rich Text would be a `Hello` Rich text. 
+
+- **`modal-trigger`** 
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `scroll` | `ScrollMode` | Where the component should scroll if the content is bigger than the screen (see `ScrollMode` options bellow) | `'content'` |
-| `backdrop`| `ResponsiveValue<BackdropMode> | BackdropMode` | How the backdrop should be rendered | `'clickable'` |
-| `fullScreen` | `ResponsiveValue<boolean> | boolean` | If the modal should be in full screen | `false` |
-| `disableEscapeKeyDown` | `boolean` | If if should disable closing the modal when you press `Esc` | `false` |
-
-You can learn more about `ResponsiveValue` in the documentation of [responsive-values](https://vtex.io/docs/app/vtex.responsive-values).
-
-### ModalTrigger
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `trigger` | `TriggerMode` | Which kind of event should trigger the modal | `'click'` |
-
-#### TriggerMode
-
-| Value | Description |
-| --- | --- |
-| `'click'` | Will open the modal when the user clicks the `ModalTrigger` |
-| `'load'` | Will open the modal when the window is loaded |
-
-#### ScrollMode
-
-| Value | Description |
-| --- | --- |
-| `'body'` | The size of the modal will be bigger than the screen if the content is bigger and it will scroll the body |
-| `'content'` | The max height of the modal will be the size of the screen and the scroll will be inside the content |
-
-#### BackdropMode
-
-| Value | Description |
-| --- | --- |
-| `'display'` | It will render the `Backdrop`, but if you click it won't do anything |
-| `'clickable'` | It will render the `Backdrop` and if you click it it will close the modal. | 
-| `'none'` | It won't render the `Backdrop`. |
-
-### ModalHeader
-
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `showCloseButton`| `ResponsiveValue<boolean> | boolean`| If it should show the close button | `true` |
-| `iconCloseSize` | `number` | The size of the close icon in px | `32` |
-
-### ModalContent
-
-The `modal-content` block doesn't receive any prop
+| `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`) or when the page is fully loaded (`load`)  | `'click'` |
 
 ## Customization
 
@@ -197,15 +94,3 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `headerContent` |
 | `triggerContainer` |
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
