@@ -6,6 +6,8 @@ import ModalManager from './modules/ModalManager'
 import Backdrop, { BackdropMode } from './components/Backdrop'
 import createChainedFunction from './modules/createChainedFunction'
 import Portal, { ContainerType, getContainer } from './components/Portal'
+import ownerDocument from './modules/ownerDocument'
+import useEventCallback from './modules/useEventCallback'
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -34,8 +36,6 @@ const inlineStyles: Record<string, React.CSSProperties> = {
 
 const manager = new ModalManager()
 
-const hashRegex = /#$/
-
 export default function BaseModal(props: Props) {
   const {
     open,
@@ -49,36 +49,13 @@ export default function BaseModal(props: Props) {
   } = props
 
   const [exited, setExited] = useState(true)
-  const [prevOpen, setPrevOpen] = useState(open)
   const modalRef = useRef<HTMLDivElement>(null)
   const isTopModal = useCallback(() => manager.isTopModal(modalRef), [])
+  const getDoc = () => ownerDocument(modalRef.current)
 
   let resolvedContainer = getContainer(container)
   if (!resolvedContainer && window && window.document) {
     resolvedContainer = window.document.body
-  }
-
-  if (open !== prevOpen) {
-    setPrevOpen(open)
-
-    if (open) {
-      resolvedContainer?.classList.add(styles.hiddenContainer)
-    } else {
-      resolvedContainer?.classList.remove(styles.hiddenContainer)
-    }
-
-    if (window) {
-      if (open) {
-        window?.history.pushState({ type: 'OPEN_MODAL' }, 'open modal', '#')
-        manager.add(modalRef, onClose)
-      } else {
-        window?.history.replaceState(
-          { type: 'CLOSE_MODAL' },
-          'close modal',
-          window.location.href.replace(hashRegex, '')
-        )
-      }
-    }
   }
 
   // This is needed to prevent the modal from keeping this class if you
@@ -96,6 +73,19 @@ export default function BaseModal(props: Props) {
   const handleEnter = useCallback(() => {
     setExited(false)
   }, [setExited])
+
+  const handleMounted = () => {
+    manager.mount(modalRef)
+  }
+
+  const handleOpen = useEventCallback(() => {
+    const resolvedContainer = getContainer(container) || getDoc().body
+    manager.add(modalRef, resolvedContainer as HTMLElement, onClose)
+
+    if (modalRef.current) {
+      handleMounted()
+    }
+  })
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
@@ -123,6 +113,18 @@ export default function BaseModal(props: Props) {
       rest.onKeyDown(e)
     }
   }
+
+  const handleClose = useCallback(() => {
+    manager.remove(modalRef)
+  }, [])
+
+  useEffect(() => {
+    if (open) {
+      handleOpen()
+    } else if (exited) {
+      handleClose()
+    }
+  }, [exited, handleClose, handleOpen, open])
 
   if (!open && exited) {
     return null

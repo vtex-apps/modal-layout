@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Screen moving to the right when open the modal due to the space of the scroll bar.
+
+### Security
+- Bump `acorn` version in `/react`.
 
 ## [0.3.0] - 2020-03-06
 ### Added
@@ -16,7 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use `React.memo` in some components to improve performance when you scroll the content.
 
 ### Fixed
-- Close button not working if you use position absolute with it.
+- Close button not working if the user uses a position absolute with it.
 
 ## [0.2.0] - 2020-03-03
 ### Added
