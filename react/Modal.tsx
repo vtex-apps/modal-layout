@@ -68,15 +68,15 @@ function Modal(props: Props) {
   }
 
   const containerClasses = classnames(handles.container, 'outline-0 h-100', {
-    ['overflow-y-auto overflow-x-hidden tc']: scroll === ScrollMode.body,
-    ['flex items-center justify-center']: scroll === ScrollMode.content,
+    'overflow-y-auto overflow-x-hidden tc': scroll === ScrollMode.body,
+    'flex items-center justify-center': scroll === ScrollMode.content,
   })
 
   const paperClasses = classnames(handles.paper, 'bg-base relative br2', {
     [styles.paperNotFullScreen]: !fullScreen,
-    ['dib tl v-mid']: scroll === ScrollMode.body,
-    ['h-100']: fullScreen && scroll === ScrollMode.content,
-    ['min-h-100']: fullScreen && scroll === ScrollMode.body,
+    'dib tl v-mid': scroll === ScrollMode.body,
+    'h-100': fullScreen && scroll === ScrollMode.content,
+    'min-h-100': fullScreen && scroll === ScrollMode.body,
     [`${styles.fullScreenModal} w-100 mw-100 br0`]: fullScreen,
     [styles.paperScrollContent]: !fullScreen && scroll === ScrollMode.content,
     [`${styles.paperScrollContent} flex flex-column`]:
@@ -110,6 +110,6 @@ function Modal(props: Props) {
   )
 }
 
-const ModalRef = React.memo(React.forwardRef(Modal))
+const ModalRef = React.memo(Modal)
 
 export default ModalRef
