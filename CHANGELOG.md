@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.2] - 2020-04-06
+
 ## [0.3.1] - 2020-03-23
 ### Fixed
 - Screen moving to the right when open the modal due to the space of the scroll bar.

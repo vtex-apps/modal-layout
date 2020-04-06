@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "modal-layout",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "title": "VTEX Modal Layout",
   "description": "A React Modal component.",
   "defaultLocale": "pt-BR",
