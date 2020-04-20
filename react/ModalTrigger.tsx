@@ -17,6 +17,7 @@ enum TriggerMode {
 interface Props {
   trigger?: TriggerMode
   openPerSection?: boolean
+  expiresDateCookie?: number
 }
 
 const ModalTrigger: React.FC<Props> = props => {
@@ -24,6 +25,7 @@ const ModalTrigger: React.FC<Props> = props => {
     children,
     trigger = TriggerMode.click,
     openPerSection = false,
+    expiresDateCookie = 10,
   } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
@@ -51,7 +53,7 @@ const ModalTrigger: React.FC<Props> = props => {
   useEffect(() => {
     if (!cookies.openOneTime) {
       const expiresDate = new Date()
-      expiresDate.setDate(expiresDate.getDate() + 10)
+      expiresDate.setDate(expiresDate.getDate() + expiresDateCookie)
       setCookie('openOneTime', true, { expires: expiresDate })
     }
     if (!openOnLoad && trigger === TriggerMode.load && dispatch) {
@@ -68,6 +70,7 @@ const ModalTrigger: React.FC<Props> = props => {
     openPerSection,
     setCookie,
     cookies.openOneTime,
+    expiresDateCookie,
   ])
 
   if (trigger === TriggerMode.click) {
