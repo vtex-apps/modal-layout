@@ -76,9 +76,8 @@ In the example above, the [Rich Text](https://vtex.io/docs/components/all/vtex.r
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`) or when the page is fully loaded (`load`)  | `'click'` |
-| `openPerSection` | `Boolean` | Use a cookie to open the modal just once, when the trigger is `load`                                    |  `false`  |
-| `expiresDateCookie` | `number` | How many days of validity the `openPerSection` cookie should have.                              |    `10`   |
+| `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per section (`load-per-section`) | `'click'` |
+| `hoursExpireCookie` | `number` | How many hours of validity the modal with the trigger `load-per-section` should have.                              |    `10`   |
 
 
 ## Customization

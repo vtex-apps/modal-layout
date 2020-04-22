@@ -12,20 +12,19 @@ const CSS_HANDLES = ['triggerContainer']
 enum TriggerMode {
   click = 'click',
   load = 'load',
+  loadPerSection = 'load-per-section',
 }
 
 interface Props {
   trigger?: TriggerMode
-  openPerSection?: boolean
-  expiresDateCookie?: number
+  hoursExpireCookie?: number
 }
 
 const ModalTrigger: React.FC<Props> = props => {
   const {
     children,
     trigger = TriggerMode.click,
-    openPerSection = false,
-    expiresDateCookie = 10,
+    hoursExpireCookie = 10,
   } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
@@ -53,24 +52,28 @@ const ModalTrigger: React.FC<Props> = props => {
   useEffect(() => {
     if (!cookies.openOneTime) {
       const expiresDate = new Date()
-      expiresDate.setDate(expiresDate.getDate() + expiresDateCookie)
+      expiresDate.setHours(expiresDate.getHours() + hoursExpireCookie)
       setCookie('openOneTime', true, { expires: expiresDate })
     }
-    if (!openOnLoad && trigger === TriggerMode.load && dispatch) {
-      if (openPerSection && cookies.openOneTime) {
+    if (!openOnLoad && dispatch) {
+      if (trigger === TriggerMode.loadPerSection && cookies.openOneTime) {
         return
       }
-      dispatch({ type: 'OPEN_MODAL' })
-      setOpenOnLoad(true)
+      if (
+        trigger === TriggerMode.loadPerSection ||
+        trigger === TriggerMode.load
+      ) {
+        dispatch({ type: 'OPEN_MODAL' })
+        setOpenOnLoad(true)
+      }
     }
   }, [
     trigger,
     dispatch,
     openOnLoad,
-    openPerSection,
     setCookie,
     cookies.openOneTime,
-    expiresDateCookie,
+    hoursExpireCookie,
   ])
 
   if (trigger === TriggerMode.click) {
