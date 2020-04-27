@@ -30,6 +30,7 @@ const ModalStateContext = createContext<State>(DEFAULT_STATE)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const ModalDispatchContext = createContext<Dispatch>(() => {})
 
+// eslint-disable-next-line @typescript-eslint/default-param-last
 function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
   switch (action.type) {
     case 'OPEN_MODAL':
@@ -55,7 +56,7 @@ function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
   }
 }
 
-export const ModalContextProvider: React.FC<{}> = ({ children }) => {
+export const ModalContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(modalContextReducer, DEFAULT_STATE)
 
   return (
