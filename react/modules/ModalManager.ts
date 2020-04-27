@@ -34,7 +34,7 @@ const hashRegex = /#$/
 interface RestoreStyle {
   value: string
   el: HTMLElement
-  key: string
+  key: string | 'className'
 }
 
 type FindIndexOfCallback = (item: ContainerInfo) => boolean
@@ -78,15 +78,18 @@ function handleContainer(containerInfo: ContainerInfo) {
       ? parent
       : container
   restoreStyle.push({
-    value: scrollContainer.style.overflow,
-    key: 'overflow',
+    value: styles.hiddenContainer,
+    key: 'className',
     el: scrollContainer,
   })
-  scrollContainer.style.overflow = 'hidden'
+
+  scrollContainer.classList.add(styles.hiddenContainer)
 
   const restore = () => {
     restoreStyle.forEach(({ value, el, key }) => {
-      if (value) {
+      if (key === 'className') {
+        scrollContainer.classList.remove(styles.hiddenContainer)
+      } else if (value) {
         el.style.setProperty(key, value)
       } else {
         el.style.removeProperty(key)
@@ -103,28 +106,30 @@ function handleContainer(containerInfo: ContainerInfo) {
  * action
  */
 export default class ModalManager {
-  modals: ModalRef[]
-  containers: ContainerInfo[]
-  closeMethods: OnClose[]
+  private modals: ModalRef[]
+  private containers: ContainerInfo[]
+  private closeMethods: OnClose[]
 
   constructor() {
     this.modals = []
     this.closeMethods = []
     this.containers = []
 
-    if (window && window.addEventListener) {
+    if (window?.addEventListener) {
       window.addEventListener('popstate', e => {
         // If this event if fired with a modal open it will close it
-        if (this.closeMethods.length > 0) {
-          e.stopPropagation()
-          this.closeMethods[this.closeMethods.length - 1]()
-          this.removeTopModal()
+        if (this.closeMethods.length === 0) {
+          return
         }
+
+        e.stopPropagation()
+        this.closeMethods[this.closeMethods.length - 1]()
+        this.removeTopModal()
       })
     }
   }
 
-  add(modal: ModalRef, container: HTMLElement, onClose: OnClose) {
+  public add(modal: ModalRef, container: HTMLElement, onClose: OnClose) {
     let modalIndex = this.modals.indexOf(modal)
     if (modalIndex !== -1) {
       return modalIndex
@@ -151,7 +156,7 @@ export default class ModalManager {
     return modalIndex
   }
 
-  mount(modal: ModalRef) {
+  public mount(modal: ModalRef) {
     const containerIndex = findIndexOf(
       this.containers,
       item => item.modals.indexOf(modal) !== -1
@@ -166,11 +171,9 @@ export default class ModalManager {
     if (this.modals.length === 1) {
       window?.history.pushState({ type: 'OPEN_MODAL' }, 'open modal', '#')
     }
-
-    containerInfo.container?.classList.add(styles.hiddenContainer)
   }
 
-  remove(modal: ModalRef) {
+  public remove(modal: ModalRef) {
     const modalIndex = this.modals.indexOf(modal)
     if (modalIndex === -1) {
       return
@@ -195,8 +198,6 @@ export default class ModalManager {
     }
 
     if (this.modals.length === 0) {
-      containerInfo.container?.classList.remove(styles.hiddenContainer)
-
       window?.history.replaceState(
         { type: 'CLOSE_MODAL' },
         'close modal',
@@ -207,7 +208,7 @@ export default class ModalManager {
     return modalIndex
   }
 
-  removeTopModal() {
+  public removeTopModal() {
     if (this.modals.length === 0) {
       return -1
     }
@@ -215,7 +216,7 @@ export default class ModalManager {
     return this.remove(this.modals[this.modals.length - 1])
   }
 
-  isTopModal(modal: ModalRef) {
+  public isTopModal(modal: ModalRef) {
     return (
       this.modals.length > 0 && this.modals[this.modals.length - 1] === modal
     )
