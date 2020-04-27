@@ -25,7 +25,7 @@ const Portal = forwardRef(function Portal(props: Props, ref) {
   const [mountNode, setMountNode] = useState<Element | null>(null)
 
   useEnhancedEffect(() => {
-    setMountNode(getContainer(container) || document.body)
+    setMountNode(getContainer(container) ?? document.body)
   }, [container])
 
   useEnhancedEffect(() => {

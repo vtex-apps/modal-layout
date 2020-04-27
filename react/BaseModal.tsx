@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 
-import styles from './styles.css'
 import TrapFocus from './components/TrapFocus'
 import ModalManager from './modules/ModalManager'
 import Backdrop, { BackdropMode } from './components/Backdrop'
@@ -53,19 +52,6 @@ export default function BaseModal(props: Props) {
   const isTopModal = useCallback(() => manager.isTopModal(modalRef), [])
   const getDoc = () => ownerDocument(modalRef.current)
 
-  let resolvedContainer = getContainer(container)
-  if (!resolvedContainer && window && window.document) {
-    resolvedContainer = window.document.body
-  }
-
-  // This is needed to prevent the modal from keeping this class if you
-  // change the route and don't close the modal
-  useEffect(() => {
-    return () => {
-      resolvedContainer?.classList.remove(styles.hiddenContainer)
-    }
-  }, [resolvedContainer])
-
   const handleExited = useCallback(() => {
     setExited(true)
   }, [setExited])
@@ -79,7 +65,7 @@ export default function BaseModal(props: Props) {
   }
 
   const handleOpen = useEventCallback(() => {
-    const resolvedContainer = getContainer(container) || getDoc().body
+    const resolvedContainer = getContainer(container) ?? getDoc().body
     manager.add(modalRef, resolvedContainer as HTMLElement, onClose)
 
     if (modalRef.current) {
@@ -125,6 +111,14 @@ export default function BaseModal(props: Props) {
       handleClose()
     }
   }, [exited, handleClose, handleOpen, open])
+
+  // This is needed to prevent the modal from keeping this class if you
+  // change the route and don't close the modal
+  useEffect(() => {
+    return () => {
+      handleClose()
+    }
+  }, [handleClose])
 
   if (!open && exited) {
     return null

@@ -88,7 +88,7 @@ function handleContainer(containerInfo: ContainerInfo) {
   const restore = () => {
     restoreStyle.forEach(({ value, el, key }) => {
       if (key === 'className') {
-        scrollContainer.classList.remove(styles.hiddenContainer)
+        el.classList.remove(styles.hiddenContainer)
       } else if (value) {
         el.style.setProperty(key, value)
       } else {
