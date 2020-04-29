@@ -11,7 +11,7 @@ const CSS_HANDLES = ['triggerContainer']
 enum TriggerMode {
   click = 'click',
   load = 'load',
-  loadSection = 'load-section',
+  loadSession = 'load-session',
 }
 
 interface Props {
@@ -45,18 +45,18 @@ const ModalTrigger: React.FC<Props> = props => {
   useEffect(() => {
     if (!openOnLoad && dispatch) {
       if (
-        trigger === TriggerMode.loadSection &&
-        sessionStorage.getItem('openedModal')
+        trigger === TriggerMode.loadSession &&
+        sessionStorage.getItem('hasOpenedModal')
       ) {
         return
       }
-      if (trigger === TriggerMode.loadSection || trigger === TriggerMode.load) {
+      if (trigger === TriggerMode.loadSession || trigger === TriggerMode.load) {
         dispatch({ type: 'OPEN_MODAL' })
         setOpenOnLoad(true)
       }
     }
-    if (!sessionStorage.getItem('openedModal')) {
-      sessionStorage.setItem('openedModal', 'true')
+    if (!sessionStorage.getItem('hasOpenedModal')) {
+      sessionStorage.setItem('hasOpenedModal', 'true')
     }
   }, [trigger, dispatch, openOnLoad])
 

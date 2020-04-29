@@ -76,7 +76,7 @@ In the example above, the [Rich Text](https://vtex.io/docs/components/all/vtex.r
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per section (`load-section`) | `'click'` |
+| `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per section (`load-session`) | `'click'` |
 
 ## Customization
 
