@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { useCookies } from 'react-cookie'
 
 import {
   useModalDispatch,
@@ -12,7 +11,7 @@ const CSS_HANDLES = ['triggerContainer']
 enum TriggerMode {
   click = 'click',
   load = 'load',
-  loadPerSection = 'load-per-section',
+  loadSection = 'load-section',
 }
 
 interface Props {
@@ -29,7 +28,6 @@ const ModalTrigger: React.FC<Props> = props => {
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
-  const [cookies, setCookie] = useCookies(['openOneTime'])
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -50,31 +48,22 @@ const ModalTrigger: React.FC<Props> = props => {
   }
 
   useEffect(() => {
-    if (!cookies.openOneTime) {
-      const expiresDate = new Date()
-      expiresDate.setHours(expiresDate.getHours() + hoursExpireCookie)
-      setCookie('openOneTime', true, { expires: expiresDate })
-    }
     if (!openOnLoad && dispatch) {
-      if (trigger === TriggerMode.loadPerSection && cookies.openOneTime) {
+      if (
+        trigger === TriggerMode.loadSection &&
+        sessionStorage.getItem('openedModal')
+      ) {
         return
       }
-      if (
-        trigger === TriggerMode.loadPerSection ||
-        trigger === TriggerMode.load
-      ) {
+      if (trigger === TriggerMode.loadSection || trigger === TriggerMode.load) {
         dispatch({ type: 'OPEN_MODAL' })
         setOpenOnLoad(true)
       }
     }
-  }, [
-    trigger,
-    dispatch,
-    openOnLoad,
-    setCookie,
-    cookies.openOneTime,
-    hoursExpireCookie,
-  ])
+    if (!sessionStorage.getItem('openedModal')) {
+      sessionStorage.setItem('openedModal', 'true')
+    }
+  }, [trigger, dispatch, openOnLoad, hoursExpireCookie])
 
   if (trigger === TriggerMode.click) {
     return (

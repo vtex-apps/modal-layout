@@ -7,8 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- New Trigger `load-per-section` to the `modal-trigger` block.
-- Prop `hoursExpireCookie` to the `modal-trigger` block.
+- New Trigger `load-section` to the `modal-trigger` block.
 
 ## [0.3.3] - 2020-04-06
 ### Fixed
