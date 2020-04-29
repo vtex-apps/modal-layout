@@ -16,15 +16,10 @@ enum TriggerMode {
 
 interface Props {
   trigger?: TriggerMode
-  hoursExpireCookie?: number
 }
 
 const ModalTrigger: React.FC<Props> = props => {
-  const {
-    children,
-    trigger = TriggerMode.click,
-    hoursExpireCookie = 10,
-  } = props
+  const { children, trigger = TriggerMode.click } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
@@ -63,7 +58,7 @@ const ModalTrigger: React.FC<Props> = props => {
     if (!sessionStorage.getItem('openedModal')) {
       sessionStorage.setItem('openedModal', 'true')
     }
-  }, [trigger, dispatch, openOnLoad, hoursExpireCookie])
+  }, [trigger, dispatch, openOnLoad])
 
   if (trigger === TriggerMode.click) {
     return (
