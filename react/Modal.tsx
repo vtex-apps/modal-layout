@@ -27,7 +27,7 @@ interface Props {
   backdrop?: MaybeResponsiveInput<BackdropMode>
 }
 
-const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton']
+const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
 
 const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 

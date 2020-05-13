@@ -21,7 +21,7 @@ const CSS_HANDLES = [
   'closeButton',
   'headerContent',
   'closeButtonContainer',
-]
+] as const
 
 export default React.memo(function ModalHeader(props: Props) {
   const {

@@ -6,7 +6,7 @@ import styles from './styles.css'
 import { useModalDispatch } from './components/ModalContext'
 import useIntersection from './modules/useIntersection'
 
-const CSS_HANDLES = ['contentContainer']
+const CSS_HANDLES = ['contentContainer'] as const
 
 const ModalContent: React.FC = props => {
   const { children } = props

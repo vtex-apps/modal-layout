@@ -16,7 +16,7 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const CSS_HANDLES = ['backdropContainer', 'backdrop']
+const CSS_HANDLES = ['backdropContainer', 'backdrop'] as const
 
 const Backdrop: React.FC<Props> = props => {
   const { children, open, onClick, transitionDuration } = props

@@ -6,7 +6,7 @@ import {
   ModalContextProvider,
 } from './components/ModalContext'
 
-const CSS_HANDLES = ['triggerContainer']
+const CSS_HANDLES = ['triggerContainer'] as const
 
 enum TriggerMode {
   click = 'click',
