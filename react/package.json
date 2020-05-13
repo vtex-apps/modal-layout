@@ -4,7 +4,6 @@
     "lint": "tsc --noEmit && eslint --ext ts,tsx ."
   },
   "dependencies": {
-    "@vtex/css-handles": "^1.0.0",
     "classnames": "^2.2.6",
     "ramda": "^0.26.1",
     "react": "^16.8.3",
