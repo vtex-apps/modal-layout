@@ -1,5 +1,5 @@
 import React from 'react'
-import { pick } from 'ramda'
+import pick from 'ramda/es/pick'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import {
