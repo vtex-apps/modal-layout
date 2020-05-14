@@ -30,7 +30,10 @@ const Backdrop: React.FC<Props> = props => {
 
   return (
     <Fade in={open} timeout={transitionDuration}>
-      <div className={handles.backdropContainer}>
+      <div
+        className={handles.backdropContainer}
+        data-testid="modal-backdrop-container"
+      >
         <div
           role="presentation"
           onClick={handleClick}
