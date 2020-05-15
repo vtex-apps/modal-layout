@@ -1,13 +1,22 @@
 import React from 'react'
-import { render, fireEvent, act } from '@vtex/test-tools/react'
+import { render, fireEvent } from '@vtex/test-tools/react'
 
-import Backdrop from '../components/Backdrop'
+// eslint-disable-next-line jest/no-mocks-import
+import { findCSSHandles } from '../__mocks__/testUtils'
+import Backdrop, { CSS_HANDLES } from '../components/Backdrop'
 
 describe('<Backdrop />', () => {
-  it('should match snapshot', () => {
-    const { asFragment } = render(<Backdrop open />)
+  it('should render', () => {
+    const { baseElement } = render(<Backdrop open />)
 
-    expect(asFragment).toMatchSnapshot()
+    expect(baseElement).toBeTruthy()
+  })
+
+  it('should find all declared handles', () => {
+    const { container } = render(<Backdrop open />)
+
+    const foundHandles = findCSSHandles(container, CSS_HANDLES)
+    expect(foundHandles).toEqual(CSS_HANDLES)
   })
 
   it('should have visibility hidden and opacity 0 if open === false', () => {
@@ -21,14 +30,11 @@ describe('<Backdrop />', () => {
 
   it('should call onClick when backdrop is clicked', () => {
     const spy = jest.fn()
-    const { getByTestId } = render(<Backdrop open onClick={spy} />)
+    const { getByRole } = render(<Backdrop open onClick={spy} />)
 
-    const backdropElement = getByTestId('modal-backdrop-container').firstChild
-    act(() => {
-      if (backdropElement) {
-        fireEvent.click(backdropElement, { bubbles: true, cancelable: true })
-      }
-    })
+    const backdropElement = getByRole('presentation')
+    fireEvent.click(backdropElement, { bubbles: true, cancelable: true })
+
     expect(spy).toBeCalledTimes(1)
   })
 

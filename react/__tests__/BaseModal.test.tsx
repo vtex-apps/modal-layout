@@ -1,55 +1,51 @@
 import React from 'react'
-import { render, fireEvent, act } from '@vtex/test-tools/react'
+import { render, fireEvent } from '@vtex/test-tools/react'
 
 import BaseModal from '../BaseModal'
+import Fade from '../components/Animations/Fade'
 import { BackdropMode } from '../components/Backdrop'
 
 describe('<BaseModal />', () => {
-  it('should match snapshot', () => {
-    const onClose = jest.fn()
-    const { asFragment } = render(
-      <BaseModal open onClose={onClose}>
-        <div>Hello VTEX</div>
-      </BaseModal>
-    )
-
-    expect(asFragment).toMatchSnapshot()
-  })
-
   it('should render the modal with the children', () => {
     const onClose = jest.fn()
-    const { queryByTestId } = render(
-      <BaseModal open onClose={onClose}>
-        <div data-testid="base-modal-child">Hello VTEX</div>
+    const { queryByText, queryByRole } = render(
+      <BaseModal open onClose={onClose} backdrop={BackdropMode.none}>
+        <Fade in>
+          <div>Hello VTEX</div>
+        </Fade>
       </BaseModal>
     )
 
-    expect(queryByTestId('base-modal-child')).toBeTruthy()
+    expect(queryByText('Hello VTEX')).toBeTruthy()
+    expect(queryByRole('presentation')).toBeTruthy()
   })
 
-  it('should not render its children if a prop open is false', () => {
-    const { queryByTestId } = render(
+  it("shouldn't render anything if open is false", () => {
+    const { queryByText, queryByRole } = render(
       <BaseModal open={false} onClose={() => {}}>
-        <div data-testid="base-modal-child">Hello VTEX</div>
+        <Fade in>
+          <div>Hello VTEX</div>
+        </Fade>
       </BaseModal>
     )
 
-    expect(queryByTestId('base-modal-child')).toBeNull()
+    expect(queryByText('Hello VTEX')).toBeNull()
+    expect(queryByRole('presentation')).toBeNull()
   })
 
   it('should call onClose if Esc is pressed', () => {
     const onClose = jest.fn()
-    const { getByTestId } = render(
-      <BaseModal open onClose={onClose}>
-        <div data-testid="base-modal-child">Hello VTEX</div>
+    const { getByRole } = render(
+      <BaseModal open onClose={onClose} backdrop={BackdropMode.none}>
+        <Fade in>
+          <div>Hello VTEX</div>
+        </Fade>
       </BaseModal>
     )
 
-    act(() => {
-      fireEvent.keyDown(getByTestId('base-modal-child'), {
-        key: 'Escape',
-        code: 27,
-      })
+    fireEvent.keyDown(getByRole('presentation'), {
+      key: 'Escape',
+      code: 27,
     })
 
     expect(onClose).toBeCalledTimes(1)
@@ -59,15 +55,15 @@ describe('<BaseModal />', () => {
     const onClose = jest.fn()
     const { getByTestId } = render(
       <BaseModal open onClose={onClose} disableEscapeKeyDown>
-        <div data-testid="base-modal-child">Hello VTEX</div>
+        <Fade in>
+          <div data-testid="base-modal-child">Hello VTEX</div>
+        </Fade>
       </BaseModal>
     )
 
-    act(() => {
-      fireEvent.keyDown(getByTestId('base-modal-child'), {
-        key: 'Escape',
-        code: 27,
-      })
+    fireEvent.keyDown(getByTestId('base-modal-child'), {
+      key: 'Escape',
+      code: 27,
     })
 
     expect(onClose).not.toBeCalled()
@@ -77,7 +73,9 @@ describe('<BaseModal />', () => {
     const onClose = jest.fn()
     const { queryByRole } = render(
       <BaseModal open onClose={onClose} backdrop={BackdropMode.none}>
-        <div>Hello VTEX</div>
+        <Fade in>
+          <div>Hello VTEX</div>
+        </Fade>
       </BaseModal>
     )
 
@@ -93,18 +91,18 @@ describe('<BaseModal />', () => {
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
       <div onClick={outsideClick}>
         <BaseModal open onClick={onClick} onClose={onClose}>
-          <div>Hello VTEX</div>
+          <Fade in>
+            <div>Hello VTEX</div>
+          </Fade>
         </BaseModal>
       </div>
     )
 
     const baseModal = getByTestId('base-modal')
 
-    act(() => {
-      fireEvent.click(baseModal, {
-        bubbles: true,
-        cancelable: true,
-      })
+    fireEvent.click(baseModal, {
+      bubbles: true,
+      cancelable: true,
     })
 
     expect(onClick).toBeCalledTimes(1)
