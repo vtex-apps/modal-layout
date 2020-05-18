@@ -12,7 +12,7 @@ const CSS_HANDLES = [
   'actionsContainer',
   'actionsContentWrapper',
   'actionsContainerEndOfContent',
-]
+] as const
 
 export default function ModalActions(props: Props) {
   const { children } = props

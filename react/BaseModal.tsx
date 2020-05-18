@@ -147,6 +147,7 @@ export default function BaseModal(props: Props) {
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         style={inlineStyles.container}
+        data-testid="base-modal"
       >
         <TrapFocus open={open}>
           {React.cloneElement(children, childProps)}

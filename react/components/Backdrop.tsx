@@ -16,7 +16,7 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const CSS_HANDLES = ['backdropContainer', 'backdrop']
+export const CSS_HANDLES = ['backdropContainer', 'backdrop'] as const
 
 const Backdrop: React.FC<Props> = props => {
   const { children, open, onClick, transitionDuration } = props
@@ -30,7 +30,10 @@ const Backdrop: React.FC<Props> = props => {
 
   return (
     <Fade in={open} timeout={transitionDuration}>
-      <div className={handles.backdropContainer}>
+      <div
+        className={handles.backdropContainer}
+        data-testid="modal-backdrop-container"
+      >
         <div
           role="presentation"
           onClick={handleClick}
