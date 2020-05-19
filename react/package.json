@@ -9,6 +9,7 @@
     "react": "^16.8.3",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.8.3",
+    "react-intl": "^4.5.5",
     "react-transition-group": "^4.3.0"
   },
   "devDependencies": {

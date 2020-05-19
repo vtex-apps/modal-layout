@@ -18,5 +18,8 @@
   "modal-actions": {
     "component": "ModalActions",
     "composition": "children"
+  },
+  "modal-actions.close": {
+    "component": "CloseButton"
   }
 }
