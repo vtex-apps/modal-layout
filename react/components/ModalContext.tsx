@@ -28,7 +28,7 @@ export type Dispatch = (action: Action) => void
 
 const ModalStateContext = createContext<State>(DEFAULT_STATE)
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const ModalDispatchContext = createContext<Dispatch>(() => {})
+export const ModalDispatchContext = createContext<Dispatch>(() => {})
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
 function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
