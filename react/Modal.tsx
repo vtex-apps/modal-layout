@@ -1,5 +1,6 @@
 import React from 'react'
-import pick from 'ramda/es/pick'
+// eslint-disable-next-line no-restricted-imports
+import { pick } from 'ramda'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import {
@@ -100,9 +101,7 @@ function Modal(props: Props) {
             className={containerClasses}
             onClick={handleBackdropClick}
           >
-            <div className={paperClasses} style={styles.root}>
-              {children}
-            </div>
+            <div className={paperClasses}>{children}</div>
           </div>
         }
       </Fade>
