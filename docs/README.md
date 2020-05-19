@@ -81,6 +81,18 @@ In the example above, the [Rich Text](https://vtex.io/docs/components/all/vtex.r
 | --- | --- | --- | --- |
 | `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per session (`load-session`) | `'click'` |
 
+- **`modal-actions`**
+
+This is just a block to establish some semantics and it just renders its children. You should use it to keep the actions of the modal inside, like the `modal-actions.close` or any other action that you want to put in it.
+
+- **`modal-actions.close`**
+
+A simple button that closes the modal when you click on it, might be useful when you have a form or a dialog to give the user some information.
+
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | --- |
+| `label` | `string` | The button text | english -> `Cancel`, spanish -> `Cancelar`, portugues -> `Cancelar` |
+
 ## Customization
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
