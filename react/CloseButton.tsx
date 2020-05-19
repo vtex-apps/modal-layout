@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
-import { FormattedMessage } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
+import { FormattedMessage, defineMessages } from 'react-intl'
 
 import Button from './components/Button'
 import { useModalDispatch } from './components/ModalContext'
@@ -31,6 +31,22 @@ function CloseButton(props: Props) {
       )}
     </Button>
   )
+}
+
+defineMessages({
+  title: {
+    id: 'admin/editor.modal-layout.close-button.title',
+  },
+  labelTitle: {
+    id: 'admin/editor.modal-layout.close-button.label.title',
+  },
+  labelDescription: {
+    id: 'admin/editor.modal-layout.close-button.label.description',
+  },
+})
+
+CloseButton.schema = {
+  title: 'admin/editor.modal-layout.close-button.title',
 }
 
 export default CloseButton

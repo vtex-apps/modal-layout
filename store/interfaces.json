@@ -20,6 +20,9 @@
     "composition": "children"
   },
   "modal-actions.close": {
-    "component": "CloseButton"
+    "component": "CloseButton",
+    "content": {
+      "$ref": "app:vtex.modal-layout#/definitions/CloseButton"
+    }
   }
 }

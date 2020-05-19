@@ -1,0 +1,14 @@
+{
+  "definitions": {
+    "CloseButton": {
+      "title": "admin/editor.modal-layout-close-button.title",
+      "properties": {
+        "label": {
+          "title": "admin/editor.modal-layout.close-button.label.title",
+          "description": "admin/editor.modal-layout.close-button.label.description",
+          "$ref": "app:vtex.native-types#/definitions/text"
+        }
+      }
+    }
+  }
+}
