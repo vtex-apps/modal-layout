@@ -1,5 +1,4 @@
 import React from 'react'
-import pick from 'ramda/es/pick'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import {
@@ -7,6 +6,7 @@ import {
   MaybeResponsiveInput,
 } from 'vtex.responsive-values'
 
+import pick from './modules/pick'
 import styles from './styles.css'
 import BaseModal from './BaseModal'
 import Fade from './components/Animations/Fade'
@@ -100,9 +100,7 @@ function Modal(props: Props) {
             className={containerClasses}
             onClick={handleBackdropClick}
           >
-            <div className={paperClasses} style={styles.root}>
-              {children}
-            </div>
+            <div className={paperClasses}>{children}</div>
           </div>
         }
       </Fade>
