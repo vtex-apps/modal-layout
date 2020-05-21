@@ -1,6 +1,4 @@
 import React from 'react'
-// eslint-disable-next-line no-restricted-imports
-import { pick } from 'ramda'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import {
@@ -8,6 +6,7 @@ import {
   MaybeResponsiveInput,
 } from 'vtex.responsive-values'
 
+import pick from './modules/pick'
 import styles from './styles.css'
 import BaseModal from './BaseModal'
 import Fade from './components/Animations/Fade'
