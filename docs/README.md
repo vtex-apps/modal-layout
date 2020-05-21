@@ -1,9 +1,10 @@
 📢 Use this project, [contribute](https://github.com/vtex-apps/modal-layout) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+
+# Modal Layout
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-# Modal Layout
 
 The Modal Layout app provides blocks that can help you create modals in your store.
 
@@ -13,12 +14,10 @@ The Modal Layout app provides blocks that can help you create modals in your sto
 
 1. Add the modal layout's app to your theme's dependencies in the `manifest.json`:
 
-```jsonc
-{
+```diff
   "dependencies": {
-    "vtex.modal-layout": "0.x"
++   "vtex.modal-layout": "0.x"
   }
-}
 ```
 
 Now, you are able to use all blocks exported by the `modal-layout` app. Check out the full list below:
@@ -27,6 +26,8 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 | --------  | ------------ | 
 | `modal-trigger` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Its child block defines how the Modal content will be triggered. | 
 | `modal-layout` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Defines how the Modal content will be rendered. |
+| `modal-actions` | Logical block only responsible for rendering its child blocks that, in turn, are responsible for rendering call-to-action buttons inside the modal, such as a close button. | 
+| `modal-actions.close`  | Button that closes the modal when you clicked on. It is extremely useful in scenarios where your modal has a form or a disclaimer box providing information for users. |
 
 2. Add the `modal-trigger` block in any store template of your choosing. In the example below, it will be added to the Home page: 
 
@@ -39,7 +40,7 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
   },
 ```
 
-3. Declare the `modal-trigger` block using its prop and configuring children blocks for it. The `modal-trigger`'s first children must be a block of your choosing to trigger the Modal content. Then, a sibling block called `modal-layout` will be needed to effectively define how the Modal content should be rendered. For example:
+3. Declare the `modal-trigger` block using its prop and configuring children blocks for it. The `modal-trigger`'s first children must be a block of your choosing to trigger the Modal content. Then, a sibling block called `modal-layout` will be needed to effectively define the Modal content through its child block list. For example:
 
 ```jsonc
 {
@@ -72,26 +73,21 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 }
 ```
 
+In the example above, the [Rich Text](https://vtex.io/docs/components/all/vtex.rich-text/) block renders the `Click me` text that will trigger the Modal content when clicked on. 
 
-In the example above, the [Rich Text](https://vtex.io/docs/components/all/vtex.rich-text/) block renders the `Click me` text that will trigger the Modal content when clicked on. The modal content, in turn, is defined by the `modal-layout` block. According to the example above, the Modal content triggered by the `Click me` Rich Text would be a `Hello` Rich text. 
+The modal content, in turn, is defined by the `modal-layout` block. According to the example above, the Modal content triggered by the `Click me` Rich Text would be a `Hello` text. 
 
-- **`modal-trigger`** 
+### `modal-trigger` props 
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
 | `trigger` | `Enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per session (`load-session`) | `'click'` |
 
-- **`modal-actions`**
-
-This is just a block to establish some semantics and it just renders its children. You should use it to keep the actions of the modal inside, like the `modal-actions.close` or any other action that you want to put in it.
-
-- **`modal-actions.close`**
-
-A simple button that closes the modal when you click on it, might be useful when you have a form or a dialog to give the user some information.
+### `modal-actions.close` props
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `label` | `string` | The button text | english -> `Cancel`, spanish -> `Cancelar`, portugues -> `Cancelar` |
+| `label` | `string` | Defines the text to be rendered in the close button. This prop default value depends on the store's default language which is set according to the website's [binding](https://help.vtex.com/tutorial/what-is-binding--4NcN3NJd0IeYccgWCI8O2W?locale=en).| `Cancel`, `Cancelar`, or `Cancelar` for stores whose default language is, respectively, English, Spanish or Portuguese.  |
 
 ## Customization
 
@@ -109,10 +105,11 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `headerContent` |
 | `triggerContainer` |
 
+<!-- DOCS-IGNORE:start -->
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -128,3 +125,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
+
+<!-- DOCS-IGNORE:end -->
