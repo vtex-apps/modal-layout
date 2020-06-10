@@ -28,7 +28,7 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 | `modal-layout` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Defines how the Modal content will be rendered through its children blocks. You can declare as its children the blocks `modal-header` and `modal-content`, described below, in order to create a modal with header and footer. |
 | `modal-header` | Renders a close button and the blocks listed as its children, building a modal header. Notice: it does not automatically render a header for your modal. Instead, you should create the modal header as you desire using this block's children list. | 
 | `modal-content`| Defines how the Modal content will be rendered through its children blocks. Preferably, this block should be used along with the `modal-header` in order to create a modal with header and footer. | 
-| `modal-actions` | Logical block only responsible for rendering its child blocks that, in turn, are responsible for rendering call-to-action buttons inside the modal, such as a confirmartion button. | 
+| `modal-actions` | Logical block only responsible for rendering its child blocks that, in turn, are responsible for rendering call-to-action buttons inside the modal, such as a confirmation button. | 
 | `modal-actions.close`  | Button that closes the modal when clicked on. It is extremely useful in scenarios where your modal only has a form or a disclaimer box providing information for users. |
 
 2. Add the `modal-trigger` block in any store template of your choosing. In the example below, it will be added to the Home page: 
