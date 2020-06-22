@@ -1,3 +1,6 @@
-import { useModalDispatch } from './components/ModalContext'
+import {
+  useModalDispatch,
+  ModalContextProvider,
+} from './components/ModalContext'
 
-export default { useModalDispatch }
+export default { useModalDispatch, ModalContextProvider }

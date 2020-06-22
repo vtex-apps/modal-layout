@@ -3,6 +3,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import { TransitionProps } from 'react-transition-group/Transition'
 
 import Fade from './Animations/Fade'
+import styles from '../styles.css'
 
 export enum BackdropMode {
   display = 'display',
@@ -31,7 +32,7 @@ const Backdrop: React.FC<Props> = props => {
   return (
     <Fade in={open} timeout={transitionDuration}>
       <div
-        className={handles.backdropContainer}
+        className={`${handles.backdropContainer} ${styles.backdropContainer}`}
         data-testid="modal-backdrop-container"
       >
         <div

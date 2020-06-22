@@ -56,8 +56,18 @@ function modalContextReducer(state: State = DEFAULT_STATE, action: Action) {
   }
 }
 
-export const ModalContextProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(modalContextReducer, DEFAULT_STATE)
+interface ContextProviderProps {
+  initialState?: State
+}
+
+export const ModalContextProvider: React.FC<ContextProviderProps> = ({
+  children,
+  initialState = undefined,
+}) => {
+  const [state, dispatch] = useReducer(
+    modalContextReducer,
+    initialState ?? DEFAULT_STATE
+  )
 
   return (
     <ModalStateContext.Provider value={state}>
