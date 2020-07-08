@@ -29,8 +29,6 @@ function isOverflowing(container: HTMLElement) {
   return container.scrollHeight > container.clientHeight
 }
 
-const hashRegex = /#$/
-
 interface RestoreStyle {
   value: string
   el: HTMLElement
@@ -114,19 +112,6 @@ export default class ModalManager {
     this.modals = []
     this.closeMethods = []
     this.containers = []
-
-    if (window?.addEventListener) {
-      window.addEventListener('popstate', e => {
-        // If this event if fired with a modal open it will close it
-        if (this.closeMethods.length === 0) {
-          return
-        }
-
-        e.stopPropagation()
-        this.closeMethods[this.closeMethods.length - 1]()
-        this.removeTopModal()
-      })
-    }
   }
 
   public add(modal: ModalRef, container: HTMLElement, onClose: OnClose) {
@@ -166,11 +151,6 @@ export default class ModalManager {
     if (!containerInfo.restore) {
       containerInfo.restore = handleContainer(containerInfo)
     }
-
-    // If this is the first modal to be opened, it has to push to the state
-    if (this.modals.length === 1) {
-      window?.history.pushState({ type: 'OPEN_MODAL' }, 'open modal', '#')
-    }
   }
 
   public remove(modal: ModalRef) {
@@ -195,14 +175,6 @@ export default class ModalManager {
       }
 
       this.containers.splice(containerIndex, 1)
-    }
-
-    if (this.modals.length === 0) {
-      window?.history.replaceState(
-        { type: 'CLOSE_MODAL' },
-        'close modal',
-        window.location.href.replace(hashRegex, '')
-      )
     }
 
     return modalIndex
