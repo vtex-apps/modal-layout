@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
+import { useCustomEvents } from 'vtex.pixel-manager'
 
 import {
   useModalDispatch,
@@ -12,17 +13,23 @@ enum TriggerMode {
   click = 'click',
   load = 'load',
   loadSession = 'load-session',
+  event = 'event',
 }
 
 interface Props {
   trigger?: TriggerMode
+  customEventId?: string
 }
 
 const ModalTrigger: React.FC<Props> = props => {
-  const { children, trigger = TriggerMode.click } = props
+  const { children, trigger = TriggerMode.click, customEventId } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
+
+  useCustomEvents(customEventId, () => {
+    dispatch({ type: 'OPEN_MODAL' })
+  })
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
