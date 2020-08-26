@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { useCustomEvents } from 'vtex.pixel-manager'
+import { usePixelEventCallback } from 'vtex.pixel-manager'
 
 import {
   useModalDispatch,
@@ -27,7 +27,7 @@ const ModalTrigger: React.FC<Props> = props => {
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
 
-  useCustomEvents(customEventId, () => {
+  usePixelEventCallback(customEventId, () => {
     dispatch({ type: 'OPEN_MODAL' })
   })
 
