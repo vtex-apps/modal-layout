@@ -18,16 +18,16 @@ enum TriggerMode {
 
 interface Props {
   trigger?: TriggerMode
-  customEventId?: string
+  customPixelEventId?: string
 }
 
 const ModalTrigger: React.FC<Props> = props => {
-  const { children, trigger = TriggerMode.click, customEventId } = props
+  const { children, trigger = TriggerMode.click, customPixelEventId } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
 
-  usePixelEventCallback(customEventId, () => {
+  usePixelEventCallback(customPixelEventId, () => {
     dispatch({ type: 'OPEN_MODAL' })
   })
 
