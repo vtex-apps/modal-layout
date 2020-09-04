@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { usePixelEventCallback } from 'vtex.pixel-manager'
+import { PixelData } from 'vtex.pixel-manager/react/PixelContext'
 
 import {
   useModalDispatch,
@@ -19,16 +20,26 @@ enum TriggerMode {
 interface Props {
   trigger?: TriggerMode
   customPixelEventId?: string
+  customPixelEventName?: PixelData['event']
 }
 
 const ModalTrigger: React.FC<Props> = props => {
-  const { children, trigger = TriggerMode.click, customPixelEventId } = props
+  const {
+    children,
+    trigger = TriggerMode.click,
+    customPixelEventId,
+    customPixelEventName,
+  } = props
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
 
-  usePixelEventCallback(customPixelEventId, () => {
-    dispatch({ type: 'OPEN_MODAL' })
+  usePixelEventCallback({
+    eventId: customPixelEventId,
+    eventName: customPixelEventName,
+    handler: () => {
+      dispatch({ type: 'OPEN_MODAL' })
+    },
   })
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
