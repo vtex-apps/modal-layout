@@ -4755,9 +4755,9 @@ verror@1.10.0:
   version "0.7.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.native-types@0.7.1/public/@types/vtex.native-types#a197484a2fdcee5c61a6d20ad6c994faa58380f5"
 
-"vtex.pixel-manager@https://customevents--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.pixel-manager@1.2.0+build1599238552/public/@types/vtex.pixel-manager":
-  version "1.2.0"
-  resolved "https://customevents--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.pixel-manager@1.2.0+build1599238552/public/@types/vtex.pixel-manager#d7ceb1482b8a1f57d2998f5436f827eddadc41ec"
+"vtex.pixel-manager@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-manager@1.3.0/public/@types/vtex.pixel-manager":
+  version "1.3.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-manager@1.3.0/public/@types/vtex.pixel-manager#84e731e138aa3aaf98dd519e5cff929cdf3745d8"
 
 "vtex.responsive-values@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react":
   version "0.0.0"

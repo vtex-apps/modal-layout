@@ -21,7 +21,7 @@
     "typescript": "3.8.3",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",
     "vtex.native-types": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.native-types@0.7.1/public/@types/vtex.native-types",
-    "vtex.pixel-manager": "https://customevents--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.pixel-manager@1.2.0+build1599238552/public/@types/vtex.pixel-manager",
+    "vtex.pixel-manager": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-manager@1.3.0/public/@types/vtex.pixel-manager",
     "vtex.responsive-values": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react",
     "vtex.store-icons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.17.0/public/@types/vtex.store-icons"
   },
