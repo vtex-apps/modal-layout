@@ -16,7 +16,8 @@
     "vtex.css-handles": "0.x",
     "vtex.store-icons": "0.x",
     "vtex.responsive-values": "0.x",
-    "vtex.native-types": "0.x"
+    "vtex.native-types": "0.x",
+    "vtex.pixel-manager": "1.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
