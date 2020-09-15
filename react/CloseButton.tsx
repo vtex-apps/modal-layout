@@ -24,6 +24,7 @@ function CloseButton(props: Props) {
     button: handles.closeButton,
     label: handles.closeButtonLabel,
   }
+
   return (
     <Button classes={classes} onClick={handleClick}>
       {label ?? (

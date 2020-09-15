@@ -5,11 +5,7 @@ import { TransitionProps } from 'react-transition-group/Transition'
 import Fade from './Animations/Fade'
 import styles from '../styles.css'
 
-export enum BackdropMode {
-  display = 'display',
-  clickable = 'clickable',
-  none = 'none',
-}
+export type BackdropMode = 'display' | 'clickable' | 'none'
 
 interface Props {
   open: boolean

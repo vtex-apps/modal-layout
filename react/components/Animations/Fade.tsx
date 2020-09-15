@@ -16,16 +16,18 @@ interface Props {
   in: boolean
   children: React.ReactElement
   timeout?: TransitionProps['timeout']
-  onEnter?: EnterHandler
-  onExit?: ExitHandler
+  onEnter?: EnterHandler<undefined>
+  onExit?: ExitHandler<undefined>
 }
 
 function getOpacity(state: TransitionStatus) {
   switch (state) {
     case ENTERING:
       return 1
+
     case ENTERED:
       return 1
+
     default:
       return 0
   }
@@ -49,8 +51,12 @@ const Fade = React.forwardRef(function Fade(
     ...other
   } = props
 
-  const handleEnter: EnterHandler = (node, isAppearing) => {
+  const handleEnter: EnterHandler<undefined> = (
+    node: HTMLElement,
+    isAppearing: boolean
+  ) => {
     const transitionProps = getTransitionProps({ timeout }, { mode: 'enter' })
+
     // suport for older versions of android browser and safari
     // https://caniuse.com/#feat=css-transitions
     node.style.webkitTransition = createTransition('opacity', transitionProps)
@@ -61,8 +67,9 @@ const Fade = React.forwardRef(function Fade(
     }
   }
 
-  const handleExit: ExitHandler = node => {
+  const handleExit: ExitHandler<undefined> = (node: HTMLElement) => {
     const transitionProps = getTransitionProps({ timeout }, { mode: 'exit' })
+
     node.style.webkitTransition = createTransition('opacity', transitionProps)
     node.style.transition = createTransition('opacity', transitionProps)
 

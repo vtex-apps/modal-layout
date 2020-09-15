@@ -3,13 +3,12 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 
 import BaseModal from '../BaseModal'
 import Fade from '../components/Animations/Fade'
-import { BackdropMode } from '../components/Backdrop'
 
 describe('<BaseModal />', () => {
   it('should render the modal with the children', () => {
     const onClose = jest.fn()
     const { queryByText, queryByRole } = render(
-      <BaseModal open onClose={onClose} backdrop={BackdropMode.none}>
+      <BaseModal open onClose={onClose} backdrop="none">
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>
@@ -36,7 +35,7 @@ describe('<BaseModal />', () => {
   it('should call onClose if Esc is pressed', () => {
     const onClose = jest.fn()
     const { getByRole } = render(
-      <BaseModal open onClose={onClose} backdrop={BackdropMode.none}>
+      <BaseModal open onClose={onClose} backdrop="none">
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>
@@ -72,7 +71,7 @@ describe('<BaseModal />', () => {
   it('should have role="presentation"', () => {
     const onClose = jest.fn()
     const { queryByRole } = render(
-      <BaseModal open onClose={onClose} backdrop={BackdropMode.none}>
+      <BaseModal open onClose={onClose} backdrop="none">
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>

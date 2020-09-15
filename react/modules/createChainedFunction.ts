@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ChainedFunction = (...args: any[]) => void
 export type MaybeChainedFunction = ChainedFunction | undefined | null
 
@@ -12,11 +13,12 @@ export default function createChainedFunction(
       return acc
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function chainedFunction(...args: any) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore 'this' has implicit type any and there is no way to type this here
       acc.apply(this, args)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       func.apply(this, args)
     }

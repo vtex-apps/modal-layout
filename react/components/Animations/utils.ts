@@ -32,6 +32,7 @@ export function getTransitionProps(
   const { timeout } = props
 
   let duration: number | string | undefined = 0
+
   if (typeof timeout === 'number') {
     duration = timeout
   } else if (typeof timeout === 'object' && options && timeout[options.mode]) {

@@ -16,6 +16,7 @@ interface Props {
 
 export function getContainer(container?: ContainerType) {
   container = typeof container === 'function' ? container() : container
+
   // eslint-disable-next-line react/no-find-dom-node
   return ReactDOM.findDOMNode(container) as Element | null
 }

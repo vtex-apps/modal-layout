@@ -27,6 +27,7 @@ type Action = OpenAction | CloseAction | SetEndOfContentAction
 export type Dispatch = (action: Action) => void
 
 const ModalStateContext = createContext<State>(DEFAULT_STATE)
+
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const ModalDispatchContext = createContext<Dispatch>(() => {})
 
@@ -80,11 +81,13 @@ export const ModalContextProvider: React.FC<ContextProviderProps> = ({
 
 export function useModalDispatch() {
   const context = useContext(ModalDispatchContext)
+
   return context
 }
 
 export function useModalState() {
   const context = useContext(ModalStateContext)
+
   if (typeof context === 'undefined') {
     throw Error('useModalState must be used within a ModalStateContext')
   }

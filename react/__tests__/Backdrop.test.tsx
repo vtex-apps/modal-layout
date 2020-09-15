@@ -16,6 +16,7 @@ describe('<Backdrop />', () => {
     const { container } = render(<Backdrop open />)
 
     const foundHandles = findCSSHandles(container, CSS_HANDLES)
+
     expect(foundHandles).toEqual(CSS_HANDLES)
   })
 
@@ -33,6 +34,7 @@ describe('<Backdrop />', () => {
     const { getByRole } = render(<Backdrop open onClick={spy} />)
 
     const backdropElement = getByRole('presentation')
+
     fireEvent.click(backdropElement, { bubbles: true, cancelable: true })
 
     expect(spy).toBeCalledTimes(1)
@@ -43,6 +45,7 @@ describe('<Backdrop />', () => {
     const { queryByRole } = render(<Backdrop open onClick={spy} />)
 
     const container = queryByRole('presentation')
+
     expect(container).toBeTruthy()
   })
 })

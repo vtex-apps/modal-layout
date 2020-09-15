@@ -28,6 +28,7 @@ function Button(props: Props) {
     classes.button,
     buttonClasses.container
   )
+
   const labelClasses = classnames(classes.label, buttonClasses.label)
 
   return (

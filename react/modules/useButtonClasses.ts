@@ -66,6 +66,7 @@ function getClassesBySize(size: ButtonProps['size']) {
 
 export default function useButtonClasses(options: Options = {}) {
   const { variant = 'secondary', disabled = false, size = 'regular' } = options
+
   return useMemo(() => {
     const variantClasses = getClassesByVariant(variant, disabled)
     const sizeClasses = getClassesBySize(size)
