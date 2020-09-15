@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Trigger `load-session` not working when some other modal renders before the `load-session` modal.
 
+### Security
+- Bump dependencies versions.
+
 ## [0.7.0] - 2020-09-08
 ### Added
 - `customPixelEventId` to `modal-trigger` block.
