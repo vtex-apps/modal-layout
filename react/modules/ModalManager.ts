@@ -41,13 +41,17 @@ function findIndexOf(
   callback: FindIndexOfCallback
 ) {
   let idx = -1
+
   containerInfo.some((item, index) => {
     if (callback(item)) {
       idx = index
+
       return true
     }
+
     return false
   })
+
   return idx
 }
 
@@ -75,6 +79,7 @@ function handleContainer(containerInfo: ContainerInfo) {
     window.getComputedStyle(parent).overflowY === 'scroll'
       ? parent
       : container
+
   restoreStyle.push({
     value: styles.hiddenContainer,
     key: 'className',
@@ -116,6 +121,7 @@ export default class ModalManager {
 
   public add(modal: ModalRef, container: HTMLElement, onClose: OnClose) {
     let modalIndex = this.modals.indexOf(modal)
+
     if (modalIndex !== -1) {
       return modalIndex
     }
@@ -127,8 +133,10 @@ export default class ModalManager {
       this.containers,
       item => item.container === container
     )
+
     if (containerIndex !== -1) {
       this.containers[containerIndex].modals.push(modal)
+
       return modalIndex
     }
 
@@ -146,6 +154,7 @@ export default class ModalManager {
       this.containers,
       item => item.modals.indexOf(modal) !== -1
     )
+
     const containerInfo = this.containers[containerIndex]
 
     if (!containerInfo.restore) {
@@ -155,6 +164,7 @@ export default class ModalManager {
 
   public remove(modal: ModalRef) {
     const modalIndex = this.modals.indexOf(modal)
+
     if (modalIndex === -1) {
       return
     }
@@ -163,6 +173,7 @@ export default class ModalManager {
       this.containers,
       item => item.modals.indexOf(modal) !== -1
     )
+
     const containerInfo = this.containers[containerIndex]
 
     this.modals.splice(modalIndex, 1)

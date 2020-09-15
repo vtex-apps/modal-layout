@@ -5,6 +5,7 @@ export default function setRef<T>(
   if (typeof ref === 'function') {
     ref(value)
   } else if (ref) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(ref as any).current = value
   }
 }

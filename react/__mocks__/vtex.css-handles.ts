@@ -1,5 +1,6 @@
 export function useCssHandles(input: string[]) {
   const acc: Record<string, string> = {}
+
   input.forEach(value => {
     acc[value] = value
   })

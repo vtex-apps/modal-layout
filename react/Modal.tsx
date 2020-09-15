@@ -13,10 +13,7 @@ import Fade from './components/Animations/Fade'
 import { BackdropMode } from './components/Backdrop'
 import { useModalState, useModalDispatch } from './components/ModalContext'
 
-export enum ScrollMode {
-  body = 'body',
-  content = 'content',
-}
+export type ScrollMode = 'body' | 'content'
 
 interface Props {
   scroll?: ScrollMode
@@ -32,16 +29,11 @@ const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
 const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 
 function Modal(props: Props) {
-  const {
-    children,
-    scroll = ScrollMode.content,
-    disableEscapeKeyDown = false,
-  } = props
+  const { children, scroll = 'content', disableEscapeKeyDown = false } = props
 
-  const {
-    fullScreen = false,
-    backdrop = BackdropMode.clickable,
-  } = useResponsiveValues(pick(responsiveProps, props))
+  const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues(
+    pick(responsiveProps, props)
+  )
 
   const handles = useCssHandles(CSS_HANDLES)
   const { open } = useModalState()
@@ -62,25 +54,24 @@ function Modal(props: Props) {
       return
     }
 
-    if (backdrop === BackdropMode.clickable) {
+    if (backdrop === 'clickable') {
       handleClose()
     }
   }
 
   const containerClasses = classnames(handles.container, 'outline-0 h-100', {
-    'overflow-y-auto overflow-x-hidden tc': scroll === ScrollMode.body,
-    'flex items-center justify-center': scroll === ScrollMode.content,
+    'overflow-y-auto overflow-x-hidden tc': scroll === 'body',
+    'flex items-center justify-center': scroll === 'content',
   })
 
   const paperClasses = classnames(handles.paper, 'bg-base relative br2', {
     [styles.paperNotFullScreen]: !fullScreen,
-    'dib tl v-mid': scroll === ScrollMode.body,
-    'h-100': fullScreen && scroll === ScrollMode.content,
-    'min-h-100': fullScreen && scroll === ScrollMode.body,
+    'dib tl v-mid': scroll === 'body',
+    'h-100': fullScreen && scroll === 'content',
+    'min-h-100': fullScreen && scroll === 'body',
     [`${styles.fullScreenModal} w-100 mw-100 br0`]: fullScreen,
-    [styles.paperScrollContent]: !fullScreen && scroll === ScrollMode.content,
-    [`${styles.paperScrollContent} flex flex-column`]:
-      scroll === ScrollMode.content,
+    [styles.paperScrollContent]: !fullScreen && scroll === 'content',
+    [`${styles.paperScrollContent} flex flex-column`]: scroll === 'content',
   })
 
   return (

@@ -66,6 +66,7 @@ export default function BaseModal(props: Props) {
 
   const handleOpen = useEventCallback(() => {
     const resolvedContainer = getContainer(container) ?? getDoc().body
+
     manager.add(modalRef, resolvedContainer as HTMLElement, onClose)
 
     if (modalRef.current) {
@@ -125,6 +126,7 @@ export default function BaseModal(props: Props) {
   }
 
   const childProps: Record<string, any> = {}
+
   if (children.props.tabIndex === undefined) {
     childProps.tabIndex = '-1'
   }
@@ -152,7 +154,7 @@ export default function BaseModal(props: Props) {
         <TrapFocus open={open}>
           {React.cloneElement(children, childProps)}
         </TrapFocus>
-        {backdrop !== BackdropMode.none && (
+        {backdrop !== 'none' && (
           <Backdrop open={open} onClick={onBackdropClick} />
         )}
       </div>

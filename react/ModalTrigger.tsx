@@ -10,12 +10,7 @@ import {
 
 const CSS_HANDLES = ['triggerContainer'] as const
 
-enum TriggerMode {
-  click = 'click',
-  load = 'load',
-  loadSession = 'load-session',
-  event = 'event',
-}
+type TriggerMode = 'click' | 'load' | 'load-session' | 'event'
 
 interface Props {
   trigger?: TriggerMode
@@ -26,10 +21,11 @@ interface Props {
 const ModalTrigger: React.FC<Props> = props => {
   const {
     children,
-    trigger = TriggerMode.click,
+    trigger = 'click',
     customPixelEventId,
     customPixelEventName,
   } = props
+
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
@@ -41,6 +37,27 @@ const ModalTrigger: React.FC<Props> = props => {
       dispatch({ type: 'OPEN_MODAL' })
     },
   })
+
+  useEffect(() => {
+    if (openOnLoad || !dispatch) {
+      return
+    }
+
+    if (trigger === 'load-session') {
+      if (sessionStorage.getItem('hasOpenedModal') === 'true') {
+        return
+      }
+
+      sessionStorage.setItem('hasOpenedModal', 'true')
+    }
+
+    if (trigger !== 'load-session' && trigger !== 'load') {
+      return
+    }
+
+    dispatch({ type: 'OPEN_MODAL' })
+    setOpenOnLoad(true)
+  }, [trigger, dispatch, openOnLoad])
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -54,31 +71,14 @@ const ModalTrigger: React.FC<Props> = props => {
     if (e.key !== 'Enter') {
       return
     }
+
     e.stopPropagation()
     if (dispatch) {
       dispatch({ type: 'OPEN_MODAL' })
     }
   }
 
-  useEffect(() => {
-    if (!openOnLoad && dispatch) {
-      if (
-        trigger === TriggerMode.loadSession &&
-        sessionStorage.getItem('hasOpenedModal')
-      ) {
-        return
-      }
-      if (trigger === TriggerMode.loadSession || trigger === TriggerMode.load) {
-        dispatch({ type: 'OPEN_MODAL' })
-        setOpenOnLoad(true)
-      }
-    }
-    if (!sessionStorage.getItem('hasOpenedModal')) {
-      sessionStorage.setItem('hasOpenedModal', 'true')
-    }
-  }, [trigger, dispatch, openOnLoad])
-
-  if (trigger === TriggerMode.click) {
+  if (trigger === 'click') {
     return (
       <div
         tabIndex={0}

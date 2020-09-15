@@ -21,6 +21,7 @@ describe('<CloseButton />', () => {
     )
 
     const closeButtonLabelEl = getByText('close button')
+
     fireEvent.click(closeButtonLabelEl, {
       bubbles: true,
       cancelable: true,

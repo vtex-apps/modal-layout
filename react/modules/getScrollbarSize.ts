@@ -1,5 +1,6 @@
 export default function getScrollbarSize() {
   const scrollDiv = document.createElement('div')
+
   scrollDiv.style.width = '99px'
   scrollDiv.style.height = '99px'
   scrollDiv.style.position = 'absolute'
@@ -8,6 +9,7 @@ export default function getScrollbarSize() {
 
   document.body.appendChild(scrollDiv)
   const scrollbarSize = scrollDiv.offsetWidth - scrollDiv.clientWidth
+
   document.body.removeChild(scrollDiv)
 
   return scrollbarSize

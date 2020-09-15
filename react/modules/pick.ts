@@ -7,8 +7,9 @@ type PickFnType = <T, K extends string>(
 
 const pick: PickFnType = (names, obj) => {
   const result: any = {}
+
   names.forEach(name => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     result[name] = obj[name]
   })
