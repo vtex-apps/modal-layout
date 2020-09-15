@@ -42,6 +42,27 @@ const ModalTrigger: React.FC<Props> = props => {
     },
   })
 
+  useEffect(() => {
+    if (openOnLoad || !dispatch) {
+      return
+    }
+
+    if (trigger === TriggerMode.loadSession) {
+      if (sessionStorage.getItem('hasOpenedModal') === 'true') {
+        return
+      }
+
+      sessionStorage.setItem('hasOpenedModal', 'true')
+    }
+
+    if (trigger !== TriggerMode.loadSession && trigger !== TriggerMode.load) {
+      return
+    }
+
+    dispatch({ type: 'OPEN_MODAL' })
+    setOpenOnLoad(true)
+  }, [trigger, dispatch, openOnLoad])
+
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
@@ -59,24 +80,6 @@ const ModalTrigger: React.FC<Props> = props => {
       dispatch({ type: 'OPEN_MODAL' })
     }
   }
-
-  useEffect(() => {
-    if (!openOnLoad && dispatch) {
-      if (
-        trigger === TriggerMode.loadSession &&
-        sessionStorage.getItem('hasOpenedModal')
-      ) {
-        return
-      }
-      if (trigger === TriggerMode.loadSession || trigger === TriggerMode.load) {
-        dispatch({ type: 'OPEN_MODAL' })
-        setOpenOnLoad(true)
-      }
-    }
-    if (!sessionStorage.getItem('hasOpenedModal')) {
-      sessionStorage.setItem('hasOpenedModal', 'true')
-    }
-  }, [trigger, dispatch, openOnLoad])
 
   if (trigger === TriggerMode.click) {
     return (
