@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { usePixelEventCallback } from 'vtex.pixel-manager'
 import { PixelData } from 'vtex.pixel-manager/react/PixelContext'
 
+import usePixelBasedOnContext from './modules/usePixelBasedOnContext'
 import {
   useModalDispatch,
   ModalContextProvider,
@@ -16,6 +16,7 @@ interface Props {
   trigger?: TriggerMode
   customPixelEventId?: string
   customPixelEventName?: PixelData['event']
+  shouldCompareProductContext?: boolean
 }
 
 const ModalTrigger: React.FC<Props> = props => {
@@ -24,18 +25,17 @@ const ModalTrigger: React.FC<Props> = props => {
     trigger = 'click',
     customPixelEventId,
     customPixelEventName,
+    shouldCompareProductContext = false,
   } = props
 
   const dispatch = useModalDispatch()
   const handles = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
 
-  usePixelEventCallback({
-    eventId: customPixelEventId,
-    eventName: customPixelEventName,
-    handler: () => {
-      dispatch({ type: 'OPEN_MODAL' })
-    },
+  usePixelBasedOnContext({
+    customPixelEventId,
+    customPixelEventName,
+    shouldCompareProductContext,
   })
 
   useEffect(() => {
