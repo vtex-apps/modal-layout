@@ -1,4 +1,9 @@
-import React, { createContext, useReducer, useContext } from 'react'
+import React, {
+  createContext,
+  useReducer,
+  useContext,
+  PropsWithChildren,
+} from 'react'
 
 interface State {
   open: boolean
@@ -61,10 +66,10 @@ interface ContextProviderProps {
   initialState?: State
 }
 
-export const ModalContextProvider: React.FC<ContextProviderProps> = ({
+export function ModalContextProvider({
   children,
   initialState = undefined,
-}) => {
+}: PropsWithChildren<ContextProviderProps>) {
   const [state, dispatch] = useReducer(
     modalContextReducer,
     initialState ?? DEFAULT_STATE
