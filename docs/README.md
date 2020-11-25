@@ -84,6 +84,7 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 | `trigger` | `enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per session (`load-session`). | `click` |
 | `customPixelEventId` | `string`  | Store event ID responsible for triggering the `modal-trigger` block (hence triggering the opening of `modal-layout` blocks on the interface as well). | `undefined`    |
 | `customPixelEventName` | `string`                                                                   | Store event name responsible for triggering the `modal-trigger` block (hence triggering the opening of `modal-layout` blocks on the interface as well). Some examples are: `'addToCart'` and `'removeFromCart'` events. Notice that using this prop will make the associated `modal-layout` open in **every** event with the specified name if no `customPixelEventId` is specified. | `undefined`    |
+| `shouldCompareProductContext` | `boolean` | A condition that will make the `ModalTrigger` compare the data received from the `addToCart` event with the `ProductContext` if there is one. It will only trigger the opening of the modal if the any of the `skuId` from the `cartItems` is equal to the `selectedItem` from the `ProductContext` | `false`       | 
 
 ### `modal-layout` props
 
