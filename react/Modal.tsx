@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import {
   useResponsiveValues,
   MaybeResponsiveInput,
 } from 'vtex.responsive-values'
+import { useRuntime } from 'vtex.render-runtime'
 
 import pick from './modules/pick'
 import styles from './styles.css'
@@ -22,6 +23,7 @@ interface Props {
   disableEscapeKeyDown?: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
   backdrop?: MaybeResponsiveInput<BackdropMode>
+  closeModalWhenUrlChange?: boolean
 }
 
 const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
@@ -29,7 +31,12 @@ const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
 const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 
 function Modal(props: Props) {
-  const { children, scroll = 'content', disableEscapeKeyDown = false } = props
+  const {
+    children,
+    scroll = 'content',
+    disableEscapeKeyDown = false,
+    closeModalWhenUrlChange = false,
+  } = props
 
   const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues(
     pick(responsiveProps, props)
@@ -38,6 +45,15 @@ function Modal(props: Props) {
   const handles = useCssHandles(CSS_HANDLES)
   const { open } = useModalState()
   const dispatch = useModalDispatch()
+  const { history } = useRuntime()
+
+  if (!history?.location?.pathname) {
+    return null
+  }
+
+  const {
+    location: { pathname },
+  } = history
 
   const handleClose = () => {
     if (dispatch) {
@@ -46,6 +62,15 @@ function Modal(props: Props) {
       })
     }
   }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (closeModalWhenUrlChange === true) {
+      dispatch({
+        type: 'CLOSE_MODAL',
+      })
+    }
+  }, [pathname, dispatch, closeModalWhenUrlChange])
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     // Prevent clicking inside the modal and closing it
