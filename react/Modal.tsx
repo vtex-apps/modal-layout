@@ -23,7 +23,6 @@ interface Props {
   disableEscapeKeyDown?: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
   backdrop?: MaybeResponsiveInput<BackdropMode>
-  closeModalWhenUrlChange?: boolean
 }
 
 const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
@@ -31,12 +30,7 @@ const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
 const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 
 function Modal(props: Props) {
-  const {
-    children,
-    scroll = 'content',
-    disableEscapeKeyDown = false,
-    closeModalWhenUrlChange = false,
-  } = props
+  const { children, scroll = 'content', disableEscapeKeyDown = false } = props
 
   const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues(
     pick(responsiveProps, props)
@@ -65,12 +59,10 @@ function Modal(props: Props) {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    if (closeModalWhenUrlChange === true) {
-      dispatch({
-        type: 'CLOSE_MODAL',
-      })
-    }
-  }, [pathname, dispatch, closeModalWhenUrlChange])
+    dispatch({
+      type: 'CLOSE_MODAL',
+    })
+  }, [pathname, dispatch])
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     // Prevent clicking inside the modal and closing it

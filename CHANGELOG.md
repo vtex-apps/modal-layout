@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 
-- Adding a new prop to close modal when url has changed
+- Open modal bug when changing url
 
 ## [0.7.2] - 2020-12-01
 ### Fixed

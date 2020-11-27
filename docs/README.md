@@ -94,7 +94,7 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 | `disableEscapeKeyDown` | `boolean` | Whether the modal should be closed when pressing the `Esc` key (`true`) or not (`false`). | `false` | 
 | `fullScreen` | `boolean` | Whether the modal should fill the whole screen (`true`) or not (`false`). This prop is responsive i.e. it adapts itself to the device's breakpoints.  | `false` | 
 | `backdrop` | `enum` | Whether the modal will have a clickable backdrop (`clickable`) or no backdrop at all (`none`). This prop is responsive i.e. it adapts itself to the device's breakpoints. | `clickable` | 
-| `closeModalWhenUrlChange` | `boolean` | If you want your modal to close when the url updates, just set the value of `closeModalWhenUrlChange` to true
+
 
 ### `modal-header` props 
 
