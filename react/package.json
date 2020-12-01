@@ -25,5 +25,5 @@
     "vtex.responsive-values": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react",
     "vtex.store-icons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.17.0/public/@types/vtex.store-icons"
   },
-  "version": "0.7.1"
+  "version": "0.7.2"
 }
