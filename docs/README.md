@@ -95,7 +95,6 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 | `fullScreen` | `boolean` | Whether the modal should fill the whole screen (`true`) or not (`false`). This prop is responsive i.e. it adapts itself to the device's breakpoints.  | `false` | 
 | `backdrop` | `enum` | Whether the modal will have a clickable backdrop (`clickable`) or no backdrop at all (`none`). This prop is responsive i.e. it adapts itself to the device's breakpoints. | `clickable` | 
 
-
 ### `modal-header` props 
 
 | Prop name | Type | Description | Default value |
