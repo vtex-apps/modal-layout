@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 `shouldCompareProductContext` as `prop` in order to compare the received `skuId` from the `pixelEvent` with the 
 `productContext`
 
+## [0.7.2] - 2020-12-01
+### Fixed
+- Types from `ModalContext`.
+
 ## [0.7.1] - 2020-09-15
 ### Fixed
 - Trigger `load-session` not working when some other modal renders before the `load-session` modal.
