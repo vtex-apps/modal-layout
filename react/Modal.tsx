@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import {
   useResponsiveValues,
   MaybeResponsiveInput,
 } from 'vtex.responsive-values'
-import { useRuntime } from 'vtex.render-runtime'
 
 import pick from './modules/pick'
 import styles from './styles.css'
@@ -13,6 +12,7 @@ import BaseModal from './BaseModal'
 import Fade from './components/Animations/Fade'
 import { BackdropMode } from './components/Backdrop'
 import { useModalState, useModalDispatch } from './components/ModalContext'
+import { useUrlChange } from './modules/useUrlChange'
 
 export type ScrollMode = 'body' | 'content'
 
@@ -39,15 +39,6 @@ function Modal(props: Props) {
   const handles = useCssHandles(CSS_HANDLES)
   const { open } = useModalState()
   const dispatch = useModalDispatch()
-  const { history } = useRuntime()
-
-  if (!history?.location?.pathname) {
-    return null
-  }
-
-  const {
-    location: { pathname },
-  } = history
 
   const handleClose = () => {
     if (dispatch) {
@@ -57,12 +48,18 @@ function Modal(props: Props) {
     }
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    dispatch({
-      type: 'CLOSE_MODAL',
-    })
-  }, [pathname, dispatch])
+  // Close modal when url changes
+  useUrlChange(
+    {
+      fn: () => {
+        dispatch({
+          type: 'CLOSE_MODAL',
+        })
+      },
+      skip: !open,
+    },
+    [open, dispatch]
+  )
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     // Prevent clicking inside the modal and closing it
