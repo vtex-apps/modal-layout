@@ -12,6 +12,7 @@ import BaseModal from './BaseModal'
 import Fade from './components/Animations/Fade'
 import { BackdropMode } from './components/Backdrop'
 import { useModalState, useModalDispatch } from './components/ModalContext'
+import { useUrlChange } from './modules/useUrlChange'
 
 export type ScrollMode = 'body' | 'content'
 
@@ -46,6 +47,19 @@ function Modal(props: Props) {
       })
     }
   }
+
+  // Close modal when url changes
+  useUrlChange(
+    {
+      fn: () => {
+        dispatch({
+          type: 'CLOSE_MODAL',
+        })
+      },
+      skip: !open,
+    },
+    [open, dispatch]
+  )
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     // Prevent clicking inside the modal and closing it
