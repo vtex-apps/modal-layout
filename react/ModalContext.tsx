@@ -4,4 +4,4 @@ import {
   useModalState
 } from './components/ModalContext'
 
-export default { useModalDispatch, ModalContextProvider }
+export default { useModalDispatch, ModalContextProvider, useModalState }
