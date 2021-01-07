@@ -31,7 +31,7 @@ const inlineStyles: Record<string, React.CSSProperties> = {
     top: 0,
     left: 0
   },
-}
+} as const
 
 const manager = new ModalManager()
 
