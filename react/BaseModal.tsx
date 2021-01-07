@@ -29,7 +29,7 @@ const inlineStyles: Record<string, React.CSSProperties> = {
     right: 0,
     bottom: 0,
     top: 0,
-    left: 0
+    left: 0,
   },
 } as const
 
@@ -44,7 +44,7 @@ export default function BaseModal(props: Props) {
     container,
     onBackdropClick,
     disableEscapeKeyDown = false,
-    zIndexValue,
+    zIndexValue = 1300,
     ...rest
   } = props
 
@@ -149,7 +149,7 @@ export default function BaseModal(props: Props) {
         role="presentation"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        style={{...inlineStyles.container, zIndex: zIndexValue}}
+        style={{ ...inlineStyles.container, zIndex: zIndexValue }}
         data-testid="base-modal"
       >
         <TrapFocus open={open}>
