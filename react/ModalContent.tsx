@@ -8,11 +8,11 @@ import useIntersection from './modules/useIntersection'
 
 const CSS_HANDLES = ['contentContainer'] as const
 
-const ModalContent: React.FC = props => {
+const ModalContent: React.FC = (props) => {
   const { children } = props
   const intersectionRef = useRef<IntersectionObserver | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
-  const handles = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES)
   const dispatch = useModalDispatch()
   const handleIntersection = useCallback(
     (isIntersecting: boolean) => {

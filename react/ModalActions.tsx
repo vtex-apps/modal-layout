@@ -16,7 +16,7 @@ const CSS_HANDLES = [
 
 export default function ModalActions(props: Props) {
   const { children } = props
-  const handles = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES)
   const { endOfContent } = useModalState()
   const containerClasses = classnames(handles.actionsContainer, {
     [handles.actionsContainerEndOfContent]: endOfContent,

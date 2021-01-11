@@ -1,16 +1,13 @@
 import React from 'react'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
-import {
-  useResponsiveValues,
-  MaybeResponsiveInput,
-} from 'vtex.responsive-values'
+import type { ResponsiveValuesTypes } from 'vtex.responsive-values'
+import { useResponsiveValues } from 'vtex.responsive-values'
 
-import pick from './modules/pick'
 import styles from './styles.css'
-import BaseModal from './BaseModal'
+import BaseModal, { CSS_HANDLES as BaseModalCssHandles } from './BaseModal'
 import Fade from './components/Animations/Fade'
-import { BackdropMode } from './components/Backdrop'
+import type { BackdropMode } from './components/Backdrop'
 import { useModalState, useModalDispatch } from './components/ModalContext'
 import { useUrlChange } from './modules/useUrlChange'
 
@@ -21,22 +18,29 @@ interface Props {
   blockClass?: string
   children?: React.ReactNode
   disableEscapeKeyDown?: boolean
-  fullScreen?: MaybeResponsiveInput<boolean>
-  backdrop?: MaybeResponsiveInput<BackdropMode>
+  fullScreen?: ResponsiveValuesTypes.ResponsiveValue<boolean>
+  backdrop?: ResponsiveValuesTypes.ResponsiveValue<BackdropMode>
+  showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
 }
 
-const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
-
-const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
+const CSS_HANDLES = [
+  'modal',
+  'paper',
+  'topRow',
+  'container',
+  'closeButton',
+  ...BaseModalCssHandles,
+] as const
 
 function Modal(props: Props) {
   const { children, scroll = 'content', disableEscapeKeyDown = false } = props
 
-  const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues(
-    pick(responsiveProps, props)
-  )
+  const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues({
+    backdrop: props.backdrop,
+    fullScreen: props.fullScreen,
+  })
 
-  const handles = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES)
   const { open } = useModalState()
   const dispatch = useModalDispatch()
 
@@ -90,6 +94,7 @@ function Modal(props: Props) {
 
   return (
     <BaseModal
+      classes={handles}
       open={open}
       backdrop={backdrop}
       onClose={handleClose}

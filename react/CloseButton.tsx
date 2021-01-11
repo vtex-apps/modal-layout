@@ -13,7 +13,7 @@ const CSS_HANDLES = ['closeButton', 'closeButtonLabel'] as const
 
 function CloseButton(props: Props) {
   const { label } = props
-  const handles = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES)
   const dispatch = useModalDispatch()
 
   const handleClick = useCallback(() => {

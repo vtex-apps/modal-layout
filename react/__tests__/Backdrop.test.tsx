@@ -5,15 +5,20 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 import { findCSSHandles } from '../__mocks__/testUtils'
 import Backdrop, { CSS_HANDLES } from '../components/Backdrop'
 
+const baseClasses = {
+  backdropContainer: 'backdropContainer',
+  backdrop: 'backdrop',
+}
+
 describe('<Backdrop />', () => {
   it('should render', () => {
-    const { baseElement } = render(<Backdrop open />)
+    const { baseElement } = render(<Backdrop open classes={baseClasses} />)
 
     expect(baseElement).toBeTruthy()
   })
 
   it('should find all declared handles', () => {
-    const { container } = render(<Backdrop open />)
+    const { container } = render(<Backdrop open classes={baseClasses} />)
 
     const foundHandles = findCSSHandles(container, CSS_HANDLES)
 
@@ -21,7 +26,9 @@ describe('<Backdrop />', () => {
   })
 
   it('should have visibility hidden and opacity 0 if open === false', () => {
-    const { getByTestId } = render(<Backdrop open={false} />)
+    const { getByTestId } = render(
+      <Backdrop open={false} classes={baseClasses} />
+    )
 
     const container = getByTestId('modal-backdrop-container')
 
@@ -31,7 +38,9 @@ describe('<Backdrop />', () => {
 
   it('should call onClick when backdrop is clicked', () => {
     const spy = jest.fn()
-    const { getByRole } = render(<Backdrop open onClick={spy} />)
+    const { getByRole } = render(
+      <Backdrop open onClick={spy} classes={baseClasses} />
+    )
 
     const backdropElement = getByRole('presentation')
 
@@ -42,7 +51,9 @@ describe('<Backdrop />', () => {
 
   it('should have a role="presentation"', () => {
     const spy = jest.fn()
-    const { queryByRole } = render(<Backdrop open onClick={spy} />)
+    const { queryByRole } = render(
+      <Backdrop open onClick={spy} classes={baseClasses} />
+    )
 
     const container = queryByRole('presentation')
 

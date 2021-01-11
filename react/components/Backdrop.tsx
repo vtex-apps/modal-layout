@@ -1,23 +1,24 @@
 import React from 'react'
-import { useCssHandles } from 'vtex.css-handles'
-import { TransitionProps } from 'react-transition-group/Transition'
+import type { TransitionProps } from 'react-transition-group/Transition'
+import type { CssHandlesTypes } from 'vtex.css-handles'
 
 import Fade from './Animations/Fade'
 import styles from '../styles.css'
 
 export type BackdropMode = 'display' | 'clickable' | 'none'
 
+export const CSS_HANDLES = ['backdropContainer', 'backdrop'] as const
+
 interface Props {
   open: boolean
   transitionDuration?: TransitionProps['timeout']
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+  classes: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
 }
 
-export const CSS_HANDLES = ['backdropContainer', 'backdrop'] as const
-
-const Backdrop: React.FC<Props> = props => {
-  const { children, open, onClick, transitionDuration } = props
-  const handles = useCssHandles(CSS_HANDLES)
+const Backdrop: React.FC<Props> = (props) => {
+  const { children, open, onClick, transitionDuration, classes } = props
+  const nodeRef = React.useRef<HTMLDivElement>(null)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (onClick) {
@@ -26,15 +27,15 @@ const Backdrop: React.FC<Props> = props => {
   }
 
   return (
-    <Fade in={open} timeout={transitionDuration}>
+    <Fade in={open} timeout={transitionDuration} ref={nodeRef}>
       <div
-        className={`${handles.backdropContainer} ${styles.backdropContainer}`}
+        className={`${classes.backdropContainer} ${styles.backdropContainer}`}
         data-testid="modal-backdrop-container"
       >
         <div
           role="presentation"
           onClick={handleClick}
-          className={`${handles.backdrop} bg-base--inverted o-50 h-100`}
+          className={`${classes.backdrop} bg-base--inverted o-50 h-100`}
         >
           {children}
         </div>

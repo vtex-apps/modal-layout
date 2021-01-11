@@ -5,7 +5,7 @@ interface Props {
   open: boolean
 }
 
-const TrapFocus: React.FC<Props> = props => {
+const TrapFocus: React.FC<Props> = (props) => {
   const { children, open } = props
   const childRef = useRef<HTMLElement>()
 

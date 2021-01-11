@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- New CSS Handle: `modal`.
+
+### Fixed
+- Avoid usage of `findDOMNode`.
+
+### Changed
+- Migrate to vtex.css-handles@1.x.
 
 ## [0.8.0] - 2021-01-11 [YANKED]
 ### Added

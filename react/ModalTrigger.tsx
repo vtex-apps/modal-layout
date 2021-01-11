@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
+import type { PixelEventTypes } from 'vtex.pixel-manager'
 import { usePixelEventCallback } from 'vtex.pixel-manager'
-import { PixelData } from 'vtex.pixel-manager/react/PixelContext'
 
 import {
   useModalDispatch,
@@ -15,10 +15,10 @@ type TriggerMode = 'click' | 'load' | 'load-session' | 'event'
 interface Props {
   trigger?: TriggerMode
   customPixelEventId?: string
-  customPixelEventName?: PixelData['event']
+  customPixelEventName?: PixelEventTypes.PixelData['event']
 }
 
-const ModalTrigger: React.FC<Props> = props => {
+const ModalTrigger: React.FC<Props> = (props) => {
   const {
     children,
     trigger = 'click',
@@ -27,7 +27,7 @@ const ModalTrigger: React.FC<Props> = props => {
   } = props
 
   const dispatch = useModalDispatch()
-  const handles = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES)
   const [openOnLoad, setOpenOnLoad] = useState(false)
 
   usePixelEventCallback({
@@ -95,7 +95,7 @@ const ModalTrigger: React.FC<Props> = props => {
   return <>{children}</>
 }
 
-const EnhancedModalTrigger: React.FC = props => {
+const EnhancedModalTrigger: React.FC = (props) => {
   return (
     <ModalContextProvider>
       <ModalTrigger {...props} />

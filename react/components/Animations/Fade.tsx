@@ -1,13 +1,12 @@
 import React from 'react'
 import { Transition } from 'react-transition-group'
-import {
-  ENTERED,
-  ENTERING,
+import type {
   ExitHandler,
   EnterHandler,
   TransitionProps,
   TransitionStatus,
 } from 'react-transition-group/Transition'
+import { ENTERED, ENTERING } from 'react-transition-group/Transition'
 
 import { getTransitionProps, createTransition } from './utils'
 import { duration } from './transitions'
@@ -38,10 +37,7 @@ const defaultTimeout = {
   exit: duration.leavingScreen,
 }
 
-const Fade = React.forwardRef(function Fade(
-  props: Props,
-  ref: React.Ref<unknown>
-) {
+const Fade = React.forwardRef(function Fade(props: Props, ref: React.Ref<any>) {
   const {
     onExit,
     onEnter,
