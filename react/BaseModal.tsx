@@ -20,7 +20,6 @@ interface Props
   disableEscapeKeyDown?: boolean
   children: React.ReactElement
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
-  zIndexValue: number
 }
 
 const inlineStyles: Record<string, React.CSSProperties> = {
@@ -30,6 +29,7 @@ const inlineStyles: Record<string, React.CSSProperties> = {
     bottom: 0,
     top: 0,
     left: 0,
+    zIndex: 1300,
   },
 } as const
 
@@ -44,7 +44,6 @@ export default function BaseModal(props: Props) {
     container,
     onBackdropClick,
     disableEscapeKeyDown = false,
-    zIndexValue = 1300,
     ...rest
   } = props
 
@@ -149,7 +148,7 @@ export default function BaseModal(props: Props) {
         role="presentation"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        style={{ ...inlineStyles.container, zIndex: zIndexValue }}
+        style={inlineStyles.container}
         data-testid="base-modal"
       >
         <TrapFocus open={open}>

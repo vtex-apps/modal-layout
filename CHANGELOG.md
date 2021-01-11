@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.8.0] - 2021-01-11
+## [0.8.0] - 2021-01-11 [YANKED]
 ### Added
 - Prop `zIndexValue` to the `modal-layout` block.
 
