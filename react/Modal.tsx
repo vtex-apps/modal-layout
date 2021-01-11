@@ -23,6 +23,7 @@ interface Props {
   disableEscapeKeyDown?: boolean
   fullScreen?: MaybeResponsiveInput<boolean>
   backdrop?: MaybeResponsiveInput<BackdropMode>
+  zIndexValue: number
 }
 
 const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
@@ -30,7 +31,12 @@ const CSS_HANDLES = ['paper', 'topRow', 'container', 'closeButton'] as const
 const responsiveProps = ['backdrop', 'fullScreen', 'showCloseButton'] as const
 
 function Modal(props: Props) {
-  const { children, scroll = 'content', disableEscapeKeyDown = false } = props
+  const {
+    children,
+    scroll = 'content',
+    disableEscapeKeyDown = false,
+    zIndexValue = 1300,
+  } = props
 
   const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues(
     pick(responsiveProps, props)
@@ -95,6 +101,7 @@ function Modal(props: Props) {
       onClose={handleClose}
       onBackdropClick={handleBackdropClick}
       disableEscapeKeyDown={disableEscapeKeyDown}
+      zIndexValue={zIndexValue}
     >
       <Fade in={open}>
         {
