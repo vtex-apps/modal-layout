@@ -100,7 +100,7 @@ function ModalTrigger(props: Props) {
   return <>{children}</>
 }
 
-const EnhancedModalTrigger: React.FC = (props) => {
+function EnhancedModalTrigger(props: Props) {
   return (
     <ModalContextProvider>
       <ModalTrigger {...props}>{props.children}</ModalTrigger>
