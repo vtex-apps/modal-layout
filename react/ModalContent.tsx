@@ -1,6 +1,8 @@
 import React, { useRef, useCallback } from 'react'
+import type { ReactNode } from 'react'
 import classnames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
+import type { CssHandlesTypes } from 'vtex.css-handles'
 
 import styles from './styles.css'
 import { useModalDispatch } from './components/ModalContext'
@@ -8,11 +10,15 @@ import useIntersection from './modules/useIntersection'
 
 const CSS_HANDLES = ['contentContainer'] as const
 
-const ModalContent: React.FC = (props) => {
-  const { children } = props
+interface Props {
+  children: ReactNode
+  classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
+}
+
+function ModalContent({ children, classes }: Props) {
   const intersectionRef = useRef<IntersectionObserver | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
-  const { handles } = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const dispatch = useModalDispatch()
   const handleIntersection = useCallback(
     (isIntersecting: boolean) => {
@@ -30,14 +36,14 @@ const ModalContent: React.FC = (props) => {
     callback: handleIntersection,
   })
 
-  const classes = classnames(
-    handles.contentContainer,
-    styles.contentScroll,
-    'overflow-y-auto pa5 relative'
-  )
-
   return (
-    <div className={classes}>
+    <div
+      className={classnames(
+        handles.contentContainer,
+        styles.contentScroll,
+        'overflow-y-auto pa5 relative'
+      )}
+    >
       {children}
       <div
         className="absolute bottom-0 right-0"

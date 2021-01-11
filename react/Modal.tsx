@@ -1,5 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
+import type { CssHandlesTypes } from 'vtex.css-handles'
 import { useCssHandles } from 'vtex.css-handles'
 import type { ResponsiveValuesTypes } from 'vtex.responsive-values'
 import { useResponsiveValues } from 'vtex.responsive-values'
@@ -13,16 +14,6 @@ import { useUrlChange } from './modules/useUrlChange'
 
 export type ScrollMode = 'body' | 'content'
 
-interface Props {
-  scroll?: ScrollMode
-  blockClass?: string
-  children?: React.ReactNode
-  disableEscapeKeyDown?: boolean
-  fullScreen?: ResponsiveValuesTypes.ResponsiveValue<boolean>
-  backdrop?: ResponsiveValuesTypes.ResponsiveValue<BackdropMode>
-  showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
-}
-
 const CSS_HANDLES = [
   'modal',
   'paper',
@@ -32,15 +23,31 @@ const CSS_HANDLES = [
   ...BaseModalCssHandles,
 ] as const
 
+interface Props {
+  scroll?: ScrollMode
+  blockClass?: string
+  children?: React.ReactNode
+  disableEscapeKeyDown?: boolean
+  fullScreen?: ResponsiveValuesTypes.ResponsiveValue<boolean>
+  backdrop?: ResponsiveValuesTypes.ResponsiveValue<BackdropMode>
+  showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
+  classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
+}
+
 function Modal(props: Props) {
-  const { children, scroll = 'content', disableEscapeKeyDown = false } = props
+  const {
+    children,
+    classes,
+    scroll = 'content',
+    disableEscapeKeyDown = false,
+  } = props
 
   const { fullScreen = false, backdrop = 'clickable' } = useResponsiveValues({
     backdrop: props.backdrop,
     fullScreen: props.fullScreen,
   })
 
-  const { handles } = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const { open } = useModalState()
   const dispatch = useModalDispatch()
 

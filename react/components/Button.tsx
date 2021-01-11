@@ -8,15 +8,13 @@ interface AllClasses {
   label: string
 }
 
-type Classes = Partial<AllClasses>
-
 interface Props
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
   children: React.ReactNode
-  classes?: Classes
+  classes?: Partial<AllClasses>
 }
 
 function Button(props: Props) {

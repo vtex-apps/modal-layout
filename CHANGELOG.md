@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - New CSS Handle: `modal`.
+- Add prop `classes` to exported components.
 
 ### Fixed
 - Avoid usage of `findDOMNode`.

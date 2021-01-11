@@ -2,17 +2,12 @@ import React from 'react'
 import classnames from 'classnames'
 import { IconClose } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
-import type { ResponsiveValuesTypes } from 'vtex.responsive-values'
+import type { CssHandlesTypes } from 'vtex.css-handles'
 import { useResponsiveValue } from 'vtex.responsive-values'
+import type { ResponsiveValuesTypes } from 'vtex.responsive-values'
 
 import styles from './styles.css'
 import { useModalDispatch } from './components/ModalContext'
-
-interface Props {
-  children?: React.ReactNode
-  showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
-  iconCloseSize?: number
-}
 
 const CSS_HANDLES = [
   'headerContainer',
@@ -21,15 +16,23 @@ const CSS_HANDLES = [
   'closeButtonContainer',
 ] as const
 
+interface Props {
+  children?: React.ReactNode
+  showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
+  iconCloseSize?: number
+  classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
+}
+
 export default React.memo(function ModalHeader(props: Props) {
   const {
     children,
     iconCloseSize = 32,
     showCloseButton: showCloseButtonProp = true,
+    classes,
   } = props
 
   const showCloseButton = useResponsiveValue(showCloseButtonProp)
-  const { handles } = useCssHandles(CSS_HANDLES)
+  const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const dispatch = useModalDispatch()
 
   const handleClose = () => {
