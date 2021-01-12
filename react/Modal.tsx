@@ -1,4 +1,5 @@
 import React from 'react'
+import type { PropsWithChildren } from 'react'
 import classnames from 'classnames'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { useCssHandles } from 'vtex.css-handles'
@@ -26,14 +27,13 @@ const CSS_HANDLES = [
 interface Props {
   scroll?: ScrollMode
   blockClass?: string
-  children?: React.ReactNode
   disableEscapeKeyDown?: boolean
   fullScreen?: ResponsiveValuesTypes.ResponsiveValue<boolean>
   backdrop?: ResponsiveValuesTypes.ResponsiveValue<BackdropMode>
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
 
-function Modal(props: Props) {
+function Modal(props: PropsWithChildren<Props>) {
   const {
     children,
     classes,
@@ -100,7 +100,7 @@ function Modal(props: Props) {
 
   return (
     <BaseModal
-      classes={handles}
+      handles={handles}
       open={open}
       backdrop={backdrop}
       onClose={handleClose}

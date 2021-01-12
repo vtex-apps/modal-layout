@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import type { CssHandlesTypes } from 'vtex.css-handles'
+import classnames from 'classnames'
 
 import TrapFocus from './components/TrapFocus'
 import ModalManager from './modules/ModalManager'
@@ -27,7 +28,7 @@ interface Props
   disableEscapeKeyDown?: boolean
   children: React.ReactElement
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
-  classes: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
+  handles: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
 }
 
 const inlineStyles: Record<string, React.CSSProperties> = {
@@ -52,7 +53,7 @@ export default function BaseModal(props: Props) {
     container,
     onBackdropClick,
     disableEscapeKeyDown = false,
-    classes,
+    handles,
     ...rest
   } = props
 
@@ -153,7 +154,7 @@ export default function BaseModal(props: Props) {
     <Portal container={container}>
       <div
         {...rest}
-        className={`${props.classes.modal} ${props.className ?? ''}`}
+        className={classnames(handles.modal, props.className)}
         ref={modalRef}
         role="presentation"
         onClick={handleClick}
@@ -168,7 +169,7 @@ export default function BaseModal(props: Props) {
           <Backdrop
             open={open}
             onClick={onBackdropClick}
-            classes={props.classes}
+            handles={props.handles}
           />
         )}
       </div>

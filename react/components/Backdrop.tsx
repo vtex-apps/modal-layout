@@ -13,11 +13,11 @@ interface Props {
   open: boolean
   transitionDuration?: TransitionProps['timeout']
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
-  classes: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
+  handles: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
 }
 
 const Backdrop: React.FC<Props> = (props) => {
-  const { children, open, onClick, transitionDuration, classes } = props
+  const { children, open, onClick, transitionDuration, handles } = props
   const nodeRef = React.useRef<HTMLDivElement>(null)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -29,13 +29,13 @@ const Backdrop: React.FC<Props> = (props) => {
   return (
     <Fade in={open} timeout={transitionDuration} ref={nodeRef}>
       <div
-        className={`${classes.backdropContainer} ${styles.backdropContainer}`}
+        className={`${handles.backdropContainer} ${styles.backdropContainer}`}
         data-testid="modal-backdrop-container"
       >
         <div
           role="presentation"
           onClick={handleClick}
-          className={`${classes.backdrop} bg-base--inverted o-50 h-100`}
+          className={`${handles.backdrop} bg-base--inverted o-50 h-100`}
         >
           {children}
         </div>

@@ -27,7 +27,7 @@ function CloseButton({ label, classes }: Props) {
   }
 
   return (
-    <Button classes={buttonClasses} onClick={handleClick}>
+    <Button handles={buttonClasses} onClick={handleClick}>
       {label ?? (
         <FormattedMessage id="store/modal-layout.close-button.default-label" />
       )}

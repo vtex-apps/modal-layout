@@ -1,4 +1,5 @@
 import React from 'react'
+import type { PropsWithChildren } from 'react'
 import classnames from 'classnames'
 import { IconClose } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
@@ -17,13 +18,14 @@ const CSS_HANDLES = [
 ] as const
 
 interface Props {
-  children?: React.ReactNode
   showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
   iconCloseSize?: number
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
 
-export default React.memo(function ModalHeader(props: Props) {
+export default React.memo(function ModalHeader(
+  props: PropsWithChildren<Props>
+) {
   const {
     children,
     iconCloseSize = 32,
