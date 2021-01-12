@@ -30,7 +30,6 @@ interface Props {
   disableEscapeKeyDown?: boolean
   fullScreen?: ResponsiveValuesTypes.ResponsiveValue<boolean>
   backdrop?: ResponsiveValuesTypes.ResponsiveValue<BackdropMode>
-  showCloseButton?: ResponsiveValuesTypes.ResponsiveValue<boolean>
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
 
