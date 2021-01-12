@@ -3,12 +3,12 @@ export function findCSSHandles(
   handles: readonly string[]
 ) {
   const foundNodes = handles
-    .map(handle => {
+    .map((handle) => {
       const foundNodesInner = container.getElementsByClassName(handle)
 
       return foundNodesInner.length > 0 ? handle : ''
     })
-    .filter(result => result !== '')
+    .filter((result) => result !== '')
 
   return foundNodes
 }
