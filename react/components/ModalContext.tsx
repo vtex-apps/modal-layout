@@ -1,9 +1,5 @@
-import React, {
-  createContext,
-  useReducer,
-  useContext,
-  PropsWithChildren,
-} from 'react'
+import React, { createContext, useReducer, useContext } from 'react'
+import type { PropsWithChildren } from 'react'
 
 interface State {
   open: boolean

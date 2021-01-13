@@ -9,7 +9,7 @@ interface Params {
 export default function useIntersection(params: Params) {
   const { callback, intersectionRef, sentinelRef } = params
   const handleIntersection: IntersectionObserverCallback = useCallback(
-    entries => {
+    (entries) => {
       if (entries[0]) {
         callback(entries[0].isIntersecting)
       }

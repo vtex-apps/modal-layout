@@ -8,28 +8,26 @@ interface AllClasses {
   label: string
 }
 
-type Classes = Partial<AllClasses>
-
 interface Props
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
   children: React.ReactNode
-  classes?: Classes
+  handles?: Partial<AllClasses>
 }
 
 function Button(props: Props) {
-  const { children, classes = {}, className, ...rest } = props
+  const { children, handles = {}, className, ...rest } = props
   const buttonClasses = useButtonClasses()
 
   const rootClasses = classnames(
     className,
-    classes.button,
+    handles.button,
     buttonClasses.container
   )
 
-  const labelClasses = classnames(classes.label, buttonClasses.label)
+  const labelClasses = classnames(handles.label, buttonClasses.label)
 
   return (
     <button className={rootClasses} {...rest}>

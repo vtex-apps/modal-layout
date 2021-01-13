@@ -4,11 +4,17 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 import BaseModal from '../BaseModal'
 import Fade from '../components/Animations/Fade'
 
+const handles = {
+  modal: 'modal',
+  backdropContainer: 'backdropContainer',
+  backdrop: 'backdrop',
+}
+
 describe('<BaseModal />', () => {
   it('should render the modal with the children', () => {
     const onClose = jest.fn()
     const { queryByText, queryByRole } = render(
-      <BaseModal open onClose={onClose} backdrop="none">
+      <BaseModal open onClose={onClose} backdrop="none" handles={handles}>
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>
@@ -21,7 +27,7 @@ describe('<BaseModal />', () => {
 
   it("shouldn't render anything if open is false", () => {
     const { queryByText, queryByRole } = render(
-      <BaseModal open={false} onClose={() => {}}>
+      <BaseModal open={false} onClose={() => {}} handles={handles}>
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>
@@ -35,7 +41,7 @@ describe('<BaseModal />', () => {
   it('should call onClose if Esc is pressed', () => {
     const onClose = jest.fn()
     const { getByRole } = render(
-      <BaseModal open onClose={onClose} backdrop="none">
+      <BaseModal open onClose={onClose} backdrop="none" handles={handles}>
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>
@@ -53,7 +59,7 @@ describe('<BaseModal />', () => {
   it("shouldn't call onClose if disableEscapeKeyDown", () => {
     const onClose = jest.fn()
     const { getByTestId } = render(
-      <BaseModal open onClose={onClose} disableEscapeKeyDown>
+      <BaseModal open onClose={onClose} disableEscapeKeyDown handles={handles}>
         <Fade in>
           <div data-testid="base-modal-child">Hello VTEX</div>
         </Fade>
@@ -71,7 +77,7 @@ describe('<BaseModal />', () => {
   it('should have role="presentation"', () => {
     const onClose = jest.fn()
     const { queryByRole } = render(
-      <BaseModal open onClose={onClose} backdrop="none">
+      <BaseModal open onClose={onClose} backdrop="none" handles={handles}>
         <Fade in>
           <div>Hello VTEX</div>
         </Fade>
@@ -89,7 +95,7 @@ describe('<BaseModal />', () => {
     const { getByTestId } = render(
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
       <div onClick={outsideClick}>
-        <BaseModal open onClick={onClick} onClose={onClose}>
+        <BaseModal open onClick={onClick} onClose={onClose} handles={handles}>
           <Fade in>
             <div>Hello VTEX</div>
           </Fade>

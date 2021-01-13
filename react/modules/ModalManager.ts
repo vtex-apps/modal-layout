@@ -1,4 +1,4 @@
-import { RefObject } from 'react'
+import type { RefObject } from 'react'
 
 import ownerDocument from './ownerDocument'
 import ownerWindow from './ownerWindow'
@@ -68,8 +68,9 @@ function handleContainer(containerInfo: ContainerInfo) {
       el: container,
     })
 
-    container.style.paddingRight = `${getPaddingRight(container) +
-      scrollbarSize}px`
+    container.style.paddingRight = `${
+      getPaddingRight(container) + scrollbarSize
+    }px`
   }
 
   // https://css-tricks.com/snippets/css/force-vertical-scrollbar/
@@ -131,7 +132,7 @@ export default class ModalManager {
     this.closeMethods.push(onClose)
     const containerIndex = findIndexOf(
       this.containers,
-      item => item.container === container
+      (item) => item.container === container
     )
 
     if (containerIndex !== -1) {
@@ -152,7 +153,7 @@ export default class ModalManager {
   public mount(modal: ModalRef) {
     const containerIndex = findIndexOf(
       this.containers,
-      item => item.modals.indexOf(modal) !== -1
+      (item) => item.modals.indexOf(modal) !== -1
     )
 
     const containerInfo = this.containers[containerIndex]
@@ -171,7 +172,7 @@ export default class ModalManager {
 
     const containerIndex = findIndexOf(
       this.containers,
-      item => item.modals.indexOf(modal) !== -1
+      (item) => item.modals.indexOf(modal) !== -1
     )
 
     const containerInfo = this.containers[containerIndex]

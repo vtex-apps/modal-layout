@@ -1,4 +1,4 @@
-import {
+import type {
   TransitionActions,
   TransitionProps as _TransitionProps,
 } from 'react-transition-group/Transition'
@@ -59,7 +59,7 @@ export function createTransition(
 
   return (Array.isArray(props) ? props : [props])
     .map(
-      animatedProp =>
+      (animatedProp) =>
         `${animatedProp} ${
           typeof duration === 'string' ? duration : formatMs(duration)
         } ${easing} ${typeof delay === 'string' ? delay : formatMs(delay)}`

@@ -1,12 +1,20 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
+import type { CssHandlesTypes } from 'vtex.css-handles'
+import classnames from 'classnames'
 
 import TrapFocus from './components/TrapFocus'
 import ModalManager from './modules/ModalManager'
-import Backdrop, { BackdropMode } from './components/Backdrop'
+import type { BackdropMode } from './components/Backdrop'
+import Backdrop, {
+  CSS_HANDLES as BackdropCssHandles,
+} from './components/Backdrop'
 import createChainedFunction from './modules/createChainedFunction'
-import Portal, { ContainerType, getContainer } from './components/Portal'
+import type { ContainerType } from './components/Portal'
+import Portal, { getContainer } from './components/Portal'
 import ownerDocument from './modules/ownerDocument'
 import useEventCallback from './modules/useEventCallback'
+
+export const CSS_HANDLES = ['modal', ...BackdropCssHandles] as const
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -20,6 +28,7 @@ interface Props
   disableEscapeKeyDown?: boolean
   children: React.ReactElement
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+  handles: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
 }
 
 const inlineStyles: Record<string, React.CSSProperties> = {
@@ -44,6 +53,7 @@ export default function BaseModal(props: Props) {
     container,
     onBackdropClick,
     disableEscapeKeyDown = false,
+    handles,
     ...rest
   } = props
 
@@ -144,6 +154,7 @@ export default function BaseModal(props: Props) {
     <Portal container={container}>
       <div
         {...rest}
+        className={classnames(handles.modal, props.className)}
         ref={modalRef}
         role="presentation"
         onClick={handleClick}
@@ -155,7 +166,11 @@ export default function BaseModal(props: Props) {
           {React.cloneElement(children, childProps)}
         </TrapFocus>
         {backdrop !== 'none' && (
-          <Backdrop open={open} onClick={onBackdropClick} />
+          <Backdrop
+            open={open}
+            onClick={onBackdropClick}
+            handles={props.handles}
+          />
         )}
       </div>
     </Portal>

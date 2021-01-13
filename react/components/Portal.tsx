@@ -1,4 +1,5 @@
-import React, { useState, forwardRef } from 'react'
+import type React from 'react'
+import { useState, forwardRef } from 'react'
 import ReactDOM from 'react-dom'
 
 import setRef from '../modules/setRef'
@@ -16,6 +17,10 @@ interface Props {
 
 export function getContainer(container?: ContainerType) {
   container = typeof container === 'function' ? container() : container
+
+  if (!container) {
+    return null
+  }
 
   // eslint-disable-next-line react/no-find-dom-node
   return ReactDOM.findDOMNode(container) as Element | null

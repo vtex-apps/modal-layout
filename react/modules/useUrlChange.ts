@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
-import { Listener } from 'history'
+import type { Listener } from 'history'
 
 type Params = {
   fn: Listener

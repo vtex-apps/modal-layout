@@ -11,7 +11,7 @@ export function useForkRef<T>(
       return null
     }
 
-    return refValue => {
+    return (refValue) => {
       setRef(refA, refValue)
       setRef(refB, refValue)
     }
