@@ -1,4 +1,5 @@
 import React from 'react'
+import type { PropsWithChildren } from 'react'
 import type { TransitionProps } from 'react-transition-group/Transition'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 
@@ -16,7 +17,7 @@ interface Props {
   handles: CssHandlesTypes.CssHandles<typeof CSS_HANDLES>
 }
 
-const Backdrop: React.FC<Props> = (props) => {
+function Backdrop(props: PropsWithChildren<Props>) {
   const { children, open, onClick, transitionDuration, handles } = props
   const nodeRef = React.useRef<HTMLDivElement>(null)
 

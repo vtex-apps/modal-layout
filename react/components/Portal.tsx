@@ -19,7 +19,7 @@ export function getContainer(container?: ContainerType) {
   container = typeof container === 'function' ? container() : container
 
   if (!container) {
-    return undefined
+    return null
   }
 
   // eslint-disable-next-line react/no-find-dom-node
