@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import type { ReactNode } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { usePixelEventCallback } from 'vtex.pixel-manager'
 import type { PixelEventTypes } from 'vtex.pixel-manager'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
 
 import {
   useModalDispatch,
@@ -34,6 +35,7 @@ function ModalTrigger(props: Props) {
   const dispatch = useModalDispatch()
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const [openOnLoad, setOpenOnLoad] = useState(false)
+  const { push } = usePixel()
 
   usePixelEventCallback({
     eventId: customPixelEventId,
@@ -42,6 +44,15 @@ function ModalTrigger(props: Props) {
       dispatch({ type: 'OPEN_MODAL' })
     },
   })
+
+  //
+  useLayoutEffect(() => {
+    push({
+      event: 'vtex:quickViewProductOverlay',
+      items: [product],
+    })
+  })
+
 
   useEffect(() => {
     if (openOnLoad || !dispatch) {
