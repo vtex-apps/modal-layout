@@ -45,7 +45,7 @@ function ModalTrigger(props: Props) {
     },
   })
 
-  //
+  //Add NewEvent ProductOverlay
   useLayoutEffect(() => {
     push({
       event: 'vtex:quickViewProductOverlay',
