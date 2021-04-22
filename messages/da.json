@@ -1,0 +1,6 @@
+{
+  "store/modal-layout.close-button.default-label": "Annuller",
+  "admin/editor.modal-layout.close-button.title": "Vælg Modal knap",
+  "admin/editor.modal-layout.close-button.label.title": "Knap mærkat",
+  "admin/editor.modal-layout.close-button.label.description": "F.eks. \"Vælg Modal\""
+}

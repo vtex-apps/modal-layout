@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- I18n Da, Fi, Ja, Ko and Ro.
+- Crowdin configuration file.
+
 ## [0.9.0] - 2021-01-13
 ### Added
 - New CSS Handle: `modal`.
