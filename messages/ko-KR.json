@@ -1,6 +1,0 @@
-{
-  "store/modal-layout.close-button.default-label": "취소",
-  "admin/editor.modal-layout.close-button.title": "모달 버튼 닫기",
-  "admin/editor.modal-layout.close-button.label.title": "버튼 라벨",
-  "admin/editor.modal-layout.close-button.label.description": "예: \"모달 닫기\""
-}

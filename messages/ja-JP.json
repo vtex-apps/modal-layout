@@ -1,6 +1,0 @@
-{
-  "store/modal-layout.close-button.default-label": "キャンセル",
-  "admin/editor.modal-layout.close-button.title": "モーダルボタンを閉じる",
-  "admin/editor.modal-layout.close-button.label.title": "ボタンラベル",
-  "admin/editor.modal-layout.close-button.label.description": "例「モーダルを閉じる」"
-}
