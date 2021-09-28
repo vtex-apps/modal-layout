@@ -5,6 +5,8 @@ import type { CssHandlesTypes } from 'vtex.css-handles'
 import { useCssHandles } from 'vtex.css-handles'
 import type { ResponsiveValuesTypes } from 'vtex.responsive-values'
 import { useResponsiveValues } from 'vtex.responsive-values'
+import { usePixelEventCallback } from 'vtex.pixel-manager'
+import type { PixelEventTypes } from 'vtex.pixel-manager'
 
 import styles from './styles.css'
 import BaseModal, { CSS_HANDLES as BaseModalCssHandles } from './BaseModal'
@@ -28,6 +30,8 @@ interface Props {
   scroll?: ScrollMode
   blockClass?: string
   disableEscapeKeyDown?: boolean
+  customPixelEventId?: string
+  customPixelEventName?: PixelEventTypes.PixelData['event']
   fullScreen?: ResponsiveValuesTypes.ResponsiveValue<boolean>
   backdrop?: ResponsiveValuesTypes.ResponsiveValue<BackdropMode>
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
@@ -38,6 +42,8 @@ function Modal(props: PropsWithChildren<Props>) {
     children,
     classes,
     scroll = 'content',
+    customPixelEventId,
+    customPixelEventName,
     disableEscapeKeyDown = false,
   } = props
 
@@ -49,6 +55,14 @@ function Modal(props: PropsWithChildren<Props>) {
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const { open } = useModalState()
   const dispatch = useModalDispatch()
+
+  usePixelEventCallback({
+    eventId: customPixelEventId,
+    eventName: customPixelEventName,
+    handler: () => {
+      dispatch({ type: 'CLOSE_MODAL' })
+    },
+  })
 
   const handleClose = () => {
     if (dispatch) {

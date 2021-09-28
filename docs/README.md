@@ -94,7 +94,8 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 | `disableEscapeKeyDown` | `boolean` | Whether the modal should be closed when pressing the `Esc` key (`true`) or not (`false`). | `false` | 
 | `fullScreen` | `boolean` | Whether the modal should fill the whole screen (`true`) or not (`false`). This prop is responsive i.e. it adapts itself to the device's breakpoints.  | `false` | 
 | `backdrop` | `enum` | Whether the modal will have a clickable backdrop (`clickable`) or no backdrop at all (`none`). This prop is responsive i.e. it adapts itself to the device's breakpoints. | `clickable` | 
-
+| `customPixelEventId` | `string`  | Store event ID responsible for triggering the `modal-layout` block (hence triggering the closing of `modal-layout` blocks on the interface as well). | `undefined`    |
+| `customPixelEventName` | `string`                                                                   | Store event name responsible for triggering the `modal-layout` block (hence triggering the closing of `modal-layout` blocks on the interface as well). Some examples are: `'addToCart'` and `'removeFromCart'` events. Notice that using this prop will make the associated `modal-layout` close in **every** event with the specified name if no `customPixelEventId` is specified. | `undefined`    |
 ### `modal-header` props 
 
 | Prop name | Type | Description | Default value |
