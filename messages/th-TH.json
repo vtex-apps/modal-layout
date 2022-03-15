@@ -1,0 +1,6 @@
+{
+  "store/modal-layout.close-button.default-label": "ยกเลิก",
+  "admin/editor.modal-layout.close-button.title": "ปุ่มปิดกล่องแสดงข้อความแบบโมดอล",
+  "admin/editor.modal-layout.close-button.label.title": "ป้ายชื่อปุ่ม",
+  "admin/editor.modal-layout.close-button.label.description": "เช่น \"ปิดกล่องแสดงข้อความแบบโมดอล\""
+}
