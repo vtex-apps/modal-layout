@@ -1,0 +1,6 @@
+{
+  "store/modal-layout.close-button.default-label": "取消",
+  "admin/editor.modal-layout.close-button.title": "關閉模態按鈕",
+  "admin/editor.modal-layout.close-button.label.title": "按鈕標籤",
+  "admin/editor.modal-layout.close-button.label.description": "例如 \"Close Modal\""
+}
