@@ -1,6 +1,0 @@
-{
-  "store/modal-layout.close-button.default-label": "Avbryt",
-  "admin/editor.modal-layout.close-button.title": "Lukk modalknapp",
-  "admin/editor.modal-layout.close-button.label.title": "Etikett for knapp",
-  "admin/editor.modal-layout.close-button.label.description": "F.eks \"Lukk modal\""
-}
