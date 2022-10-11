@@ -12,10 +12,11 @@ import {
 
 const CSS_HANDLES = ['triggerContainer'] as const
 
-type TriggerMode = 'click' | 'load' | 'load-session' | 'event'
+type TriggerMode = 'click' | 'load' | 'load-session' | 'load-local' | 'event'
 
 interface Props {
   trigger?: TriggerMode
+  triggerDelay?: number
   customPixelEventId?: string
   customPixelEventName?: PixelEventTypes.PixelData['event']
   children: ReactNode
@@ -26,6 +27,7 @@ function ModalTrigger(props: Props) {
   const {
     children,
     trigger = 'click',
+    triggerDelay,
     customPixelEventId,
     customPixelEventName,
     classes,
@@ -56,12 +58,28 @@ function ModalTrigger(props: Props) {
       sessionStorage.setItem('hasOpenedModal', 'true')
     }
 
-    if (trigger !== 'load-session' && trigger !== 'load') {
+    if (trigger === 'load-local') {
+      if (localStorage.getItem('hasOpenedModal') === 'true') {
+        return
+      }
+
+      localStorage.setItem('hasOpenedModal', 'true')
+    }
+
+    if (trigger !== 'load-session' && trigger !== 'load-local' && trigger !== 'load') {
       return
     }
 
-    dispatch({ type: 'OPEN_MODAL' })
-    setOpenOnLoad(true)
+    if(triggerDelay && triggerDelay > 0) {
+      setTimeout(()=> {
+        dispatch({ type: 'OPEN_MODAL' })
+        setOpenOnLoad(true)
+      },triggerDelay)
+    } else {
+      dispatch({ type: 'OPEN_MODAL' })
+      setOpenOnLoad(true)
+    }
+
   }, [trigger, dispatch, openOnLoad])
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
