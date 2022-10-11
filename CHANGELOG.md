@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.14.0] - 2022-10-11
+
+### Added
+- *load-local* enum for **trigger** prop in order to do the same thing done with *load-session* but using localStorage.
+- **triggerDelay** prop in order to delay the Modal content trigger (useful for '*load*','*load-session*' and '*load-local*' if you want to show the modal after some time expressed in milliseconds. Not useful on '*click*').
+
 ## [0.13.0] - 2022-03-09
 
 ### Added
