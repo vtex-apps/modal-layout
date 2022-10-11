@@ -81,7 +81,8 @@ Now, you are able to use all blocks exported by the `modal-layout` app. Check ou
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `trigger` | `enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`) or when the page is fully loaded but the modal will appears just once per session (`load-session`). | `click` |
+| `trigger` | `enum` | Whether the Modal content should be triggered by user click ( `click`), when the page is fully loaded (`load`), when the page is fully loaded but the modal will appears just once per session (`load-session`) or when the page is fully loaded but the modal will appears just if it doesn't appeared yet for this reason a value in localStorage will be checked (`load-local`). | `click` |
+| `triggerDelay` | `number` | Whether the Modal content should be triggered after some time (time expressed in milliseconds, this prop is useful if you trigger the Modal content on `load` or `load-session` or `load-local`). | `undefined` |
 | `customPixelEventId` | `string`  | Store event ID responsible for triggering the `modal-trigger` block (hence triggering the opening of `modal-layout` blocks on the interface as well). | `undefined`    |
 | `customPixelEventName` | `string`                                                                   | Store event name responsible for triggering the `modal-trigger` block (hence triggering the opening of `modal-layout` blocks on the interface as well). Some examples are: `'addToCart'` and `'removeFromCart'` events. Notice that using this prop will make the associated `modal-layout` open in **every** event with the specified name if no `customPixelEventId` is specified. | `undefined`    |
 
