@@ -1,0 +1,6 @@
+{
+  "store/modal-layout.close-button.default-label": "Batalkan",
+  "admin/editor.modal-layout.close-button.title": "Tombol Tutup Modal",
+  "admin/editor.modal-layout.close-button.label.title": "Label tombol",
+  "admin/editor.modal-layout.close-button.label.description": "Mis. \"Tutup Modal\""
+}
