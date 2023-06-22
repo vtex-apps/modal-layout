@@ -68,7 +68,7 @@ Now, you can use all blocks exported by the `modal-layout` app. See the full lis
 }
 ```
 
-_In the example above, the [Rich Text](https://developers.vtex.com/docs/guides/vtex-rich-text/) block renders the `Click me` text that will trigger the modal content when clicked. The modal content, in turn, is defined by the `modal-layout` block. Based on the example above, the modal content triggered by the `Click me` Rich Text would be a `Hello` text._
+In the example above, the [Rich Text](https://developers.vtex.com/docs/apps/vtex.rich-text/) block renders the `Click me` text that will trigger the modal content when clicked. The modal content, in turn, is defined by the `modal-layout` block. Based on the example above, the modal content triggered by the `Click me` Rich Text would be a `Hello` text.
 
 ### `modal-trigger` props
 
