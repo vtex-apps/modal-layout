@@ -93,21 +93,17 @@ export default function BaseModal(props: Props) {
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key !== 'Escape' || disableEscapeKeyDown) {
-      return
-    }
+    if (disableEscapeKeyDown && e.key === 'Escape') {
+      if (!isTopModal()) {
+        return
+      }
 
-    // If its not the top modal this event is not for this modal
-    if (!isTopModal()) {
-      return
-    }
+      e.stopPropagation()
+      onClose()
 
-    // If the event is for this modal it will not pass it to anyone else
-    e.stopPropagation()
-    onClose()
-
-    if (rest.onKeyDown) {
-      rest.onKeyDown(e)
+      if (rest.onKeyDown) {
+        rest.onKeyDown(e)
+      }
     }
   }
 
