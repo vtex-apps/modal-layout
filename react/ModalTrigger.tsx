@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import { useIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { usePixelEventCallback } from 'vtex.pixel-manager'
@@ -31,6 +32,7 @@ function ModalTrigger(props: Props) {
     classes,
   } = props
 
+  const intl = useIntl()
   const dispatch = useModalDispatch()
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const [openOnLoad, setOpenOnLoad] = useState(false)
@@ -88,6 +90,10 @@ function ModalTrigger(props: Props) {
       <div
         tabIndex={0}
         role="button"
+        aria-label={intl.formatMessage({
+          id: 'store/modal-layout.modal-trigger.aria-label',
+          defaultMessage: 'Open modal'
+        })}
         onKeyDown={handleKeyDown}
         onClick={handleModalOpen}
         className={`${handles.triggerContainer} bg-transparent pa0 bw0 dib`}

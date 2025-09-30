@@ -1,0 +1,7 @@
+{
+    "store/modal-layout.close-button.default-label": "Annuler",
+    "store/modal-layout.modal-trigger.aria-label": "Ouvrir le modal",
+    "admin/editor.modal-layout.close-button.title": "Bouton de fermeture du modal",
+    "admin/editor.modal-layout.close-button.label.title": "Étiquette du bouton",
+    "admin/editor.modal-layout.close-button.label.description": "Par exemple « Fermer le modal »"
+}
