@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.14.2] - 2025-09-30
+
 ### Added
 
 - Aria-label to modal trigger.
